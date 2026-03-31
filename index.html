@@ -305,6 +305,31 @@ const LOW_COST_BRANDS = [
   'LOWCOSTFUEL','GASGAS','GASCAT','LOWCOST','PRIMEGAS','ECONOGAS','BEGAS'
 ];
 
+// Extracts a generic brand name from the full rótulo string
+// e.g. "REPSOL CIUDAD" → "REPSOL", "BP OIL ESPAÑA" → "BP"
+const BRAND_ALIASES = {
+  'CEPSA': 'CEPSA', 'REPSOL': 'REPSOL', 'BP': 'BP', 'SHELL': 'SHELL',
+  'GALP': 'GALP', 'CAMPSA': 'CAMPSA', 'PETRONOR': 'PETRONOR',
+  'TOTAL': 'TOTAL', 'PLENOIL': 'PLENOIL', 'PETROPRIX': 'PETROPRIX',
+  'BALLENOIL': 'BALLENOIL', 'PUMPING': 'PUMPING', 'MEROIL': 'MEROIL',
+  'DISA': 'DISA', 'AGIP': 'AGIP', 'AVIA': 'AVIA', 'TAMOIL': 'TAMOIL',
+  'Q8': 'Q8', 'TEXACO': 'TEXACO', 'CARREFOUR': 'CARREFOUR',
+  'EROSKI': 'EROSKI', 'ALCAMPO': 'ALCAMPO', 'MAKRO': 'MAKRO',
+  'MERCADONA': 'MERCADONA', 'LIDL': 'LIDL', 'MOEWE': 'MOEWE',
+  'E.S.': 'INDEPENDIENTE', 'SIN BANDERA': 'INDEPENDIENTE',
+  'GASCAT': 'GASCAT', 'PRIMEGAS': 'PRIMEGAS', 'BEGAS': 'BEGAS',
+};
+
+function extractBrand(rotulo) {
+  const r = rotulo.toUpperCase().trim();
+  for (const [key, alias] of Object.entries(BRAND_ALIASES)) {
+    if (r.startsWith(key) || r.includes(' ' + key) || r === key) return alias;
+  }
+  // Fallback: take first word if it's at least 2 chars
+  const first = r.split(/[\s\-\/]/)[0];
+  return first.length >= 2 ? first : r;
+}
+
 // ─── STATE ────────────────────────────────────────────────────────────────────
 let allStations = [];
 let userLatLng  = null;
@@ -367,10 +392,11 @@ async function loadStations() {
         }
         const rotulo = (s['Rótulo'] || '').toUpperCase().trim();
         const isLC   = LOW_COST_BRANDS.some(b => rotulo.includes(b));
+        const brand  = extractBrand(s['Rótulo'] || '');
 
         return { id: i, lat, lng, name: s['Rótulo'] || 'Sin nombre',
           address: s['Dirección'] || '', locality: s['Localidad'] || '',
-          schedule: s['Horario'] || '', prices, isLC, dist: null };
+          schedule: s['Horario'] || '', prices, isLC, brand, dist: null };
       })
       .filter(Boolean);
 
@@ -400,13 +426,13 @@ function updateDistances() {
 function getVisible() {
   let list = allStations.filter(s => s.prices[activeFuel] !== null);
   if (onlyLC) list = list.filter(s => s.isLC);
-  if (activeBrand) list = list.filter(s => s.name.toUpperCase().trim() === activeBrand);
+  if (activeBrand) list = list.filter(s => s.brand === activeBrand);
   if (userLatLng) list = list.filter(s => s.dist !== null && s.dist <= radiusKm);
 
   if (sortMode === 'dist' && userLatLng) list.sort((a,b) => a.dist - b.dist);
   else if (sortMode === 'price-asc') list.sort((a,b) => a.prices[activeFuel] - b.prices[activeFuel]);
   else if (sortMode === 'price-desc') list.sort((a,b) => b.prices[activeFuel] - a.prices[activeFuel]);
-  else list.sort((a,b) => a.name.localeCompare(b.name));
+  else list.sort((a,b) => a.name.localeCompare(b.name, 'es'));
 
   return list;
 }
@@ -560,17 +586,21 @@ document.getElementById('sort-select').addEventListener('change', e => {
 document.getElementById('radius-slider').addEventListener('input', e => {
   radiusKm = parseInt(e.target.value);
   document.getElementById('radius-val').textContent = radiusKm + ' km';
-  if (userLatLng) renderAll();
+  renderAll();
 });
 
 // ─── POPULATE BRANDS ──────────────────────────────────────────────────────────
 function populateBrands() {
-  const brands = [...new Set(allStations.map(s => s.name.toUpperCase().trim()))]
+  const brands = [...new Set(allStations.map(s => s.brand))]
     .filter(Boolean).sort((a, b) => a.localeCompare(b, 'es'));
   const sel = document.getElementById('brand-select');
+  // Clear existing options except first
+  while (sel.options.length > 1) sel.remove(1);
   brands.forEach(b => {
     const opt = document.createElement('option');
-    opt.value = b; opt.textContent = b.charAt(0) + b.slice(1).toLowerCase();
+    opt.value = b;
+    // Title-case display
+    opt.textContent = b.charAt(0).toUpperCase() + b.slice(1).toLowerCase();
     sel.appendChild(opt);
   });
 }
