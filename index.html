@@ -249,7 +249,7 @@
       <div>
         <div class="filter-label">Opciones</div>
         <div class="filter-row">
-          <span class="pill lowcost" id="toggle-lc" data-active="false">💚 Solo low-cost</span>
+          <span class="pill lowcost" id="toggle-lc">Solo low-cost</span>
         </div>
       </div>
 
@@ -510,7 +510,10 @@ function renderMap(stations) {
   clusterGroup.clearLayers();
   markers = {};
 
-  stations.forEach(s => {
+  // When no location, cap at 500 markers to avoid cluster overload
+  const toRender = userLatLng ? stations : stations.slice(0, 500);
+
+  toRender.forEach(s => {
     const icon = s.id === selectedId ? iconSelect : (s.isLC ? iconLC : iconNormal);
     const m = L.marker([s.lat, s.lng], { icon });
 
@@ -598,8 +601,8 @@ document.getElementById('fuel-pills').addEventListener('click', e => {
 
 document.getElementById('toggle-lc').addEventListener('click', function() {
   onlyLC = !onlyLC;
-  this.dataset.active = onlyLC;
   this.classList.toggle('active', onlyLC);
+  this.textContent = onlyLC ? '✓ Solo low-cost' : 'Solo low-cost';
   renderAll();
 });
 
@@ -723,6 +726,7 @@ document.getElementById('btn-clear-filters').addEventListener('click', () => {
   // Reset UI
   document.querySelectorAll('#fuel-pills .pill').forEach(p => p.classList.toggle('active', p.dataset.fuel === 'G95'));
   document.getElementById('toggle-lc').classList.remove('active');
+  document.getElementById('toggle-lc').textContent = 'Solo low-cost';
   document.getElementById('sort-select').value = 'dist';
   document.getElementById('brand-select').value = '';
   document.getElementById('location-search').value = '';
