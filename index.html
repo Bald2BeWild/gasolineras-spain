@@ -273,6 +273,10 @@
       </div>
 
     </div>
+    <div id="list-header" style="display:none; padding: 8px 12px 4px; border-bottom: 1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-shrink:0;">
+      <span id="result-count" style="font-size:11px; font-family:'DM Mono',monospace; color:var(--muted);"></span>
+      <button id="btn-clear-filters" style="font-size:11px; background:none; border:none; color:var(--accent); cursor:pointer; font-family:'DM Sans',sans-serif; padding:2px 4px;">Limpiar filtros</button>
+    </div>
     <div id="station-list">
       <div class="msg-empty">
         <div class="spinner"></div>
@@ -429,7 +433,14 @@ function updateDistances() {
 
 // ─── FILTER & SORT ────────────────────────────────────────────────────────────
 function getVisible() {
-  let list = allStations.filter(s => s.prices[activeFuel] !== null);
+  // Recalculate distances every time to avoid stale null values
+  if (userLatLng) updateDistances();
+
+  let list = allStations.filter(s => {
+    const p = s.prices[activeFuel];
+    return p !== null && p !== undefined && !isNaN(p) && p > 0;
+  });
+
   if (onlyLC) list = list.filter(s => s.isLC);
   if (activeBrand) list = list.filter(s => s.brand === activeBrand);
   if (userLatLng) list = list.filter(s => s.dist !== null && s.dist <= radiusKm);
@@ -519,6 +530,15 @@ function renderMap(stations) {
 
 function renderAll() {
   const visible = getVisible();
+
+  // Update counter
+  const header = document.getElementById('list-header');
+  const countEl = document.getElementById('result-count');
+  if (allStations.length > 0) {
+    header.style.display = 'flex';
+    countEl.textContent = `${visible.length.toLocaleString('es-ES')} estaciones`;
+  }
+
   renderList(visible);
   renderMap(visible);
 }
@@ -688,6 +708,28 @@ searchClear.addEventListener('click', () => {
 
 document.addEventListener('click', e => {
   if (!e.target.closest('#panel > .filters > div:first-child')) hideSearchResults();
+});
+
+document.getElementById('btn-clear-filters').addEventListener('click', () => {
+  // Reset all filters
+  activeFuel  = 'G95';
+  onlyLC      = false;
+  sortMode    = 'dist';
+  activeBrand = '';
+  userLatLng  = null;
+  if (userMarker) { userMarker.remove(); userMarker = null; }
+  allStations.forEach(s => s.dist = null);
+
+  // Reset UI
+  document.querySelectorAll('#fuel-pills .pill').forEach(p => p.classList.toggle('active', p.dataset.fuel === 'G95'));
+  document.getElementById('toggle-lc').classList.remove('active');
+  document.getElementById('sort-select').value = 'dist';
+  document.getElementById('brand-select').value = '';
+  document.getElementById('location-search').value = '';
+  document.getElementById('search-clear').classList.remove('visible');
+  setStatus(`${allStations.length.toLocaleString('es-ES')} estaciones cargadas`);
+  map.setView([40.4, -3.7], 6);
+  renderAll();
 });
 
 // ─── BRAND FILTER ─────────────────────────────────────────────────────────────
