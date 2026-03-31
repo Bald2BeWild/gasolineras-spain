@@ -297,10 +297,10 @@ const API_URL = 'https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburante
 const PROXY   = 'https://corsproxy.io/?url=';
 
 const FUEL_KEYS = {
-  G95: 'PrecioGasolina95E5',
-  G98: 'PrecioGasolina98E5',
-  GOA: 'PrecioGasoleoA',
-  GLP: 'PrecioGLP'
+  G95: 'Precio Gasolina 95 E5',
+  G98: 'Precio Gasolina 98 E5',
+  GOA: 'Precio Gasoleo A',
+  GLP: 'Precio Gases licuados del petróleo'
 };
 const FUEL_LABELS = { G95: '95 E5', G98: '98 E5', GOA: 'Gasóleo A', GLP: 'GLP' };
 
@@ -396,8 +396,13 @@ async function loadStations() {
 
         const prices = {};
         for (const [key, field] of Object.entries(FUEL_KEYS)) {
-          const raw = s[field];
-          prices[key] = raw && raw.trim() !== '' ? parseFloat(raw.replace(',','.')) : null;
+          // Try exact field name, then search case-insensitively
+          let raw = s[field];
+          if (raw === undefined) {
+            const altKey = Object.keys(s).find(k => k.toLowerCase().replace(/\s/g,'') === field.toLowerCase().replace(/\s/g,''));
+            raw = altKey ? s[altKey] : undefined;
+          }
+          prices[key] = (raw && raw.trim() !== '') ? parseFloat(raw.replace(',','.')) : null;
         }
         const rotulo = (s['Rótulo'] || '').toUpperCase().trim();
         const isLC   = LOW_COST_BRANDS.some(b => rotulo.includes(b));
@@ -408,6 +413,13 @@ async function loadStations() {
           schedule: s['Horario'] || '', prices, isLC, brand, dist: null };
       })
       .filter(Boolean);
+
+    // Debug: log actual field names from API on first load
+    if (json.ListaEESSPrecio?.length > 0) {
+      console.log('Campos disponibles en API:', Object.keys(json.ListaEESSPrecio[0]));
+      const ejemplo = json.ListaEESSPrecio[0];
+      console.log('Precio G95 raw:', ejemplo['Precio Gasolina 95 E5'], '| GOA raw:', ejemplo['Precio Gasoleo A']);
+    }
 
     populateBrands();
     setStatus(`${allStations.length.toLocaleString('es-ES')} estaciones cargadas`);
