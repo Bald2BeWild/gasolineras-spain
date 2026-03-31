@@ -321,13 +321,18 @@ const BRAND_ALIASES = {
 };
 
 function extractBrand(rotulo) {
-  const r = rotulo.toUpperCase().trim();
+  // Strip leading/trailing quotes, asterisks, dots, dashes, spaces
+  let r = rotulo.toUpperCase().trim().replace(/^["'*.\-\s]+|["'*.\-\s]+$/g, '');
+  if (!r || r.length < 2 || /^[^A-Z0-9]/.test(r)) return null;
+
+  // Check against known aliases first
   for (const [key, alias] of Object.entries(BRAND_ALIASES)) {
-    if (r.startsWith(key) || r.includes(' ' + key) || r === key) return alias;
+    if (r === key || r.startsWith(key + ' ') || r.startsWith(key + '-')) return alias;
   }
-  // Fallback: take first word if it's at least 2 chars
-  const first = r.split(/[\s\-\/]/)[0];
-  return first.length >= 2 ? first : r;
+
+  // Fallback: take first meaningful word (letters/numbers only start)
+  const first = r.split(/[\s\-\/]/)[0].replace(/["']/g, '');
+  return (first.length >= 2 && /[A-Z0-9]/.test(first)) ? first : null;
 }
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
@@ -392,7 +397,7 @@ async function loadStations() {
         }
         const rotulo = (s['Rótulo'] || '').toUpperCase().trim();
         const isLC   = LOW_COST_BRANDS.some(b => rotulo.includes(b));
-        const brand  = extractBrand(s['Rótulo'] || '');
+        const brand  = extractBrand(s['Rótulo'] || '') || 'Otras';
 
         return { id: i, lat, lng, name: s['Rótulo'] || 'Sin nombre',
           address: s['Dirección'] || '', locality: s['Localidad'] || '',
