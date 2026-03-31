@@ -195,12 +195,161 @@ canvas.sparkline{width:100%;height:52px;display:block}
 .marker-cluster-small div,.marker-cluster-medium div,.marker-cluster-large div{background-color:rgba(245,166,35,.7)!important;color:#0f1117!important;font-family:'DM Mono',monospace;font-weight:600}
 
 @media(max-width:640px){
-  :root{--panel-w:100%}
-  .main{flex-direction:column-reverse}
-  #panel{width:100%;height:52vh;border-right:none;border-top:1px solid var(--border)}
-  #map{height:48vh;flex:none}
-  .filters{max-height:36vh}
-  #status-bar{display:none}
+  /* Header compacto en móvil */
+  header { height: 48px; padding: 0 12px; }
+  .logo { font-size: 14px; }
+  #status-bar { display: none; }
+  #btn-locate span { display: none; } /* solo icono */
+  #btn-locate { padding: 8px 10px; }
+
+  /* Mapa a pantalla completa */
+  .main { flex-direction: column; position: relative; }
+  #panel {
+    display: none; /* oculto en móvil — reemplazado por bottom sheet */
+  }
+  #map { flex: 1; height: 100%; }
+  #map-legend { bottom: 280px; right: 8px; }
+
+  /* ── BOTTOM SHEET ── */
+  #mobile-sheet {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: var(--surface);
+    border-radius: 18px 18px 0 0;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 24px rgba(0,0,0,.4);
+    z-index: 900;
+    transition: height .3s cubic-bezier(.4,0,.2,1);
+    height: 56px; /* collapsed: solo handle */
+    max-height: 88vh;
+    overflow: hidden;
+  }
+  #mobile-sheet.peek   { height: 220px; }
+  #mobile-sheet.half   { height: 52vh; }
+  #mobile-sheet.full   { height: 88vh; }
+
+  #sheet-handle-area {
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px 0 6px; flex-shrink: 0; cursor: grab;
+    user-select: none; -webkit-user-select: none;
+  }
+  #sheet-handle {
+    width: 40px; height: 4px; border-radius: 2px;
+    background: var(--border);
+  }
+
+  /* Barra de filtros rápidos */
+  #quick-filters {
+    display: flex; align-items: center; gap: 8px;
+    padding: 0 12px 10px; overflow-x: auto;
+    flex-shrink: 0; scrollbar-width: none;
+  }
+  #quick-filters::-webkit-scrollbar { display: none; }
+  .qpill {
+    font-size: 12px; font-weight: 600; padding: 6px 13px;
+    border-radius: 20px; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--muted);
+    cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    font-family: 'DM Sans', sans-serif; transition: all .15s;
+  }
+  .qpill.active { border-color: var(--accent); color: var(--accent); background: rgba(245,166,35,.12); }
+  .qpill.gas.active   { border-color: #f5a623; color: #f5a623; background: rgba(245,166,35,.12); }
+  .qpill.diesel.active{ border-color: #60a5fa; color: #60a5fa; background: rgba(96,165,250,.12); }
+  .qpill.glp.active   { border-color: #4ade80; color: #4ade80; background: rgba(74,222,128,.12); }
+  #qpill-more {
+    font-size: 12px; font-weight: 600; padding: 6px 12px;
+    border-radius: 20px; border: 1px solid var(--border);
+    background: var(--surface2); color: var(--text);
+    cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* Sort bar */
+  #mobile-sort-bar {
+    display: flex; gap: 6px; padding: 0 12px 8px;
+    overflow-x: auto; flex-shrink: 0; scrollbar-width: none;
+  }
+  #mobile-sort-bar::-webkit-scrollbar { display: none; }
+  .sort-chip {
+    font-size: 11px; padding: 4px 11px; border-radius: 20px;
+    border: 1px solid var(--border); background: var(--surface2);
+    color: var(--muted); cursor: pointer; white-space: nowrap;
+    flex-shrink: 0; font-family: 'DM Sans', sans-serif; transition: all .15s;
+  }
+  .sort-chip.active { border-color: var(--text); color: var(--text); }
+
+  /* Sheet list */
+  #mobile-list {
+    flex: 1; overflow-y: auto; padding: 4px 8px 8px;
+  }
+  #mobile-list::-webkit-scrollbar { width: 3px; }
+  #mobile-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* Floating action buttons on map */
+  #fab-locate {
+    position: absolute; bottom: 72px; right: 12px; z-index: 850;
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--accent); color: #0f1117;
+    border: none; font-size: 22px; cursor: pointer;
+    box-shadow: 0 4px 16px rgba(245,166,35,.5);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .15s;
+  }
+  #fab-locate:active { transform: scale(.93); }
+
+  #fab-stats {
+    position: absolute; bottom: 134px; right: 12px; z-index: 850;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text); font-size: 18px; cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,.3);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* More filters drawer */
+  #more-filters-overlay {
+    display: none; position: fixed; inset: 0; z-index: 1100;
+    background: rgba(0,0,0,.5);
+  }
+  #more-filters-overlay.visible { display: block; }
+  #more-filters-drawer {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 1200;
+    background: var(--surface); border-radius: 18px 18px 0 0;
+    padding: 16px; max-height: 80vh; overflow-y: auto;
+    transform: translateY(100%); transition: transform .3s cubic-bezier(.4,0,.2,1);
+  }
+  #more-filters-drawer.visible { transform: translateY(0); }
+  #more-filters-drawer .filter-label { margin-top: 12px; }
+  #more-filters-drawer .filter-label:first-child { margin-top: 0; }
+  #drawer-close {
+    float: right; background: none; border: none; font-size: 18px;
+    color: var(--muted); cursor: pointer; padding: 0 4px;
+  }
+  #drawer-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+
+  /* Mobile stats overlay */
+  #mobile-stats {
+    display: none; position: fixed; inset: 0; z-index: 1050;
+    background: var(--bg); overflow-y: auto; padding: 16px;
+    padding-top: 60px;
+  }
+  #mobile-stats.visible { display: block; }
+  #mobile-stats-close {
+    position: fixed; top: 12px; right: 12px; z-index: 1060;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 50%; width: 36px; height: 36px; font-size: 16px;
+    display: none; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--text);
+  }
+  #mobile-stats-close.visible { display: flex; }
+
+  /* Result count in sheet */
+  #mobile-result-count {
+    font-size: 11px; font-family: 'DM Mono', monospace;
+    color: var(--muted); padding: 0 12px 6px; flex-shrink: 0;
+  }
 }
 </style>
 </head>
@@ -337,6 +486,89 @@ canvas.sparkline{width:100%;height:52px;display:block}
     <div class="legend-row"><div class="legend-dot" style="background:#c084fc"></div>Mixta</div>
   </div>
 </div>
+
+<!-- MOBILE ONLY: Bottom Sheet -->
+<div id="mobile-sheet" class="peek">
+  <div id="sheet-handle-area">
+    <div id="sheet-handle"></div>
+  </div>
+
+  <!-- Quick fuel + option filters -->
+  <div id="quick-filters">
+    <span class="qpill gas active" data-qfuel="G95">95 E5</span>
+    <span class="qpill gas active" data-qfuel="G98">98 E5</span>
+    <span class="qpill diesel active" data-qfuel="GOA">Gasóleo A</span>
+    <span class="qpill diesel active" data-qfuel="GOP">Gasóleo P</span>
+    <span class="qpill glp active" data-qfuel="GLP">GLP</span>
+    <span class="qpill" id="qpill-lc">Low-cost</span>
+    <span class="qpill" id="qpill-open">Abiertas</span>
+    <button id="qpill-more">⚙ Filtros</button>
+  </div>
+
+  <!-- Sort chips -->
+  <div id="mobile-sort-bar">
+    <span class="sort-chip active" data-sort="dist">📍 Distancia</span>
+    <span class="sort-chip" data-sort="price-asc">💰 Más barata</span>
+    <span class="sort-chip" data-sort="score">⭐ Mejor relación</span>
+    <span class="sort-chip" data-sort="name">A–Z</span>
+  </div>
+
+  <div id="mobile-result-count"></div>
+  <div id="mobile-list"></div>
+</div>
+
+<!-- MOBILE: FAB buttons -->
+<button id="fab-locate" title="Localizarme">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="9"/></svg>
+</button>
+<button id="fab-stats" title="Ver estadísticas">📊</button>
+
+<!-- MOBILE: More filters drawer -->
+<div id="more-filters-overlay"></div>
+<div id="more-filters-drawer">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+    <span id="drawer-title">Más filtros</span>
+    <button id="drawer-close">✕</button>
+  </div>
+
+  <div class="filter-label">Buscar población</div>
+  <div class="search-wrap" style="margin-bottom:12px;position:relative">
+    <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="m-location-search" placeholder="Ej: Alicante, Madrid…" autocomplete="off">
+    <button class="search-clear" id="m-search-clear">✕</button>
+    <div id="m-search-results" style="position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);z-index:3000;overflow:hidden;box-shadow:var(--popup-shadow);display:none"></div>
+  </div>
+
+  <div class="filter-label">Marca</div>
+  <div class="brand-wrap" style="margin-bottom:12px">
+    <svg class="brand-search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="m-brand-input" placeholder="Todas las marcas" autocomplete="off">
+    <button id="m-brand-clear">✕</button>
+    <div id="m-brand-dropdown" style="position:absolute;top:calc(100% + 3px);left:0;right:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);z-index:3000;max-height:180px;overflow-y:auto;box-shadow:var(--popup-shadow);display:none"></div>
+  </div>
+
+  <div class="filter-label">Litros del depósito</div>
+  <div class="tank-row" style="margin-bottom:12px">
+    <input type="number" id="m-tank-liters" min="10" max="120" value="" placeholder="—">
+    <span>litros</span>
+  </div>
+
+  <div class="filter-label">Radio de búsqueda: <span id="m-radius-val">10 km</span></div>
+  <div class="slider-row" style="margin-bottom:4px">
+    <span style="font-size:11px;color:var(--muted)">1</span>
+    <input type="range" id="m-radius-slider" min="1" max="50" value="10" step="1">
+    <span style="font-size:11px;color:var(--muted)">50 km</span>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+    <button id="m-clear-all" style="font-size:12px;background:none;border:none;color:var(--danger);cursor:pointer;font-family:'DM Sans',sans-serif">Limpiar todo</button>
+    <button id="m-apply" style="background:var(--accent);color:#0f1117;border:none;border-radius:var(--radius);padding:9px 24px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">Aplicar</button>
+  </div>
+</div>
+
+<!-- MOBILE: Stats overlay -->
+<button id="mobile-stats-close">✕</button>
+<div id="mobile-stats"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
@@ -936,7 +1168,344 @@ document.getElementById('btn-clear-filters').addEventListener('click',()=>{
   map.setView([40.4,-3.7],6);renderAll();
 });
 
+// ── MOBILE DETECTION & SHEET ──────────────────────────────────────────────────
+const isMobile = () => window.innerWidth <= 640;
+
+function mobileRenderAll() {
+  if (!isMobile()) { renderAll(); return; }
+  const visible = getVisible();
+  // Update mobile result count
+  const mc = document.getElementById('mobile-result-count');
+  if (mc) mc.textContent = `${visible.length.toLocaleString('es-ES')} estaciones`;
+  // Render into mobile list
+  const ml = document.getElementById('mobile-list');
+  if (!ml) return;
+  if (!visible.length) { ml.innerHTML = `<div class="msg-empty">Sin resultados.<br><small>Cambia los filtros o amplía el radio.</small></div>`; renderMap([]); return; }
+  const minMax = {};
+  for (const f of activeFuels) {
+    const vals = visible.map(s => s.prices[f]).filter(v => v > 0);
+    if (vals.length) minMax[f] = { min: Math.min(...vals), max: Math.max(...vals) };
+  }
+  ml.innerHTML = '';
+  visible.slice(0, 100).forEach(s => {
+    const distStr = s.dist !== null ? `${s.dist.toFixed(1)} km · ` : '';
+    const sched = parseSchedule(s.schedule);
+    const schedBadge = sched.status === 'h24' ? `<span class="badge-open h24">24h</span>`
+      : sched.status === 'open' ? `<span class="badge-open open">● ${sched.label || 'Abierta'}</span>`
+      : sched.status === 'closed' ? `<span class="badge-open closed">● ${sched.label || 'Cerrada'}</span>` : '';
+    const priceTags = [...activeFuels].map(f => {
+      const p = s.prices[f]; if (!p) return '';
+      const cheap = minMax[f] && p === minMax[f].min, pricey = minMax[f] && p === minMax[f].max;
+      const tankStr = tankLiters > 0 ? `<span class="tank-cost">${(p * tankLiters).toFixed(2)} €</span>` : '';
+      return `<div class="price-tag ${cheap ? 'cheapest' : pricey ? 'priciest' : ''}"><span class="fuel-name">${FUEL_LABELS[f]}</span><span class="fuel-price">${p.toFixed(3)} €</span>${tankStr}</div>`;
+    }).join('');
+    const card = document.createElement('div');
+    card.className = 'station-card' + (s.id === selectedId ? ' selected' : '');
+    card.dataset.id = s.id;
+    card.innerHTML = `
+      <div class="card-top">
+        <div>
+          <div class="card-name">${s.name}</div>
+          <div class="card-meta">
+            ${distStr ? `<span class="card-dist">${distStr}</span>` : ''}
+            <span class="card-dist">${s.locality}</span>
+            ${s.isLC ? '<span class="badge-lc">LOW COST</span>' : ''}
+            ${schedBadge}
+          </div>
+        </div>
+      </div>
+      <div class="card-prices">${priceTags}</div>
+      <div class="card-actions">
+        <button class="card-action-btn nav" data-nav-id="${s.id}">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          Cómo llegar
+        </button>
+      </div>`;
+    card.addEventListener('click', e => {
+      if (e.target.closest('.card-action-btn')) return;
+      selectStation(s);
+      setSheetState('peek');
+    });
+    card.querySelector('.card-action-btn').addEventListener('click', e => { e.stopPropagation(); navigateTo(s); });
+    ml.appendChild(card);
+  });
+  renderMap(visible);
+}
+
+// Sheet state machine
+function setSheetState(state) {
+  const sheet = document.getElementById('mobile-sheet');
+  if (!sheet) return;
+  sheet.className = state; // peek | half | full
+}
+
+// Touch drag on handle
+function initSheetDrag() {
+  const sheet = document.getElementById('mobile-sheet');
+  const handle = document.getElementById('sheet-handle-area');
+  if (!sheet || !handle) return;
+  let startY = 0, startH = 0, dragging = false;
+  const states = { peek: 220, half: window.innerHeight * 0.52, full: window.innerHeight * 0.88 };
+
+  handle.addEventListener('touchstart', e => {
+    startY = e.touches[0].clientY;
+    startH = sheet.offsetHeight;
+    dragging = true;
+    sheet.style.transition = 'none';
+  }, { passive: true });
+
+  window.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    const dy = startY - e.touches[0].clientY;
+    const newH = Math.max(56, Math.min(states.full, startH + dy));
+    sheet.style.height = newH + 'px';
+  }, { passive: true });
+
+  window.addEventListener('touchend', () => {
+    if (!dragging) return;
+    dragging = false;
+    sheet.style.transition = '';
+    const h = sheet.offsetHeight;
+    if (h < 140) setSheetState('peek');
+    else if (h < window.innerHeight * 0.68) setSheetState('half');
+    else setSheetState('full');
+  });
+
+  // Tap handle to cycle states
+  handle.addEventListener('click', () => {
+    const cur = sheet.className;
+    if (cur === 'peek') setSheetState('half');
+    else if (cur === 'half') setSheetState('full');
+    else setSheetState('peek');
+  });
+}
+
+// Quick fuel pills (mobile)
+function initMobileFilters() {
+  // Fuel quick pills
+  document.querySelectorAll('.qpill[data-qfuel]').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const f = pill.dataset.qfuel;
+      if (activeFuels.has(f)) {
+        if (activeFuels.size === 1) return;
+        activeFuels.delete(f); pill.classList.remove('active');
+      } else {
+        activeFuels.add(f); pill.classList.add('active');
+      }
+      // Sync desktop pills
+      const dp = document.querySelector(`#fuel-pills .pill[data-fuel="${f}"]`);
+      if (dp) dp.classList.toggle('active', activeFuels.has(f));
+      mobileRenderAll();
+    });
+  });
+
+  // LC toggle
+  document.getElementById('qpill-lc')?.addEventListener('click', function() {
+    onlyLC = !onlyLC; this.classList.toggle('active', onlyLC);
+    this.textContent = onlyLC ? '✓ Low-cost' : 'Low-cost';
+    mobileRenderAll();
+  });
+
+  // Open toggle
+  document.getElementById('qpill-open')?.addEventListener('click', function() {
+    onlyOpen = !onlyOpen; this.classList.toggle('active', onlyOpen);
+    this.textContent = onlyOpen ? '✓ Abiertas' : 'Abiertas';
+    mobileRenderAll();
+  });
+
+  // Sort chips
+  document.querySelectorAll('.sort-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      sortMode = chip.dataset.sort;
+      document.querySelectorAll('.sort-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      mobileRenderAll();
+    });
+  });
+
+  // More filters button
+  document.getElementById('qpill-more')?.addEventListener('click', openMoreFilters);
+  document.getElementById('drawer-close')?.addEventListener('click', closeMoreFilters);
+  document.getElementById('more-filters-overlay')?.addEventListener('click', closeMoreFilters);
+  document.getElementById('m-apply')?.addEventListener('click', () => { closeMoreFilters(); mobileRenderAll(); });
+
+  // FABs
+  document.getElementById('fab-locate')?.addEventListener('click', locate);
+  document.getElementById('fab-stats')?.addEventListener('click', openMobileStats);
+  document.getElementById('mobile-stats-close')?.addEventListener('click', closeMobileStats);
+
+  // Mobile radius
+  document.getElementById('m-radius-slider')?.addEventListener('input', e => {
+    radiusKm = parseInt(e.target.value);
+    document.getElementById('m-radius-val').textContent = radiusKm + ' km';
+    document.getElementById('radius-slider').value = radiusKm;
+    document.getElementById('radius-val').textContent = radiusKm + ' km';
+  });
+
+  // Mobile tank
+  document.getElementById('m-tank-liters')?.addEventListener('input', e => {
+    tankLiters = parseFloat(e.target.value) || 0;
+    document.getElementById('tank-liters').value = e.target.value;
+  });
+
+  // Mobile location search
+  const mSearchIn = document.getElementById('m-location-search');
+  const mSearchRes = document.getElementById('m-search-results');
+  const mSearchClear = document.getElementById('m-search-clear');
+  let mSearchDebounce = null;
+  mSearchIn?.addEventListener('input', () => {
+    mSearchClear?.classList.toggle('visible', mSearchIn.value.length > 0);
+    clearTimeout(mSearchDebounce);
+    mSearchDebounce = setTimeout(() => mobileSearchLoc(mSearchIn.value.trim()), 350);
+  });
+  mSearchClear?.addEventListener('click', () => {
+    mSearchIn.value = ''; mSearchClear.classList.remove('visible');
+    mSearchRes.style.display = 'none';
+    userLatLng = null;
+    if (userMarker) { userMarker.remove(); userMarker = null; }
+    allStations.forEach(s => s.dist = null);
+    try { localStorage.removeItem(LOC_KEY); } catch {}
+    mobileRenderAll();
+  });
+
+  // Mobile brand
+  const mBrandIn = document.getElementById('m-brand-input');
+  const mBrandDD = document.getElementById('m-brand-dropdown');
+  const mBrandClear = document.getElementById('m-brand-clear');
+  mBrandIn?.addEventListener('focus', () => { renderMobileBrandDD(mBrandIn.value); mBrandDD.style.display = 'block'; });
+  mBrandIn?.addEventListener('input', () => { renderMobileBrandDD(mBrandIn.value); mBrandDD.style.display = 'block'; });
+  mBrandClear?.addEventListener('click', () => {
+    activeBrand = ''; mBrandIn.value = '';
+    mBrandClear.classList.remove('visible'); mBrandDD.style.display = 'none';
+  });
+  document.getElementById('m-clear-all')?.addEventListener('click', () => {
+    activeFuels = new Set(['G95','G98','GOA','GOP','GLP']);
+    onlyLC = false; onlyOpen = false; sortMode = 'dist'; activeBrand = ''; tankLiters = 0;
+    userLatLng = null;
+    if (userMarker) { userMarker.remove(); userMarker = null; }
+    allStations.forEach(s => s.dist = null);
+    // Reset UI
+    document.querySelectorAll('.qpill[data-qfuel]').forEach(p => p.classList.add('active'));
+    document.getElementById('qpill-lc').classList.remove('active'); document.getElementById('qpill-lc').textContent = 'Low-cost';
+    document.getElementById('qpill-open').classList.remove('active'); document.getElementById('qpill-open').textContent = 'Abiertas';
+    document.querySelectorAll('.sort-chip').forEach(c => c.classList.toggle('active', c.dataset.sort === 'dist'));
+    if (mBrandIn) { mBrandIn.value = ''; }
+    if (mBrandClear) mBrandClear.classList.remove('visible');
+    if (mSearchIn) { mSearchIn.value = ''; }
+    if (mSearchClear) mSearchClear.classList.remove('visible');
+    if (mSearchRes) mSearchRes.style.display = 'none';
+    document.getElementById('m-tank-liters').value = '';
+    try { localStorage.removeItem(LOC_KEY); } catch {}
+    closeMoreFilters();
+    map.setView([40.4, -3.7], 6);
+    mobileRenderAll();
+  });
+}
+
+function renderMobileBrandDD(query) {
+  const dd = document.getElementById('m-brand-dropdown');
+  if (!dd) return;
+  const q = query.toLowerCase();
+  const filtered = q ? allBrands.filter(b => b.toLowerCase().includes(q)) : allBrands;
+  dd.innerHTML = '';
+  const allOpt = document.createElement('div');
+  allOpt.className = 'brand-opt' + (!activeBrand ? ' selected' : '');
+  allOpt.textContent = 'Todas las marcas';
+  allOpt.addEventListener('click', () => {
+    activeBrand = '';
+    document.getElementById('m-brand-input').value = '';
+    document.getElementById('m-brand-clear').classList.remove('visible');
+    dd.style.display = 'none';
+  });
+  dd.appendChild(allOpt);
+  filtered.slice(0, 60).forEach(b => {
+    const opt = document.createElement('div');
+    opt.className = 'brand-opt' + (activeBrand === b ? ' selected' : '');
+    opt.textContent = b[0] + b.slice(1).toLowerCase();
+    opt.addEventListener('click', () => {
+      activeBrand = b;
+      document.getElementById('m-brand-input').value = b[0] + b.slice(1).toLowerCase();
+      document.getElementById('m-brand-clear').classList.add('visible');
+      dd.style.display = 'none';
+    });
+    dd.appendChild(opt);
+  });
+}
+
+async function mobileSearchLoc(q) {
+  const res = document.getElementById('m-search-results');
+  if (!res || q.length < 2) { if (res) res.style.display = 'none'; return; }
+  res.innerHTML = '<div class="search-loading">Buscando…</div>';
+  res.style.display = 'block';
+  try {
+    const data = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&countrycodes=es&limit=5&format=json`, { headers: { 'Accept-Language': 'es' } }).then(r => r.json());
+    if (!data.length) { res.innerHTML = '<div class="search-loading">Sin resultados</div>'; return; }
+    res.innerHTML = '';
+    data.forEach(r => {
+      const name = r.display_name.split(',').slice(0, 3).join(', ');
+      const item = document.createElement('div');
+      item.className = 'search-result-item';
+      item.innerHTML = `<span>📍</span><div><div class="search-result-name">${name}</div></div>`;
+      item.addEventListener('click', () => {
+        document.getElementById('m-location-search').value = r.display_name.split(',').slice(0, 2).join(', ');
+        document.getElementById('m-search-clear').classList.add('visible');
+        res.style.display = 'none';
+        setLocation(parseFloat(r.lat), parseFloat(r.lon), r.display_name.split(',')[0]);
+        closeMoreFilters();
+        setSheetState('half');
+      });
+      res.appendChild(item);
+    });
+  } catch { res.innerHTML = '<div class="search-loading">Error</div>'; }
+}
+
+function openMoreFilters() {
+  document.getElementById('more-filters-overlay').classList.add('visible');
+  document.getElementById('more-filters-drawer').classList.add('visible');
+}
+function closeMoreFilters() {
+  document.getElementById('more-filters-overlay').classList.remove('visible');
+  document.getElementById('more-filters-drawer').classList.remove('visible');
+}
+
+function openMobileStats() {
+  const pane = document.getElementById('mobile-stats');
+  const close = document.getElementById('mobile-stats-close');
+  if (!pane) return;
+  renderStats();
+  const statsPane = document.getElementById('stats-pane');
+  pane.innerHTML = statsPane ? statsPane.innerHTML : '<div class="msg-empty">Sin datos todavía.</div>';
+  pane.classList.add('visible');
+  close.classList.add('visible');
+}
+function closeMobileStats() {
+  document.getElementById('mobile-stats').classList.remove('visible');
+  document.getElementById('mobile-stats-close').classList.remove('visible');
+}
+
+// Override renderAll for mobile
+const _renderAll = renderAll;
+window.renderAll = function() {
+  if (isMobile()) mobileRenderAll();
+  else _renderAll();
+};
+
 loadStations();
+
+// Init mobile after DOM ready
+if (isMobile()) {
+  initSheetDrag();
+  initMobileFilters();
+  // Override locate button to also expand sheet
+  document.getElementById('btn-locate').addEventListener('click', () => setSheetState('half'));
+}
+
+window.addEventListener('resize', () => {
+  if (isMobile()) {
+    initMobileFilters();
+    mobileRenderAll();
+  }
+});
 </script>
 </body>
 </html>
