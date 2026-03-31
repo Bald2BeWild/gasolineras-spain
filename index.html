@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gasolineras España</title>
+<meta name="description" content="Precios de gasolina, gasóleo y GLP en tiempo real. Encuentra la gasolinera más barata cerca de ti.">
+<meta name="theme-color" content="#f5a623">
+<link rel="manifest" href="data:application/json,{%22name%22:%22Gasolineras%20Espa%C3%B1a%22,%22short_name%22:%22Gasolineras%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%230f1117%22,%22theme_color%22:%22%23f5a623%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9B%BD%3C/text%3E%3C/svg%3E%22,%22sizes%22:%22any%22,%22type%22:%22image/svg+xml%22}]}">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"/>
@@ -23,7 +26,6 @@ body.light{
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);height:100dvh;display:flex;flex-direction:column;overflow:hidden;transition:background .2s,color .2s}
 
-/* HEADER */
 header{display:flex;align-items:center;gap:12px;padding:0 16px;height:52px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;z-index:1000}
 .logo{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--accent);letter-spacing:-.5px}
 .logo span{color:var(--text)}
@@ -32,22 +34,20 @@ header{display:flex;align-items:center;gap:12px;padding:0 16px;height:52px;backg
 .hbtn{display:flex;align-items:center;gap:6px;border:none;border-radius:var(--radius);padding:7px 13px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s}
 #btn-locate{background:var(--accent);color:#0f1117}
 #btn-locate:hover{opacity:.85}
-#btn-theme{background:var(--surface2);color:var(--text);border:1px solid var(--border);padding:7px 10px;font-size:16px}
-#btn-theme:hover{border-color:var(--accent)}
+#btn-theme,#btn-install{background:var(--surface2);color:var(--text);border:1px solid var(--border);padding:7px 10px;font-size:16px}
+#btn-theme:hover,#btn-install:hover{border-color:var(--accent)}
+#btn-install{display:none;font-size:13px;padding:7px 12px}
 
-/* LAYOUT */
 .main{display:flex;flex:1;overflow:hidden}
-
-/* PANEL TABS */
 #panel{width:var(--panel-w);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
+
 .tab-bar{display:flex;border-bottom:1px solid var(--border);flex-shrink:0}
 .tab-btn{flex:1;padding:10px 0;font-size:12px;font-weight:600;background:none;border:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;font-family:'DM Sans',sans-serif;letter-spacing:.3px}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
 .tab-pane{display:none;flex:1;flex-direction:column;overflow:hidden}
 .tab-pane.active{display:flex}
 
-/* FILTERS */
-.filters{padding:12px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:62vh}
+.filters{padding:12px;border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:10px;overflow-y:auto;max-height:60vh}
 .filters::-webkit-scrollbar{width:3px}
 .filters::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .filter-label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px}
@@ -57,7 +57,13 @@ header{display:flex;align-items:center;gap:12px;padding:0 16px;height:52px;backg
 .pill.active{background:var(--accent);color:#0f1117;border-color:var(--accent)}
 .pill.lc-pill.active{background:var(--accent2);color:#0f1117;border-color:var(--accent2)}
 
-/* BRAND SEARCH */
+/* depósito input */
+.tank-row{display:flex;align-items:center;gap:8px}
+.tank-row input{width:72px;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:var(--radius);padding:6px 10px;font-size:13px;font-family:'DM Mono',monospace;outline:none;transition:border-color .15s;text-align:right}
+.tank-row input:focus{border-color:var(--accent)}
+.tank-row span{font-size:13px;color:var(--muted)}
+
+/* brand */
 .brand-wrap{position:relative}
 .brand-wrap input{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:var(--radius);padding:6px 28px 6px 30px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
 .brand-wrap input:focus{border-color:var(--accent)}
@@ -80,7 +86,6 @@ select:focus{border-color:var(--accent)}
 input[type=range]{flex:1;accent-color:var(--accent);height:4px;cursor:pointer}
 #radius-val{font-family:'DM Mono',monospace;font-size:12px;color:var(--accent);min-width:44px;text-align:right}
 
-/* LOCATION SEARCH */
 .search-wrap{position:relative}
 .search-wrap input{width:100%;background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:var(--radius);padding:7px 28px 7px 32px;font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
 .search-wrap input:focus{border-color:var(--accent)}
@@ -97,29 +102,49 @@ input[type=range]{flex:1;accent-color:var(--accent);height:4px;cursor:pointer}
 .search-result-sub{font-size:11px;color:var(--muted)}
 .search-loading{padding:10px 12px;font-size:12px;color:var(--muted);text-align:center}
 
-/* LIST */
 #list-header{padding:7px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 #result-count{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted)}
 #btn-clear-filters{font-size:11px;background:none;border:none;color:var(--accent);cursor:pointer;font-family:'DM Sans',sans-serif;padding:2px 4px}
+
 #station-list{flex:1;overflow-y:auto;padding:8px}
 #station-list::-webkit-scrollbar{width:4px}
 #station-list::-webkit-scrollbar-track{background:transparent}
 #station-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+
 .station-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:11px 13px;margin-bottom:7px;cursor:pointer;transition:border-color .15s}
 .station-card:hover{border-color:var(--accent)}
 .station-card.selected{border-color:var(--accent)}
-.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px}
 .card-name{font-size:13px;font-weight:600;line-height:1.3}
-.card-dist{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-top:2px}
-.badge-lc{font-size:10px;font-weight:600;padding:2px 7px;background:rgba(74,222,128,.15);color:var(--accent2);border:1px solid rgba(74,222,128,.3);border-radius:20px;white-space:nowrap;flex-shrink:0}
-.card-prices{display:flex;flex-wrap:wrap;gap:5px}
-.price-tag{display:flex;flex-direction:column;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:5px 9px;min-width:64px}
+.card-meta{display:flex;align-items:center;gap:8px;margin-top:2px;flex-wrap:wrap}
+.card-dist{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
+/* open/closed badge */
+.badge-open{font-size:10px;font-weight:600;padding:1px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.badge-open.open{background:rgba(74,222,128,.15);color:var(--accent2);border:1px solid rgba(74,222,128,.3)}
+.badge-open.closed{background:rgba(248,113,113,.12);color:var(--danger);border:1px solid rgba(248,113,113,.3)}
+.badge-open.h24{background:rgba(96,165,250,.12);color:var(--info);border:1px solid rgba(96,165,250,.3)}
+.badge-lc{font-size:10px;font-weight:600;padding:1px 7px;background:rgba(74,222,128,.15);color:var(--accent2);border:1px solid rgba(74,222,128,.3);border-radius:20px;white-space:nowrap;flex-shrink:0}
+
+.card-prices{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.price-tag{display:flex;flex-direction:column;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:5px 9px;min-width:64px;position:relative}
 .price-tag .fuel-name{font-size:10px;color:var(--muted);font-weight:500}
 .price-tag .fuel-price{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--text)}
+.price-tag .tank-cost{font-size:10px;color:var(--accent);font-family:'DM Mono',monospace;margin-top:1px}
 .price-tag.cheapest .fuel-price{color:var(--accent2)}
 .price-tag.priciest .fuel-price{color:var(--danger)}
 
-/* STATS TAB */
+/* card actions row */
+.card-actions{display:flex;gap:6px;margin-top:8px}
+.card-action-btn{display:flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;white-space:nowrap}
+.card-action-btn:hover{border-color:var(--accent);color:var(--text)}
+.card-action-btn.nav{border-color:rgba(96,165,250,.4);color:var(--info)}
+.card-action-btn.nav:hover{background:rgba(96,165,250,.1)}
+
+.msg-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;line-height:1.7}
+.spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* STATS */
 #stats-pane{padding:14px;overflow-y:auto;gap:14px}
 #stats-pane::-webkit-scrollbar{width:3px}
 #stats-pane::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -135,20 +160,13 @@ input[type=range]{flex:1;accent-color:var(--accent);height:4px;cursor:pointer}
 .stat-pill-val.green{color:var(--accent2)}
 .stat-pill-val.amber{color:var(--accent)}
 .stat-pill-val.red{color:var(--danger)}
-/* mini sparkline chart */
-.sparkline-wrap{position:relative;height:52px;width:100%}
+.sparkline-wrap{height:52px;width:100%}
 canvas.sparkline{width:100%;height:52px;display:block}
 .spark-labels{display:flex;justify-content:space-between;margin-top:2px}
 .spark-label{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace}
-.stats-note{font-size:11px;color:var(--muted);line-height:1.6;padding:10px 0 4px}
+.stats-note{font-size:11px;color:var(--muted);line-height:1.6;padding:8px 0 4px}
 #btn-clear-history{font-size:11px;background:none;border:none;color:var(--danger);cursor:pointer;font-family:'DM Sans',sans-serif;padding:0;margin-top:4px}
 
-/* EMPTY / SPINNER */
-.msg-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;line-height:1.7}
-.spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* MAP */
 #map{flex:1;z-index:0}
 .leaflet-container{background:#181c27}
 body.light .leaflet-container{background:#e8ecf0}
@@ -156,10 +174,11 @@ body.light .leaflet-tile{filter:brightness(1) saturate(1)}
 .leaflet-popup-content-wrapper{background:var(--surface2)!important;color:var(--text)!important;border:1px solid var(--border)!important;border-radius:var(--radius)!important;box-shadow:var(--popup-shadow)!important;font-family:'DM Sans',sans-serif!important}
 .leaflet-popup-tip{background:var(--surface2)!important}
 .leaflet-popup-content{margin:12px 14px!important}
-.popup-name{font-size:13px;font-weight:600;margin-bottom:6px}
+.popup-name{font-size:13px;font-weight:600;margin-bottom:4px}
 .popup-addr{font-size:11px;color:var(--muted);margin-bottom:8px}
-.popup-prices{display:flex;flex-wrap:wrap;gap:5px}
+.popup-prices{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
 .popup-price{font-family:'DM Mono',monospace;font-size:12px;background:var(--surface);padding:3px 8px;border-radius:5px;border:1px solid var(--border)}
+.popup-nav{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;border:none;background:var(--info);color:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none}
 .marker-cluster-small,.marker-cluster-medium,.marker-cluster-large{background-color:rgba(245,166,35,.18)!important}
 .marker-cluster-small div,.marker-cluster-medium div,.marker-cluster-large div{background-color:rgba(245,166,35,.7)!important;color:#0f1117!important;font-family:'DM Mono',monospace;font-weight:600}
 
@@ -179,6 +198,7 @@ body.light .leaflet-tile{filter:brightness(1) saturate(1)}
   <div class="logo">⛽ <span>gasolineras</span>.es</div>
   <div class="header-right">
     <span id="status-bar">Cargando datos…</span>
+    <button class="hbtn" id="btn-install" title="Instalar app">📲 Instalar</button>
     <button class="hbtn" id="btn-theme" title="Cambiar tema">🌙</button>
     <button class="hbtn" id="btn-locate">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="9"/></svg>
@@ -189,14 +209,12 @@ body.light .leaflet-tile{filter:brightness(1) saturate(1)}
 
 <div class="main">
   <div id="panel">
-
-    <!-- TAB BAR -->
     <div class="tab-bar">
       <button class="tab-btn active" data-tab="map-tab">🗺 Mapa</button>
       <button class="tab-btn" data-tab="stats-tab">📊 Precios</button>
     </div>
 
-    <!-- TAB: MAP -->
+    <!-- MAP TAB -->
     <div class="tab-pane active" id="map-tab">
       <div class="filters">
 
@@ -221,7 +239,7 @@ body.light .leaflet-tile{filter:brightness(1) saturate(1)}
         </div>
 
         <div>
-          <div class="filter-label">Carburante (selección múltiple)</div>
+          <div class="filter-label">Carburante</div>
           <div class="filter-row" id="fuel-pills">
             <span class="pill active" data-fuel="G95">95 E5</span>
             <span class="pill active" data-fuel="G98">98 E5</span>
@@ -232,9 +250,18 @@ body.light .leaflet-tile{filter:brightness(1) saturate(1)}
         </div>
 
         <div>
+          <div class="filter-label">Litros de tu depósito</div>
+          <div class="tank-row">
+            <input type="number" id="tank-liters" min="10" max="120" value="" placeholder="—" title="Litros del depósito">
+            <span>litros → coste total estimado en cada tarjeta</span>
+          </div>
+        </div>
+
+        <div>
           <div class="filter-label">Opciones</div>
           <div class="filter-row">
             <span class="pill lc-pill" id="toggle-lc">Solo low-cost</span>
+            <span class="pill" id="toggle-open">Solo abiertas</span>
           </div>
         </div>
 
@@ -244,6 +271,7 @@ body.light .leaflet-tile{filter:brightness(1) saturate(1)}
             <option value="dist">Distancia (más cercana)</option>
             <option value="price-asc">Precio (más barata)</option>
             <option value="price-desc">Precio (más cara)</option>
+            <option value="score">Mejor relación precio+distancia</option>
             <option value="name">Nombre A–Z</option>
           </select>
         </div>
@@ -263,26 +291,15 @@ body.light .leaflet-tile{filter:brightness(1) saturate(1)}
         <span id="result-count"></span>
         <button id="btn-clear-filters">Limpiar filtros</button>
       </div>
-
       <div id="station-list">
-        <div class="msg-empty">
-          <div class="spinner"></div>
-          Descargando estaciones…<br>
-          <small>(~10 MB, puede tardar unos segundos)</small>
-        </div>
+        <div class="msg-empty"><div class="spinner"></div>Descargando estaciones…<br><small>(~10 MB, puede tardar unos segundos)</small></div>
       </div>
     </div>
 
-    <!-- TAB: STATS -->
+    <!-- STATS TAB -->
     <div class="tab-pane" id="stats-tab">
-      <div id="stats-pane">
-        <div class="msg-empty">
-          <div class="spinner"></div>
-          Esperando datos…
-        </div>
-      </div>
+      <div id="stats-pane"><div class="msg-empty"><div class="spinner"></div>Esperando datos…</div></div>
     </div>
-
   </div>
 
   <div id="map"></div>
@@ -292,62 +309,92 @@ body.light .leaflet-tile{filter:brightness(1) saturate(1)}
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────────
-const API_URL = 'https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/';
-const PROXY   = 'https://corsproxy.io/?url=';
-const HISTORY_KEY = 'gasolineras_price_history';
-const MAX_HISTORY_DAYS = 30;
+const API_URL='https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/';
+const PROXY='https://corsproxy.io/?url=';
+const HISTORY_KEY='gasolineras_price_history';
+const LOC_KEY='gasolineras_last_loc';
+const MAX_HISTORY=30;
 
-const FUEL_KEYS = {
-  G95: 'Precio Gasolina 95 E5',
-  G98: 'Precio Gasolina 98 E5',
-  GOA: 'Precio Gasoleo A',
-  GOP: 'Precio Gasoleo Premium',
-  GLP: 'Precio Gases licuados del petróleo'
-};
-const FUEL_LABELS  = { G95:'95 E5', G98:'98 E5', GOA:'Gasóleo A', GOP:'Gasóleo P', GLP:'GLP' };
-const FUEL_COLORS  = { G95:'#f5a623', G98:'#f87171', GOA:'#60a5fa', GOP:'#a78bfa', GLP:'#4ade80' };
+const FUEL_KEYS={G95:'Precio Gasolina 95 E5',G98:'Precio Gasolina 98 E5',GOA:'Precio Gasoleo A',GOP:'Precio Gasoleo Premium',GLP:'Precio Gases licuados del petróleo'};
+const FUEL_LABELS={G95:'95 E5',G98:'98 E5',GOA:'Gasóleo A',GOP:'Gasóleo P',GLP:'GLP'};
+const FUEL_COLORS={G95:'#f5a623',G98:'#f87171',GOA:'#60a5fa',GOP:'#a78bfa',GLP:'#4ade80'};
+const LOW_COST=['PLENOIL','PETROPRIX','BALLENOIL','PUMPING','MEROIL','ESSO','OIL LOW COST','LOWCOSTFUEL','GASGAS','GASCAT','LOWCOST','PRIMEGAS','ECONOGAS','BEGAS'];
+const BRAND_ALIASES={CEPSA:'CEPSA',REPSOL:'REPSOL',BP:'BP',SHELL:'SHELL',GALP:'GALP',CAMPSA:'CAMPSA',PETRONOR:'PETRONOR',TOTAL:'TOTAL',PLENOIL:'PLENOIL',PETROPRIX:'PETROPRIX',BALLENOIL:'BALLENOIL',PUMPING:'PUMPING',MEROIL:'MEROIL',DISA:'DISA',AGIP:'AGIP',AVIA:'AVIA',TAMOIL:'TAMOIL',Q8:'Q8',TEXACO:'TEXACO',CARREFOUR:'CARREFOUR',EROSKI:'EROSKI',ALCAMPO:'ALCAMPO',MAKRO:'MAKRO',MERCADONA:'MERCADONA',LIDL:'LIDL',MOEWE:'MOEWE',GASCAT:'GASCAT',PRIMEGAS:'PRIMEGAS',BEGAS:'BEGAS'};
 
-const LOW_COST_BRANDS = ['PLENOIL','PETROPRIX','BALLENOIL','PUMPING','MEROIL','ESSO',
-  'OIL LOW COST','LOWCOSTFUEL','GASGAS','GASCAT','LOWCOST','PRIMEGAS','ECONOGAS','BEGAS'];
+function extractBrand(r){
+  let s=r.toUpperCase().trim().replace(/^["'*.\-\s]+|["'*.\-\s]+$/g,'');
+  if(!s||s.length<2||/^[^A-Z0-9]/.test(s)) return null;
+  for(const[k,v]of Object.entries(BRAND_ALIASES)){if(s===k||s.startsWith(k+' ')||s.startsWith(k+'-'))return v;}
+  const f=s.split(/[\s\-\/]/)[0].replace(/["']/g,'');
+  return(f.length>=2&&/[A-Z0-9]/.test(f))?f:null;
+}
 
-const BRAND_ALIASES = {
-  'CEPSA':'CEPSA','REPSOL':'REPSOL','BP':'BP','SHELL':'SHELL','GALP':'GALP',
-  'CAMPSA':'CAMPSA','PETRONOR':'PETRONOR','TOTAL':'TOTAL','PLENOIL':'PLENOIL',
-  'PETROPRIX':'PETROPRIX','BALLENOIL':'BALLENOIL','PUMPING':'PUMPING','MEROIL':'MEROIL',
-  'DISA':'DISA','AGIP':'AGIP','AVIA':'AVIA','TAMOIL':'TAMOIL','Q8':'Q8',
-  'TEXACO':'TEXACO','CARREFOUR':'CARREFOUR','EROSKI':'EROSKI','ALCAMPO':'ALCAMPO',
-  'MAKRO':'MAKRO','MERCADONA':'MERCADONA','LIDL':'LIDL','MOEWE':'MOEWE',
-  'GASCAT':'GASCAT','PRIMEGAS':'PRIMEGAS','BEGAS':'BEGAS',
-};
-
-function extractBrand(rotulo) {
-  let r = rotulo.toUpperCase().trim().replace(/^["'*.\-\s]+|["'*.\-\s]+$/g,'');
-  if (!r || r.length < 2 || /^[^A-Z0-9]/.test(r)) return null;
-  for (const [key,alias] of Object.entries(BRAND_ALIASES)) {
-    if (r === key || r.startsWith(key+' ') || r.startsWith(key+'-')) return alias;
+// ── SCHEDULE PARSER ───────────────────────────────────────────────────────────
+// Returns {status:'open'|'closed'|'h24'|'unknown', label:string}
+function parseSchedule(horario){
+  if(!horario||!horario.trim()) return {status:'unknown',label:''};
+  const h=horario.trim().toUpperCase();
+  if(h.includes('L-D: 24H')||h==='24H'||h.includes('24 HORAS')||h.includes('00:00-24:00')||h.includes('00:00-00:00'))
+    return {status:'h24',label:'24h'};
+  const now=new Date();
+  const day=now.getDay(); // 0=Sun,1=Mon...6=Sat
+  const mins=now.getHours()*60+now.getMinutes();
+  // Try to parse "L-V: 07:00-22:00; S: 08:00-21:00; D: 09:00-21:00"
+  const segments=h.split(';');
+  for(const seg of segments){
+    const m=seg.match(/([LMXJVSD\-,]+)\s*:\s*(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})/);
+    if(!m) continue;
+    const days=m[1]; const open=parseInt(m[2])*60+parseInt(m[3]); const close=parseInt(m[4])*60+parseInt(m[5]);
+    const covers=dayCovers(days,day);
+    if(covers){
+      const isOpen=mins>=open&&mins<close;
+      const openStr=`${m[2]}:${m[3]}`; const closeStr=`${m[4]}:${m[5]}`;
+      return {status:isOpen?'open':'closed',label:isOpen?`Cierra ${closeStr}`:`Abre ${openStr}`};
+    }
   }
-  const first = r.split(/[\s\-\/]/)[0].replace(/["']/g,'');
-  return (first.length >= 2 && /[A-Z0-9]/.test(first)) ? first : null;
+  return {status:'unknown',label:''};
+}
+
+function dayCovers(dayStr,jsDay){
+  // jsDay: 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
+  // dayStr uses L=Mon,M=Tue,X=Wed,J=Thu,V=Fri,S=Sat,D=Sun
+  const MAP={L:1,M:2,X:3,J:4,V:5,S:6,D:0};
+  const parts=dayStr.split(',');
+  for(const p of parts){
+    const range=p.match(/([LMXJVSD])-([LMXJVSD])/);
+    if(range){
+      const days=Object.keys(MAP);
+      const si=days.indexOf(range[1]),ei=days.indexOf(range[2]);
+      if(si<0||ei<0) continue;
+      const seq=si<=ei?days.slice(si,ei+1):[...days.slice(si),...days.slice(0,ei+1)];
+      if(seq.some(d=>MAP[d]===jsDay)) return true;
+    } else {
+      const single=p.trim();
+      if(MAP[single]===jsDay) return true;
+    }
+  }
+  return false;
 }
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
-let allStations = [], userLatLng = null;
-let activeFuels = new Set(['G95','G98','GOA','GOP','GLP']);
-let onlyLC = false, sortMode = 'dist', radiusKm = 10, activeBrand = '';
-let selectedId = null, markers = {}, allBrands = [];
-let searchDebounce = null, mapDebounce = null, isDark = true;
+let allStations=[],userLatLng=null;
+let activeFuels=new Set(['G95','G98','GOA','GOP','GLP']);
+let onlyLC=false,onlyOpen=false,sortMode='dist',radiusKm=10,activeBrand='';
+let tankLiters=0,selectedId=null,markers={},allBrands=[];
+let searchDebounce=null,mapDebounce=null,isDark=true;
+let deferredInstall=null;
 
 // ── MAP ───────────────────────────────────────────────────────────────────────
-const map = L.map('map',{zoomControl:false}).setView([40.4,-3.7],6);
+const map=L.map('map',{zoomControl:false}).setView([40.4,-3.7],6);
 L.control.zoom({position:'bottomright'}).addTo(map);
-const tileDark  = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap © CartoDB',subdomains:'abcd',maxZoom:19});
-const tileLight = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap © CartoDB',subdomains:'abcd',maxZoom:19});
+const tileDark=L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap © CartoDB',subdomains:'abcd',maxZoom:19});
+const tileLight=L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap © CartoDB',subdomains:'abcd',maxZoom:19});
 tileDark.addTo(map);
-const clusterGroup = L.markerClusterGroup({disableClusteringAtZoom:14,maxClusterRadius:60});
-map.addLayer(clusterGroup);
-const makeIcon = c => L.divIcon({className:'',html:`<div style="width:12px;height:12px;border-radius:50%;background:${c};border:2px solid rgba(255,255,255,.5);box-shadow:0 0 6px ${c}88"></div>`,iconSize:[12,12],iconAnchor:[6,6]});
-const iconNormal=makeIcon('#f5a623'),iconLC=makeIcon('#4ade80'),iconSelect=makeIcon('#60a5fa');
-const iconUser=L.divIcon({className:'',html:`<div style="width:16px;height:16px;border-radius:50%;background:#60a5fa;border:3px solid #fff;box-shadow:0 0 12px #60a5fa"></div>`,iconSize:[16,16],iconAnchor:[8,8]});
+const cluster=L.markerClusterGroup({disableClusteringAtZoom:14,maxClusterRadius:60});
+map.addLayer(cluster);
+const mkIcon=c=>L.divIcon({className:'',html:`<div style="width:12px;height:12px;border-radius:50%;background:${c};border:2px solid rgba(255,255,255,.5);box-shadow:0 0 6px ${c}88"></div>`,iconSize:[12,12],iconAnchor:[6,6]});
+const iNormal=mkIcon('#f5a623'),iLC=mkIcon('#4ade80'),iSel=mkIcon('#60a5fa');
+const iUser=L.divIcon({className:'',html:`<div style="width:16px;height:16px;border-radius:50%;background:#60a5fa;border:3px solid #fff;box-shadow:0 0 12px #60a5fa"></div>`,iconSize:[16,16],iconAnchor:[8,8]});
 let userMarker=null;
 
 map.on('moveend zoomend',()=>{
@@ -356,73 +403,94 @@ map.on('moveend zoomend',()=>{
 });
 
 // ── FETCH ─────────────────────────────────────────────────────────────────────
-async function loadStations() {
-  try {
-    const res  = await fetch(PROXY + encodeURIComponent(API_URL));
-    const json = await res.json();
-    allStations = (json.ListaEESSPrecio||[]).map((s,i)=>{
+async function loadStations(){
+  try{
+    const res=await fetch(PROXY+encodeURIComponent(API_URL));
+    const json=await res.json();
+    allStations=(json.ListaEESSPrecio||[]).map((s,i)=>{
       const lat=parseFloat(s['Latitud']?.replace(',','.'));
       const lng=parseFloat(s['Longitud (WGS84)']?.replace(',','.'));
       if(!lat||!lng) return null;
       const prices={};
-      for(const [key,field] of Object.entries(FUEL_KEYS)){
+      for(const[key,field]of Object.entries(FUEL_KEYS)){
         let raw=s[field];
-        if(raw===undefined){
-          const alt=Object.keys(s).find(k=>k.toLowerCase().replace(/\s/g,'')=== field.toLowerCase().replace(/\s/g,''));
-          raw=alt?s[alt]:undefined;
-        }
+        if(raw===undefined){const alt=Object.keys(s).find(k=>k.toLowerCase().replace(/\s/g,'')=== field.toLowerCase().replace(/\s/g,''));raw=alt?s[alt]:undefined;}
         prices[key]=(raw&&raw.trim()!=='')?parseFloat(raw.replace(',','.')):null;
       }
       const rotulo=(s['Rótulo']||'').toUpperCase().trim();
-      const isLC=LOW_COST_BRANDS.some(b=>rotulo.includes(b));
-      const brand=extractBrand(s['Rótulo']||'')||'Otras';
-      return {id:i,lat,lng,name:s['Rótulo']||'Sin nombre',address:s['Dirección']||'',locality:s['Localidad']||'',prices,isLC,brand,dist:null};
+      return{
+        id:i,lat,lng,name:s['Rótulo']||'Sin nombre',
+        address:s['Dirección']||'',locality:s['Localidad']||'',
+        schedule:s['Horario']||'',prices,
+        isLC:LOW_COST.some(b=>rotulo.includes(b)),
+        brand:extractBrand(s['Rótulo']||'')||'Otras',
+        dist:null
+      };
     }).filter(Boolean);
 
     populateBrands();
-    saveHistorySnapshot();
+    saveHistory();
     setStatus(`${allStations.length.toLocaleString('es-ES')} estaciones cargadas`);
+    restoreLastLocation();
     renderAll();
     renderStats();
-  } catch(e) {
+  }catch(e){
     setStatus('Error al cargar datos');
-    document.getElementById('station-list').innerHTML=`<div class="msg-empty">❌ No se pudieron cargar los datos.<br><small>${e.message}</small></div>`;
+    document.getElementById('station-list').innerHTML=`<div class="msg-empty">❌ Error al cargar datos.<br><small>${e.message}</small></div>`;
   }
 }
 
 // ── DISTANCE ──────────────────────────────────────────────────────────────────
-function haversine(la1,ln1,la2,ln2){
+function hav(la1,ln1,la2,ln2){
   const R=6371,dLa=(la2-la1)*Math.PI/180,dLn=(ln2-ln1)*Math.PI/180;
   const a=Math.sin(dLa/2)**2+Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin(dLn/2)**2;
   return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 }
-function updateDistances(){if(userLatLng)allStations.forEach(s=>{s.dist=haversine(userLatLng.lat,userLatLng.lng,s.lat,s.lng)});}
+function updateDist(){if(userLatLng)allStations.forEach(s=>{s.dist=hav(userLatLng.lat,userLatLng.lng,s.lat,s.lng);});}
 
-// ── FILTER ────────────────────────────────────────────────────────────────────
+// ── FILTER & SORT ─────────────────────────────────────────────────────────────
 function getVisible(){
-  if(userLatLng) updateDistances();
+  if(userLatLng) updateDist();
   const bounds=map.getBounds();
   let list=allStations.filter(s=>{
-    const hasFuel=[...activeFuels].some(f=>{const p=s.prices[f];return p!==null&&p!==undefined&&!isNaN(p)&&p>0});
+    const hasFuel=[...activeFuels].some(f=>{const p=s.prices[f];return p!==null&&p!==undefined&&!isNaN(p)&&p>0;});
     if(!hasFuel) return false;
     if(onlyLC&&!s.isLC) return false;
     if(activeBrand&&s.brand!==activeBrand) return false;
+    if(onlyOpen){const sc=parseSchedule(s.schedule);if(sc.status==='closed'||sc.status==='unknown') return false;}
     if(userLatLng) return s.dist!==null&&s.dist<=radiusKm;
     return bounds.contains([s.lat,s.lng]);
   });
+
+  const getMinPrice=s=>Math.min(...[...activeFuels].map(f=>s.prices[f]||Infinity));
+
   if(sortMode==='dist'&&userLatLng) list.sort((a,b)=>a.dist-b.dist);
-  else if(sortMode==='price-asc') list.sort((a,b)=>{
-    const pa=Math.min(...[...activeFuels].map(f=>a.prices[f]||Infinity));
-    const pb=Math.min(...[...activeFuels].map(f=>b.prices[f]||Infinity));
-    return pa-pb;
-  });
-  else if(sortMode==='price-desc') list.sort((a,b)=>{
-    const pa=Math.min(...[...activeFuels].map(f=>a.prices[f]||0));
-    const pb=Math.min(...[...activeFuels].map(f=>b.prices[f]||0));
-    return pb-pa;
-  });
+  else if(sortMode==='price-asc') list.sort((a,b)=>getMinPrice(a)-getMinPrice(b));
+  else if(sortMode==='price-desc') list.sort((a,b)=>getMinPrice(b)-getMinPrice(a));
+  else if(sortMode==='score'&&userLatLng){
+    // Normalize price and distance, combine 50/50
+    const prices=list.map(s=>getMinPrice(s)).filter(p=>p<Infinity);
+    const dists=list.map(s=>s.dist||0);
+    const pMin=Math.min(...prices),pMax=Math.max(...prices),pR=pMax-pMin||1;
+    const dMin=Math.min(...dists),dMax=Math.max(...dists),dR=dMax-dMin||1;
+    list.sort((a,b)=>{
+      const sa=((getMinPrice(a)-pMin)/pR)*0.5+((a.dist-dMin)/dR)*0.5;
+      const sb=((getMinPrice(b)-pMin)/pR)*0.5+((b.dist-dMin)/dR)*0.5;
+      return sa-sb;
+    });
+  }
   else list.sort((a,b)=>a.name.localeCompare(b.name,'es'));
   return list;
+}
+
+// ── NAVIGATE ──────────────────────────────────────────────────────────────────
+function navigateTo(s){
+  const q=encodeURIComponent(`${s.address}, ${s.locality}`);
+  const ll=`${s.lat},${s.lng}`;
+  // Detect iOS for Apple Maps, else Google Maps
+  const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
+  const url=isIOS?`maps://maps.apple.com/?daddr=${ll}`:`https://www.google.com/maps/dir/?api=1&destination=${ll}`;
+  window.open(url,'_blank');
 }
 
 // ── RENDER LIST ───────────────────────────────────────────────────────────────
@@ -436,21 +504,52 @@ function renderList(stations){
   }
   el.innerHTML='';
   stations.slice(0,150).forEach(s=>{
-    const distStr=s.dist!==null?`${s.dist.toFixed(1)} km · `:'';
+    const distStr=s.dist!==null?`${s.dist.toFixed(1)} km`:'' ;
+    const sched=parseSchedule(s.schedule);
+    const schedBadge=sched.status==='h24'
+      ?`<span class="badge-open h24">24h</span>`
+      :sched.status==='open'
+        ?`<span class="badge-open open">● ${sched.label||'Abierta'}</span>`
+        :sched.status==='closed'
+          ?`<span class="badge-open closed">● ${sched.label||'Cerrada'}</span>`:'';
     const activeTags=[...activeFuels].map(f=>{
       const p=s.prices[f]; if(!p) return '';
       const cheap=minMax[f]&&p===minMax[f].min,pricey=minMax[f]&&p===minMax[f].max;
-      return `<div class="price-tag ${cheap?'cheapest':pricey?'priciest':''}"><span class="fuel-name">${FUEL_LABELS[f]}</span><span class="fuel-price">${p.toFixed(3)} €</span></div>`;
+      const tankStr=tankLiters>0?`<span class="tank-cost">${(p*tankLiters).toFixed(2)} €</span>`:'';
+      return `<div class="price-tag ${cheap?'cheapest':pricey?'priciest':''}"><span class="fuel-name">${FUEL_LABELS[f]}</span><span class="fuel-price">${p.toFixed(3)} €</span>${tankStr}</div>`;
     }).join('');
     const extraTags=Object.entries(FUEL_LABELS).filter(([k])=>!activeFuels.has(k)).map(([k,label])=>{
-      const p=s.prices[k];
-      return p?`<div class="price-tag"><span class="fuel-name">${label}</span><span class="fuel-price">${p.toFixed(3)} €</span></div>`:'';
+      const p=s.prices[k]; if(!p) return '';
+      const tankStr=tankLiters>0?`<span class="tank-cost">${(p*tankLiters).toFixed(2)} €</span>`:'';
+      return `<div class="price-tag"><span class="fuel-name">${label}</span><span class="fuel-price">${p.toFixed(3)} €</span>${tankStr}</div>`;
     }).join('');
     const card=document.createElement('div');
     card.className='station-card'+(s.id===selectedId?' selected':'');
     card.dataset.id=s.id;
-    card.innerHTML=`<div class="card-top"><div><div class="card-name">${s.name}</div><div class="card-dist">${distStr}${s.locality}</div></div>${s.isLC?'<span class="badge-lc">LOW COST</span>':''}</div><div class="card-prices">${activeTags}${extraTags}</div>`;
-    card.addEventListener('click',()=>selectStation(s));
+    card.innerHTML=`
+      <div class="card-top">
+        <div>
+          <div class="card-name">${s.name}</div>
+          <div class="card-meta">
+            ${distStr?`<span class="card-dist">${distStr}</span>`:''}
+            <span class="card-dist">${s.locality}</span>
+            ${s.isLC?'<span class="badge-lc">LOW COST</span>':''}
+            ${schedBadge}
+          </div>
+        </div>
+      </div>
+      <div class="card-prices">${activeTags}${extraTags}</div>
+      <div class="card-actions">
+        <button class="card-action-btn nav" data-id="${s.id}">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          Cómo llegar
+        </button>
+      </div>`;
+    card.addEventListener('click',e=>{
+      if(e.target.closest('.card-action-btn')) return;
+      selectStation(s);
+    });
+    card.querySelector('.card-action-btn.nav').addEventListener('click',e=>{e.stopPropagation();navigateTo(s);});
     el.appendChild(card);
   });
   if(stations.length>150){
@@ -462,172 +561,26 @@ function renderList(stations){
 
 // ── RENDER MAP ────────────────────────────────────────────────────────────────
 function renderMap(stations){
-  clusterGroup.clearLayers();markers={};
+  cluster.clearLayers();markers={};
   const toRender=userLatLng?stations:stations.slice(0,800);
   toRender.forEach(s=>{
-    const icon=s.id===selectedId?iconSelect:(s.isLC?iconLC:iconNormal);
+    const icon=s.id===selectedId?iSel:(s.isLC?iLC:iNormal);
     const m=L.marker([s.lat,s.lng],{icon});
     m.bindPopup(()=>{
       const rows=[...activeFuels].map(f=>{const p=s.prices[f];return p?`<span class="popup-price">${FUEL_LABELS[f]} ${p.toFixed(3)} €</span>`:''}).join('');
-      return `<div class="popup-name">${s.name}</div><div class="popup-addr">${s.address}, ${s.locality}</div><div class="popup-prices">${rows}</div>`;
+      const sc=parseSchedule(s.schedule);
+      const schHtml=sc.status==='h24'?'<span style="color:var(--info);font-size:11px">● 24h</span>':sc.status==='open'?`<span style="color:var(--accent2);font-size:11px">● ${sc.label||'Abierta'}</span>`:sc.status==='closed'?`<span style="color:var(--danger);font-size:11px">● ${sc.label||'Cerrada'}</span>`:'';
+      return `<div class="popup-name">${s.name}</div><div class="popup-addr">${s.address}, ${s.locality} ${schHtml}</div><div class="popup-prices">${rows}</div><a class="popup-nav" onclick="navigateTo(window._popupStation);return false;" href="#">✈ Cómo llegar</a>`;
     });
-    m.on('click',()=>selectStation(s));
-    markers[s.id]=m;clusterGroup.addLayer(m);
+    m.on('click',()=>{window._popupStation=s;selectStation(s);});
+    markers[s.id]=m;cluster.addLayer(m);
   });
 }
 
 function renderAll(){
-  const visible=getVisible();
-  document.getElementById('result-count').textContent=`${visible.length.toLocaleString('es-ES')} estaciones`;
-  renderList(visible);renderMap(visible);
-}
-
-// ── HISTORY ───────────────────────────────────────────────────────────────────
-function getHistory(){
-  try{return JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');}catch{return [];}
-}
-
-function saveHistorySnapshot(){
-  if(!allStations.length) return;
-  const today=new Date().toISOString().slice(0,10);
-  const snap={date:today,fuels:{}};
-  for(const [key] of Object.entries(FUEL_KEYS)){
-    const vals=allStations.map(s=>s.prices[key]).filter(v=>v&&v>0);
-    if(!vals.length) continue;
-    snap.fuels[key]={
-      avg: parseFloat((vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(3)),
-      min: parseFloat(Math.min(...vals).toFixed(3)),
-      max: parseFloat(Math.max(...vals).toFixed(3)),
-      count: vals.length
-    };
-  }
-  const history=getHistory().filter(h=>h.date!==today); // replace today if exists
-  history.push(snap);
-  // Keep only last MAX_HISTORY_DAYS
-  const trimmed=history.slice(-MAX_HISTORY_DAYS);
-  try{localStorage.setItem(HISTORY_KEY,JSON.stringify(trimmed));}catch{}
-}
-
-// ── RENDER STATS ──────────────────────────────────────────────────────────────
-function renderStats(){
-  const pane=document.getElementById('stats-pane');
-  if(!allStations.length){
-    pane.innerHTML='<div class="msg-empty">Esperando datos…</div>';
-    return;
-  }
-  const history=getHistory();
-  const today=history[history.length-1];
-  if(!today){pane.innerHTML='<div class="msg-empty">Sin datos todavía.</div>';return;}
-
-  let html=`<div class="stats-section-title">Precio medio hoy en España</div>`;
-
-  for(const [key,label] of Object.entries(FUEL_LABELS)){
-    const d=today.fuels[key];
-    if(!d) continue;
-
-    // Sparkline data — last N days for this fuel
-    const sparkData=history.map(h=>h.fuels[key]?.avg).filter(Boolean);
-    const sparkMin=Math.min(...sparkData), sparkMax=Math.max(...sparkData);
-    const sparkRange=sparkMax-sparkMin||0.01;
-
-    // Trend: compare today vs yesterday
-    const yesterday=history.length>=2?history[history.length-2]:null;
-    const prevAvg=yesterday?.fuels[key]?.avg;
-    const trend=prevAvg!=null?(d.avg-prevAvg):0;
-    const trendStr=trend===0?'=' : (trend>0?`▲ +${trend.toFixed(3)}`:`▼ ${trend.toFixed(3)}`);
-    const trendColor=trend===0?'amber':trend>0?'red':'green';
-
-    const canvasId=`spark-${key}`;
-    html+=`
-    <div class="stat-card">
-      <div class="stat-card-header">
-        <span class="stat-fuel-name" style="color:${FUEL_COLORS[key]}">${label}</span>
-        <span class="stat-date">${today.date} · <span style="color:var(--${trendColor==='red'?'danger':trendColor==='green'?'accent2':'accent'})">${trendStr}</span></span>
-      </div>
-      <div class="stat-row">
-        <div class="stat-pill"><span class="stat-pill-label">Media</span><span class="stat-pill-val amber">${d.avg.toFixed(3)} €</span></div>
-        <div class="stat-pill"><span class="stat-pill-label">Mínima</span><span class="stat-pill-val green">${d.min.toFixed(3)} €</span></div>
-        <div class="stat-pill"><span class="stat-pill-label">Máxima</span><span class="stat-pill-val red">${d.max.toFixed(3)} €</span></div>
-        <div class="stat-pill"><span class="stat-pill-label">Estaciones</span><span class="stat-pill-val">${d.count.toLocaleString('es-ES')}</span></div>
-      </div>
-      ${sparkData.length > 1 ? `
-      <div class="sparkline-wrap">
-        <canvas class="sparkline" id="${canvasId}" height="52"></canvas>
-      </div>
-      <div class="spark-labels">
-        <span class="spark-label">${history.find(h=>h.fuels[key])?.date?.slice(5)||''}</span>
-        <span class="spark-label">${sparkData.length} días</span>
-        <span class="spark-label">${today.date.slice(5)}</span>
-      </div>` : `<div class="stats-note">El histórico se irá acumulando con cada visita.</div>`}
-    </div>`;
-  }
-
-  html+=`<div class="stats-note">Los datos se guardan localmente en tu navegador con cada visita. Máximo ${MAX_HISTORY_DAYS} días.</div>
-  <button id="btn-clear-history">🗑 Borrar histórico</button>`;
-
-  pane.innerHTML=html;
-
-  // Draw sparklines
-  for(const [key] of Object.entries(FUEL_LABELS)){
-    const sparkData=history.map(h=>h.fuels[key]?.avg).filter(Boolean);
-    if(sparkData.length<2) continue;
-    const canvas=document.getElementById(`spark-${key}`);
-    if(!canvas) continue;
-    drawSparkline(canvas, sparkData, FUEL_COLORS[key]);
-  }
-
-  document.getElementById('btn-clear-history')?.addEventListener('click',()=>{
-    if(confirm('¿Borrar todo el histórico de precios guardado?')){
-      localStorage.removeItem(HISTORY_KEY);
-      renderStats();
-    }
-  });
-}
-
-function drawSparkline(canvas, data, color){
-  const dpr=window.devicePixelRatio||1;
-  const w=canvas.offsetWidth||canvas.parentElement.offsetWidth||280;
-  const h=52;
-  canvas.width=w*dpr; canvas.height=h*dpr;
-  canvas.style.width=w+'px'; canvas.style.height=h+'px';
-  const ctx=canvas.getContext('2d');
-  ctx.scale(dpr,dpr);
-
-  const min=Math.min(...data), max=Math.max(...data), range=max-min||0.01;
-  const pad={t:6,b:6,l:4,r:4};
-  const iw=w-pad.l-pad.r, ih=h-pad.t-pad.b;
-
-  // Gradient fill
-  const grad=ctx.createLinearGradient(0,pad.t,0,h-pad.b);
-  grad.addColorStop(0,color+'55');
-  grad.addColorStop(1,color+'08');
-
-  ctx.beginPath();
-  data.forEach((v,i)=>{
-    const x=pad.l+(i/(data.length-1))*iw;
-    const y=pad.t+(1-(v-min)/range)*ih;
-    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-  });
-  // Close path for fill
-  ctx.lineTo(pad.l+iw, h-pad.b);
-  ctx.lineTo(pad.l, h-pad.b);
-  ctx.closePath();
-  ctx.fillStyle=grad; ctx.fill();
-
-  // Line
-  ctx.beginPath();
-  data.forEach((v,i)=>{
-    const x=pad.l+(i/(data.length-1))*iw;
-    const y=pad.t+(1-(v-min)/range)*ih;
-    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-  });
-  ctx.strokeStyle=color; ctx.lineWidth=1.5; ctx.lineJoin='round'; ctx.stroke();
-
-  // Last point dot
-  const lx=pad.l+iw, lv=data[data.length-1];
-  const ly=pad.t+(1-(lv-min)/range)*ih;
-  ctx.beginPath(); ctx.arc(lx,ly,3,0,Math.PI*2);
-  ctx.fillStyle=color; ctx.fill();
+  const v=getVisible();
+  document.getElementById('result-count').textContent=`${v.length.toLocaleString('es-ES')} estaciones`;
+  renderList(v);renderMap(v);
 }
 
 // ── SELECT ────────────────────────────────────────────────────────────────────
@@ -636,21 +589,38 @@ function selectStation(s){
   document.querySelectorAll('.station-card').forEach(c=>c.classList.toggle('selected',parseInt(c.dataset.id)===s.id));
   map.flyTo([s.lat,s.lng],15,{duration:1});
   const m=markers[s.id];
-  if(m) clusterGroup.zoomToShowLayer(m,()=>m.openPopup());
+  if(m) cluster.zoomToShowLayer(m,()=>m.openPopup());
 }
 
 // ── LOCATE ────────────────────────────────────────────────────────────────────
+function setLocation(lat,lng,label){
+  userLatLng={lat,lng};
+  if(userMarker) userMarker.remove();
+  userMarker=L.marker([lat,lng],{icon:iUser,zIndexOffset:1000}).addTo(map).bindPopup(label||'Tu ubicación').openPopup();
+  map.flyTo([lat,lng],13,{duration:1.5});
+  updateDist();
+  setStatus(`Ubicación activa · radio ${radiusKm} km`);
+  try{localStorage.setItem(LOC_KEY,JSON.stringify({lat,lng,label,ts:Date.now()}));}catch{}
+  renderAll();
+}
+
 function locate(){
   setStatus('Obteniendo ubicación…');
-  navigator.geolocation.getCurrentPosition(pos=>{
-    userLatLng={lat:pos.coords.latitude,lng:pos.coords.longitude};
-    if(userMarker) userMarker.remove();
-    userMarker=L.marker([userLatLng.lat,userLatLng.lng],{icon:iconUser,zIndexOffset:1000}).addTo(map).bindPopup('Tu ubicación').openPopup();
-    map.flyTo([userLatLng.lat,userLatLng.lng],13,{duration:1.5});
-    updateDistances();
-    setStatus(`Ubicación activa · radio ${radiusKm} km`);
-    renderAll();
-  },()=>{setStatus('No se pudo obtener ubicación');alert('Activa el permiso de ubicación.');},{enableHighAccuracy:true});
+  navigator.geolocation.getCurrentPosition(
+    pos=>setLocation(pos.coords.latitude,pos.coords.longitude,'Tu ubicación'),
+    ()=>{setStatus('No se pudo obtener ubicación');alert('Activa el permiso de ubicación.');},
+    {enableHighAccuracy:true}
+  );
+}
+
+function restoreLastLocation(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(LOC_KEY)||'null');
+    if(!saved) return;
+    const age=(Date.now()-saved.ts)/(1000*3600);
+    if(age>12) return; // don't restore if older than 12h
+    setLocation(saved.lat,saved.lng,saved.label||'Última ubicación');
+  }catch{}
 }
 
 // ── THEME ─────────────────────────────────────────────────────────────────────
@@ -662,79 +632,137 @@ function toggleTheme(){
   else{map.removeLayer(tileDark);tileLight.addTo(map);}
 }
 
-function setStatus(msg){document.getElementById('status-bar').textContent=msg;}
+function setStatus(m){document.getElementById('status-bar').textContent=m;}
 
 // ── BRANDS ────────────────────────────────────────────────────────────────────
-function populateBrands(){
-  allBrands=[...new Set(allStations.map(s=>s.brand))].filter(Boolean).sort((a,b)=>a.localeCompare(b,'es'));
-}
-function renderBrandDropdown(query){
+function populateBrands(){allBrands=[...new Set(allStations.map(s=>s.brand))].filter(Boolean).sort((a,b)=>a.localeCompare(b,'es'));}
+function renderBrandDD(q){
   const dd=document.getElementById('brand-dropdown');
-  const q=query.toLowerCase();
-  const filtered=q?allBrands.filter(b=>b.toLowerCase().includes(q)):allBrands;
+  const filt=q?allBrands.filter(b=>b.toLowerCase().includes(q.toLowerCase())):allBrands;
   dd.innerHTML='';
-  const allOpt=document.createElement('div');
-  allOpt.className='brand-opt'+(!activeBrand?' selected':'');
-  allOpt.textContent='Todas las marcas';
-  allOpt.addEventListener('click',()=>setActiveBrand(''));
-  dd.appendChild(allOpt);
-  filtered.slice(0,80).forEach(b=>{
-    const opt=document.createElement('div');
-    opt.className='brand-opt'+(activeBrand===b?' selected':'');
-    opt.textContent=b.charAt(0)+b.slice(1).toLowerCase();
-    opt.addEventListener('click',()=>setActiveBrand(b));
-    dd.appendChild(opt);
-  });
+  const all=document.createElement('div');all.className='brand-opt'+(!activeBrand?' selected':'');all.textContent='Todas las marcas';all.addEventListener('click',()=>setActiveBrand(''));dd.appendChild(all);
+  filt.slice(0,80).forEach(b=>{const o=document.createElement('div');o.className='brand-opt'+(activeBrand===b?' selected':'');o.textContent=b[0]+b.slice(1).toLowerCase();o.addEventListener('click',()=>setActiveBrand(b));dd.appendChild(o);});
 }
-function setActiveBrand(b){
-  activeBrand=b;
-  document.getElementById('brand-clear').classList.toggle('visible',!!b);
-  document.getElementById('brand-input').value=b?(b.charAt(0)+b.slice(1).toLowerCase()):'';
-  hideBrandDropdown();renderAll();
-}
-function hideBrandDropdown(){document.getElementById('brand-dropdown').classList.remove('visible');}
+function setActiveBrand(b){activeBrand=b;document.getElementById('brand-clear').classList.toggle('visible',!!b);document.getElementById('brand-input').value=b?(b[0]+b.slice(1).toLowerCase()):'';hideBrandDD();renderAll();}
+function hideBrandDD(){document.getElementById('brand-dropdown').classList.remove('visible');}
 
 // ── LOCATION SEARCH ───────────────────────────────────────────────────────────
-const searchInput=document.getElementById('location-search');
-const searchResults=document.getElementById('search-results');
-const searchClear=document.getElementById('search-clear');
-async function searchLocation(q){
-  if(q.length<2){hideSearchResults();return;}
-  searchResults.innerHTML='<div class="search-loading">Buscando…</div>';
-  searchResults.classList.add('visible');
+const sInput=document.getElementById('location-search');
+const sResults=document.getElementById('search-results');
+const sClear=document.getElementById('search-clear');
+async function searchLoc(q){
+  if(q.length<2){hideSearchR();return;}
+  sResults.innerHTML='<div class="search-loading">Buscando…</div>';sResults.classList.add('visible');
   try{
     const res=await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&countrycodes=es&limit=6&format=json`,{headers:{'Accept-Language':'es'}});
     const data=await res.json();
-    if(!data.length){searchResults.innerHTML='<div class="search-loading">Sin resultados</div>';return;}
-    searchResults.innerHTML='';
+    if(!data.length){sResults.innerHTML='<div class="search-loading">Sin resultados</div>';return;}
+    sResults.innerHTML='';
     data.forEach(r=>{
       const name=r.display_name.split(',').slice(0,3).join(', ');
-      const item=document.createElement('div');
-      item.className='search-result-item';
+      const item=document.createElement('div');item.className='search-result-item';
       item.innerHTML=`<span>📍</span><div><div class="search-result-name">${name}</div><div class="search-result-sub">${r.type||r.class||''}</div></div>`;
       item.addEventListener('click',()=>{
-        userLatLng={lat:parseFloat(r.lat),lng:parseFloat(r.lon)};
-        updateDistances();
-        map.flyTo([userLatLng.lat,userLatLng.lng],13,{duration:1.2});
-        if(userMarker) userMarker.remove();
-        userMarker=L.marker([userLatLng.lat,userLatLng.lng],{icon:iconUser,zIndexOffset:1000}).addTo(map).bindPopup(r.display_name.split(',')[0]).openPopup();
-        searchInput.value=r.display_name.split(',').slice(0,2).join(', ');
-        searchClear.classList.add('visible');
-        hideSearchResults();
-        setStatus(`Radio ${radiusKm} km · ${r.display_name.split(',')[0]}`);
-        renderAll();
+        sInput.value=r.display_name.split(',').slice(0,2).join(', ');
+        sClear.classList.add('visible');hideSearchR();
+        setLocation(parseFloat(r.lat),parseFloat(r.lon),r.display_name.split(',')[0]);
       });
-      searchResults.appendChild(item);
+      sResults.appendChild(item);
     });
-  }catch{searchResults.innerHTML='<div class="search-loading">Error de conexión</div>';}
+  }catch{sResults.innerHTML='<div class="search-loading">Error de conexión</div>';}
 }
-function hideSearchResults(){searchResults.classList.remove('visible');}
+function hideSearchR(){sResults.classList.remove('visible');}
+
+// ── HISTORY & STATS ───────────────────────────────────────────────────────────
+function getHistory(){try{return JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');}catch{return[];}}
+function saveHistory(){
+  if(!allStations.length) return;
+  const today=new Date().toISOString().slice(0,10);
+  const snap={date:today,fuels:{}};
+  for(const key of Object.keys(FUEL_KEYS)){
+    const vals=allStations.map(s=>s.prices[key]).filter(v=>v&&v>0);
+    if(vals.length) snap.fuels[key]={avg:+(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(3),min:+Math.min(...vals).toFixed(3),max:+Math.max(...vals).toFixed(3),count:vals.length};
+  }
+  const h=getHistory().filter(x=>x.date!==today);h.push(snap);
+  try{localStorage.setItem(HISTORY_KEY,JSON.stringify(h.slice(-MAX_HISTORY)));}catch{}
+}
+
+function renderStats(){
+  const pane=document.getElementById('stats-pane');
+  const history=getHistory();
+  if(!history.length){pane.innerHTML='<div class="msg-empty">Esperando datos…</div>';return;}
+  const today=history[history.length-1];
+  let html=`<div class="stats-section-title">Precio medio hoy en España</div>`;
+  for(const[key,label]of Object.entries(FUEL_LABELS)){
+    const d=today.fuels[key];if(!d) continue;
+    const sparkData=history.map(h=>h.fuels[key]?.avg).filter(Boolean);
+    const prev=history.length>=2?history[history.length-2]:null;
+    const prevAvg=prev?.fuels[key]?.avg;
+    const trend=prevAvg!=null?(d.avg-prevAvg):0;
+    const trendStr=trend===0?'—':(trend>0?`▲ +${trend.toFixed(3)}`:`▼ ${trend.toFixed(3)}`);
+    const trendCol=trend===0?'var(--muted)':trend>0?'var(--danger)':'var(--accent2)';
+    html+=`<div class="stat-card">
+      <div class="stat-card-header">
+        <span class="stat-fuel-name" style="color:${FUEL_COLORS[key]}">${label}</span>
+        <span class="stat-date">${today.date} <span style="color:${trendCol}">${trendStr}</span></span>
+      </div>
+      <div class="stat-row">
+        <div class="stat-pill"><span class="stat-pill-label">Media</span><span class="stat-pill-val amber">${d.avg.toFixed(3)} €</span></div>
+        <div class="stat-pill"><span class="stat-pill-label">Mínima</span><span class="stat-pill-val green">${d.min.toFixed(3)} €</span></div>
+        <div class="stat-pill"><span class="stat-pill-label">Máxima</span><span class="stat-pill-val red">${d.max.toFixed(3)} €</span></div>
+        <div class="stat-pill"><span class="stat-pill-label">Estaciones</span><span class="stat-pill-val">${d.count.toLocaleString('es-ES')}</span></div>
+      </div>
+      ${sparkData.length>1?`<div class="sparkline-wrap"><canvas class="sparkline" id="sp-${key}" height="52"></canvas></div><div class="spark-labels"><span class="spark-label">${history.find(h=>h.fuels[key])?.date?.slice(5)||''}</span><span class="spark-label">${sparkData.length} días</span><span class="spark-label">${today.date.slice(5)}</span></div>`:'<div class="stats-note">El histórico crece con cada visita.</div>'}
+    </div>`;
+  }
+  html+=`<div class="stats-note">Datos guardados localmente. Máximo ${MAX_HISTORY} días.</div><button id="btn-clear-history">🗑 Borrar histórico</button>`;
+  pane.innerHTML=html;
+  for(const[key]of Object.entries(FUEL_LABELS)){
+    const sd=history.map(h=>h.fuels[key]?.avg).filter(Boolean);
+    if(sd.length<2) continue;
+    const c=document.getElementById(`sp-${key}`);if(!c) continue;
+    drawSpark(c,sd,FUEL_COLORS[key]);
+  }
+  document.getElementById('btn-clear-history')?.addEventListener('click',()=>{if(confirm('¿Borrar todo el histórico?')){localStorage.removeItem(HISTORY_KEY);renderStats();}});
+}
+
+function drawSpark(canvas,data,color){
+  const dpr=window.devicePixelRatio||1;
+  const w=canvas.offsetWidth||canvas.parentElement.offsetWidth||280,h=52;
+  canvas.width=w*dpr;canvas.height=h*dpr;canvas.style.width=w+'px';canvas.style.height=h+'px';
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const mn=Math.min(...data),mx=Math.max(...data),rng=mx-mn||0.01;
+  const pt={t:6,b:6,l:4,r:4},iw=w-pt.l-pt.r,ih=h-pt.t-pt.b;
+  const x=i=>pt.l+(i/(data.length-1))*iw;
+  const y=v=>pt.t+(1-(v-mn)/rng)*ih;
+  const grad=ctx.createLinearGradient(0,pt.t,0,h-pt.b);
+  grad.addColorStop(0,color+'55');grad.addColorStop(1,color+'08');
+  ctx.beginPath();data.forEach((v,i)=>i===0?ctx.moveTo(x(i),y(v)):ctx.lineTo(x(i),y(v)));
+  ctx.lineTo(pt.l+iw,h-pt.b);ctx.lineTo(pt.l,h-pt.b);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
+  ctx.beginPath();data.forEach((v,i)=>i===0?ctx.moveTo(x(i),y(v)):ctx.lineTo(x(i),y(v)));
+  ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.lineJoin='round';ctx.stroke();
+  const lv=data[data.length-1];
+  ctx.beginPath();ctx.arc(x(data.length-1),y(lv),3,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();
+}
+
+// ── PWA ───────────────────────────────────────────────────────────────────────
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();deferredInstall=e;
+  document.getElementById('btn-install').style.display='flex';
+});
+window.addEventListener('appinstalled',()=>{document.getElementById('btn-install').style.display='none';});
 
 // ── EVENTS ────────────────────────────────────────────────────────────────────
 document.getElementById('btn-locate').addEventListener('click',locate);
 document.getElementById('btn-theme').addEventListener('click',toggleTheme);
+document.getElementById('btn-install').addEventListener('click',async()=>{
+  if(!deferredInstall) return;
+  deferredInstall.prompt();
+  const{outcome}=await deferredInstall.userChoice;
+  if(outcome==='accepted') document.getElementById('btn-install').style.display='none';
+  deferredInstall=null;
+});
 
-// Tab switching
 document.querySelectorAll('.tab-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -754,52 +782,60 @@ document.getElementById('fuel-pills').addEventListener('click',e=>{
 });
 
 document.getElementById('toggle-lc').addEventListener('click',function(){
-  onlyLC=!onlyLC;this.classList.toggle('active',onlyLC);
-  this.textContent=onlyLC?'✓ Solo low-cost':'Solo low-cost';renderAll();
+  onlyLC=!onlyLC;this.classList.toggle('active',onlyLC);this.textContent=onlyLC?'✓ Solo low-cost':'Solo low-cost';renderAll();
+});
+
+document.getElementById('toggle-open').addEventListener('click',function(){
+  onlyOpen=!onlyOpen;this.classList.toggle('active',onlyOpen);this.textContent=onlyOpen?'✓ Solo abiertas':'Solo abiertas';renderAll();
+});
+
+document.getElementById('tank-liters').addEventListener('input',e=>{
+  tankLiters=parseFloat(e.target.value)||0;renderAll();
 });
 
 document.getElementById('sort-select').addEventListener('change',e=>{sortMode=e.target.value;renderAll();});
 document.getElementById('radius-slider').addEventListener('input',e=>{
-  radiusKm=parseInt(e.target.value);
-  document.getElementById('radius-val').textContent=radiusKm+' km';
-  renderAll();
+  radiusKm=parseInt(e.target.value);document.getElementById('radius-val').textContent=radiusKm+' km';renderAll();
 });
 
-const brandInput=document.getElementById('brand-input');
-brandInput.addEventListener('focus',()=>{renderBrandDropdown(brandInput.value);document.getElementById('brand-dropdown').classList.add('visible');});
-brandInput.addEventListener('input',()=>{renderBrandDropdown(brandInput.value);document.getElementById('brand-dropdown').classList.add('visible');});
-brandInput.addEventListener('keydown',e=>{if(e.key==='Escape') hideBrandDropdown();});
+const bInput=document.getElementById('brand-input');
+bInput.addEventListener('focus',()=>{renderBrandDD(bInput.value);document.getElementById('brand-dropdown').classList.add('visible');});
+bInput.addEventListener('input',()=>{renderBrandDD(bInput.value);document.getElementById('brand-dropdown').classList.add('visible');});
+bInput.addEventListener('keydown',e=>{if(e.key==='Escape') hideBrandDD();});
 document.getElementById('brand-clear').addEventListener('click',()=>setActiveBrand(''));
 
-searchInput.addEventListener('input',()=>{
-  searchClear.classList.toggle('visible',searchInput.value.length>0);
-  clearTimeout(searchDebounce);
-  searchDebounce=setTimeout(()=>searchLocation(searchInput.value.trim()),350);
+sInput.addEventListener('input',()=>{
+  sClear.classList.toggle('visible',sInput.value.length>0);
+  clearTimeout(searchDebounce);searchDebounce=setTimeout(()=>searchLoc(sInput.value.trim()),350);
 });
-searchInput.addEventListener('keydown',e=>{if(e.key==='Escape') hideSearchResults();});
-searchClear.addEventListener('click',()=>{
-  searchInput.value='';searchClear.classList.remove('visible');hideSearchResults();
+sInput.addEventListener('keydown',e=>{if(e.key==='Escape') hideSearchR();});
+sClear.addEventListener('click',()=>{
+  sInput.value='';sClear.classList.remove('visible');hideSearchR();
   userLatLng=null;if(userMarker){userMarker.remove();userMarker=null;}
   allStations.forEach(s=>s.dist=null);
+  try{localStorage.removeItem(LOC_KEY);}catch{}
   setStatus(`${allStations.length.toLocaleString('es-ES')} estaciones cargadas`);
   renderAll();
 });
 
 document.addEventListener('click',e=>{
-  if(!e.target.closest('#search-results')&&!e.target.closest('#location-search')) hideSearchResults();
-  if(!e.target.closest('#brand-dropdown')&&!e.target.closest('#brand-input')&&!e.target.closest('#brand-clear')) hideBrandDropdown();
+  if(!e.target.closest('#search-results')&&!e.target.closest('#location-search')) hideSearchR();
+  if(!e.target.closest('#brand-dropdown')&&!e.target.closest('#brand-input')&&!e.target.closest('#brand-clear')) hideBrandDD();
 });
 
 document.getElementById('btn-clear-filters').addEventListener('click',()=>{
   activeFuels=new Set(['G95','G98','GOA','GOP','GLP']);
-  onlyLC=false;sortMode='dist';activeBrand='';userLatLng=null;
+  onlyLC=false;onlyOpen=false;sortMode='dist';activeBrand='';tankLiters=0;userLatLng=null;
   if(userMarker){userMarker.remove();userMarker=null;}
   allStations.forEach(s=>s.dist=null);
   document.querySelectorAll('#fuel-pills .pill').forEach(p=>p.classList.add('active'));
   const lc=document.getElementById('toggle-lc');lc.classList.remove('active');lc.textContent='Solo low-cost';
+  const op=document.getElementById('toggle-open');op.classList.remove('active');op.textContent='Solo abiertas';
   document.getElementById('sort-select').value='dist';
+  document.getElementById('tank-liters').value='';
   document.getElementById('brand-input').value='';document.getElementById('brand-clear').classList.remove('visible');
-  searchInput.value='';searchClear.classList.remove('visible');
+  sInput.value='';sClear.classList.remove('visible');
+  try{localStorage.removeItem(LOC_KEY);}catch{}
   setStatus(`${allStations.length.toLocaleString('es-ES')} estaciones cargadas`);
   map.setView([40.4,-3.7],6);renderAll();
 });
