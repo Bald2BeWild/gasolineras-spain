@@ -38,7 +38,7 @@ header{display:flex;align-items:center;gap:12px;padding:0 16px;height:52px;backg
 #btn-theme:hover,#btn-install:hover{border-color:var(--accent)}
 #btn-install{display:none;font-size:13px;padding:7px 12px}
 
-.main{display:flex;flex:1;overflow:hidden}
+.main{display:flex;flex:1;overflow:hidden;position:relative}
 #panel{width:var(--panel-w);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0}
 
 .tab-bar{display:flex;border-bottom:1px solid var(--border);flex-shrink:0}
@@ -56,6 +56,11 @@ header{display:flex;align-items:center;gap:12px;padding:0 16px;height:52px;backg
 .pill{font-size:12px;font-weight:500;padding:5px 11px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap;font-family:'DM Sans',sans-serif}
 .pill.active{background:var(--accent);color:#0f1117;border-color:var(--accent)}
 .pill.lc-pill.active{background:var(--accent2);color:#0f1117;border-color:var(--accent2)}
+/* Per-type active colors */
+.pill[data-fuel="G95"].active,.pill[data-fuel="G98"].active{background:#f5a623;border-color:#f5a623;color:#0f1117}
+.pill[data-fuel="GOA"].active,.pill[data-fuel="GOP"].active{background:#60a5fa;border-color:#60a5fa;color:#0f1117}
+.pill[data-fuel="GLP"].active{background:#4ade80;border-color:#4ade80;color:#0f1117}
+.fuel-group-label{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.4px;text-transform:uppercase;margin-bottom:3px;margin-top:2px}
 
 /* depósito input */
 .tank-row{display:flex;align-items:center;gap:8px}
@@ -167,10 +172,17 @@ canvas.sparkline{width:100%;height:52px;display:block}
 .stats-note{font-size:11px;color:var(--muted);line-height:1.6;padding:8px 0 4px}
 #btn-clear-history{font-size:11px;background:none;border:none;color:var(--danger);cursor:pointer;font-family:'DM Sans',sans-serif;padding:0;margin-top:4px}
 
-#map{flex:1;z-index:0}
+#map{flex:1;z-index:0;position:relative}
 .leaflet-container{background:#181c27}
-body.light .leaflet-container{background:#e8ecf0}
-body.light .leaflet-tile{filter:brightness(1) saturate(1)}
+#map-legend{
+  position:absolute;bottom:36px;right:8px;z-index:800;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:7px 10px;font-size:11px;
+  display:flex;flex-direction:column;gap:4px;
+  box-shadow:var(--popup-shadow);pointer-events:none;
+}
+.legend-row{display:flex;align-items:center;gap:6px;color:var(--muted);font-family:'DM Sans',sans-serif}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 .leaflet-popup-content-wrapper{background:var(--surface2)!important;color:var(--text)!important;border:1px solid var(--border)!important;border-radius:var(--radius)!important;box-shadow:var(--popup-shadow)!important;font-family:'DM Sans',sans-serif!important}
 .leaflet-popup-tip{background:var(--surface2)!important}
 .leaflet-popup-content{margin:12px 14px!important}
@@ -240,12 +252,27 @@ body.light .leaflet-tile{filter:brightness(1) saturate(1)}
 
         <div>
           <div class="filter-label">Carburante</div>
-          <div class="filter-row" id="fuel-pills">
-            <span class="pill active" data-fuel="G95">95 E5</span>
-            <span class="pill active" data-fuel="G98">98 E5</span>
-            <span class="pill active" data-fuel="GOA">Gasóleo A</span>
-            <span class="pill active" data-fuel="GOP">Gasóleo P</span>
-            <span class="pill active" data-fuel="GLP">GLP</span>
+          <div style="display:flex;flex-direction:column;gap:8px" id="fuel-pills">
+            <div>
+              <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:500">Gasolina</div>
+              <div class="filter-row">
+                <span class="pill active" data-fuel="G95">95 E5</span>
+                <span class="pill active" data-fuel="G98">98 E5</span>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:500">Diésel</div>
+              <div class="filter-row">
+                <span class="pill active" data-fuel="GOA">Gasóleo A</span>
+                <span class="pill active" data-fuel="GOP">Gasóleo Prem.</span>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:500">Gas</div>
+              <div class="filter-row">
+                <span class="pill active" data-fuel="GLP">GLP</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -303,6 +330,12 @@ body.light .leaflet-tile{filter:brightness(1) saturate(1)}
   </div>
 
   <div id="map"></div>
+  <div id="map-legend">
+    <div class="legend-row"><div class="legend-dot" style="background:#f5a623"></div>Gasolina</div>
+    <div class="legend-row"><div class="legend-dot" style="background:#60a5fa"></div>Diésel</div>
+    <div class="legend-row"><div class="legend-dot" style="background:#4ade80"></div>GLP / Low-cost</div>
+    <div class="legend-row"><div class="legend-dot" style="background:#c084fc"></div>Mixta</div>
+  </div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -392,9 +425,49 @@ const tileLight=L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}
 tileDark.addTo(map);
 const cluster=L.markerClusterGroup({disableClusteringAtZoom:14,maxClusterRadius:60});
 map.addLayer(cluster);
-const mkIcon=c=>L.divIcon({className:'',html:`<div style="width:12px;height:12px;border-radius:50%;background:${c};border:2px solid rgba(255,255,255,.5);box-shadow:0 0 6px ${c}88"></div>`,iconSize:[12,12],iconAnchor:[6,6]});
-const iNormal=mkIcon('#f5a623'),iLC=mkIcon('#4ade80'),iSel=mkIcon('#60a5fa');
-const iUser=L.divIcon({className:'',html:`<div style="width:16px;height:16px;border-radius:50%;background:#60a5fa;border:3px solid #fff;box-shadow:0 0 12px #60a5fa"></div>`,iconSize:[16,16],iconAnchor:[8,8]});
+// ── FUEL TYPE DETECTION ───────────────────────────────────────────────────────
+// Returns dominant fuel type for a station based on active fuels
+function stationFuelType(s){
+  const hasGas=[...activeFuels].some(f=>['G95','G98'].includes(f)&&s.prices[f]>0);
+  const hasDiesel=[...activeFuels].some(f=>['GOA','GOP'].includes(f)&&s.prices[f]>0);
+  const hasGLP=activeFuels.has('GLP')&&s.prices['GLP']>0;
+  if(hasGas&&hasDiesel) return 'mixed';
+  if(hasGas) return 'gas';
+  if(hasDiesel) return 'diesel';
+  if(hasGLP) return 'glp';
+  return 'mixed';
+}
+
+const FUEL_TYPE_COLORS={gas:'#f5a623',diesel:'#60a5fa',glp:'#4ade80',mixed:'#c084fc'};
+
+function makePin(color,size=28,selected=false){
+  const pulse=selected?`<circle cx="${size/2}" cy="${size/2}" r="${size/2-1}" fill="none" stroke="${color}" stroke-width="2" opacity="0.5"><animate attributeName="r" from="${size/2-1}" to="${size}" dur="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" from="0.5" to="0" dur="1.2s" repeatCount="indefinite"/></circle>`:'';
+  const shadow=selected?`drop-shadow(0 0 6px ${color})`:`drop-shadow(0 2px 3px rgba(0,0,0,.5))`;
+  return L.divIcon({
+    className:'',
+    html:`<svg width="${selected?size*1.7:size}" height="${selected?size*2:size*1.4}" viewBox="0 0 ${size} ${size*1.4}" xmlns="http://www.w3.org/2000/svg" style="filter:${shadow};overflow:visible">
+      ${pulse}
+      <path d="M${size/2} 2 C${size*0.18} 2,2 ${size*0.35},2 ${size*0.57} C2 ${size*0.85},${size/2} ${size*1.35},${size/2} ${size*1.35} C${size/2} ${size*1.35},${size-2} ${size*0.85},${size-2} ${size*0.57} C${size-2} ${size*0.35},${size*0.82} 2,${size/2} 2Z"
+        fill="${color}" stroke="rgba(255,255,255,0.6)" stroke-width="${selected?2:1.5}"/>
+      <circle cx="${size/2}" cy="${size*0.52}" r="${size*0.22}" fill="rgba(255,255,255,0.9)"/>
+    </svg>`,
+    iconSize:[selected?size*1.7:size, selected?size*2:size*1.4],
+    iconAnchor:[selected?size*0.85:size/2, selected?size*2:size*1.4],
+    popupAnchor:[0,selected?-size*2:-size*1.4]
+  });
+}
+
+function getStationIcon(s, isSelected){
+  if(isSelected){
+    const color=FUEL_TYPE_COLORS[stationFuelType(s)];
+    return makePin(color,34,true);
+  }
+  if(s.isLC) return makePin('#4ade80',22);
+  const color=FUEL_TYPE_COLORS[stationFuelType(s)];
+  return makePin(color,22);
+}
+
+const iUser=L.divIcon({className:'',html:`<div style="width:18px;height:18px;border-radius:50%;background:#60a5fa;border:3px solid #fff;box-shadow:0 0 14px #60a5fa88"></div>`,iconSize:[18,18],iconAnchor:[9,9]});
 let userMarker=null;
 
 map.on('moveend zoomend',()=>{
@@ -564,8 +637,9 @@ function renderMap(stations){
   cluster.clearLayers();markers={};
   const toRender=userLatLng?stations:stations.slice(0,800);
   toRender.forEach(s=>{
-    const icon=s.id===selectedId?iSel:(s.isLC?iLC:iNormal);
-    const m=L.marker([s.lat,s.lng],{icon});
+    const isSelected=s.id===selectedId;
+    const icon=getStationIcon(s,isSelected);
+    const m=L.marker([s.lat,s.lng],{icon, zIndexOffset:isSelected?1000:0});
     m.bindPopup(()=>{
       const rows=[...activeFuels].map(f=>{const p=s.prices[f];return p?`<span class="popup-price">${FUEL_LABELS[f]} ${p.toFixed(3)} €</span>`:''}).join('');
       const sc=parseSchedule(s.schedule);
@@ -585,8 +659,30 @@ function renderAll(){
 
 // ── SELECT ────────────────────────────────────────────────────────────────────
 function selectStation(s){
+  const prevId=selectedId;
   selectedId=s.id;
-  document.querySelectorAll('.station-card').forEach(c=>c.classList.toggle('selected',parseInt(c.dataset.id)===s.id));
+
+  // Update list highlight
+  document.querySelectorAll('.station-card').forEach(c=>{
+    c.classList.toggle('selected',parseInt(c.dataset.id)===s.id);
+  });
+
+  // Scroll selected card into view
+  const selCard=document.querySelector(`.station-card[data-id="${s.id}"]`);
+  if(selCard) selCard.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  // Update previous marker back to normal icon
+  if(prevId!==null && prevId!==s.id && markers[prevId]){
+    const prev=allStations.find(x=>x.id===prevId);
+    if(prev) markers[prevId].setIcon(getStationIcon(prev,false));
+  }
+
+  // Update selected marker to big animated pin
+  if(markers[s.id]){
+    markers[s.id].setIcon(getStationIcon(s,true));
+    markers[s.id].setZIndexOffset(1000);
+  }
+
   map.flyTo([s.lat,s.lng],15,{duration:1});
   const m=markers[s.id];
   if(m) cluster.zoomToShowLayer(m,()=>m.openPopup());
@@ -828,7 +924,7 @@ document.getElementById('btn-clear-filters').addEventListener('click',()=>{
   onlyLC=false;onlyOpen=false;sortMode='dist';activeBrand='';tankLiters=0;userLatLng=null;
   if(userMarker){userMarker.remove();userMarker=null;}
   allStations.forEach(s=>s.dist=null);
-  document.querySelectorAll('#fuel-pills .pill').forEach(p=>p.classList.add('active'));
+  document.querySelectorAll('#fuel-pills .pill[data-fuel]').forEach(p=>p.classList.add('active'));
   const lc=document.getElementById('toggle-lc');lc.classList.remove('active');lc.textContent='Solo low-cost';
   const op=document.getElementById('toggle-open');op.classList.remove('active');op.textContent='Solo abiertas';
   document.getElementById('sort-select').value='dist';
