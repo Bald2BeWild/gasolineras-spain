@@ -82,6 +82,45 @@
   }
   select:focus { border-color: var(--accent); }
 
+  /* SEARCH BOX */
+  .search-wrap { position: relative; }
+  .search-wrap input {
+    width: 100%; background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text); border-radius: var(--radius);
+    padding: 7px 10px 7px 32px; font-size: 13px; font-family: 'DM Sans', sans-serif;
+    outline: none; transition: border-color .15s;
+  }
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap input::placeholder { color: var(--muted); }
+  .search-icon {
+    position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+    pointer-events: none; color: var(--muted);
+  }
+  .search-clear {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    font-size: 14px; padding: 2px 4px; display: none; line-height: 1;
+  }
+  .search-clear.visible { display: block; }
+  #search-results {
+    position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); z-index: 2000; overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,.5); display: none;
+  }
+  #search-results.visible { display: block; }
+  .search-result-item {
+    padding: 9px 12px; font-size: 13px; cursor: pointer;
+    border-bottom: 1px solid var(--border); transition: background .1s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .search-result-item:last-child { border-bottom: none; }
+  .search-result-item:hover { background: var(--surface2); }
+  .search-result-icon { font-size: 12px; flex-shrink: 0; }
+  .search-result-name { font-weight: 500; }
+  .search-result-sub { font-size: 11px; color: var(--muted); }
+  .search-loading { padding: 10px 12px; font-size: 12px; color: var(--muted); text-align: center; }
+
   /* RADIUS SLIDER */
   .slider-row { display: flex; align-items: center; gap: 10px; }
   input[type=range] {
@@ -180,6 +219,23 @@
   <div id="panel">
     <div class="filters">
 
+      <div style="position:relative">
+        <div class="filter-label">Buscar población o dirección</div>
+        <div class="search-wrap">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="location-search" placeholder="Ej: Alicante, Calle Mayor…" autocomplete="off">
+          <button class="search-clear" id="search-clear" title="Borrar">✕</button>
+        </div>
+        <div id="search-results"></div>
+      </div>
+
+      <div>
+        <div class="filter-label">Marca</div>
+        <select id="brand-select">
+          <option value="">Todas las marcas</option>
+        </select>
+      </div>
+
       <div>
         <div class="filter-label">Carburante</div>
         <div class="filter-row" id="fuel-pills">
@@ -258,6 +314,8 @@ let sortMode    = 'dist';
 let radiusKm    = 10;
 let markers     = {};
 let selectedId  = null;
+let activeBrand = '';
+let searchDebounce = null;
 
 // ─── MAP ──────────────────────────────────────────────────────────────────────
 const map = L.map('map', { zoomControl: false }).setView([40.4, -3.7], 6);
@@ -316,6 +374,7 @@ async function loadStations() {
       })
       .filter(Boolean);
 
+    populateBrands();
     setStatus(`${allStations.length.toLocaleString('es-ES')} estaciones cargadas`);
     renderAll();
   } catch (e) {
@@ -341,6 +400,7 @@ function updateDistances() {
 function getVisible() {
   let list = allStations.filter(s => s.prices[activeFuel] !== null);
   if (onlyLC) list = list.filter(s => s.isLC);
+  if (activeBrand) list = list.filter(s => s.name.toUpperCase().trim() === activeBrand);
   if (userLatLng) list = list.filter(s => s.dist !== null && s.dist <= radiusKm);
 
   if (sortMode === 'dist' && userLatLng) list.sort((a,b) => a.dist - b.dist);
@@ -501,6 +561,104 @@ document.getElementById('radius-slider').addEventListener('input', e => {
   radiusKm = parseInt(e.target.value);
   document.getElementById('radius-val').textContent = radiusKm + ' km';
   if (userLatLng) renderAll();
+});
+
+// ─── POPULATE BRANDS ──────────────────────────────────────────────────────────
+function populateBrands() {
+  const brands = [...new Set(allStations.map(s => s.name.toUpperCase().trim()))]
+    .filter(Boolean).sort((a, b) => a.localeCompare(b, 'es'));
+  const sel = document.getElementById('brand-select');
+  brands.forEach(b => {
+    const opt = document.createElement('option');
+    opt.value = b; opt.textContent = b.charAt(0) + b.slice(1).toLowerCase();
+    sel.appendChild(opt);
+  });
+}
+
+// ─── LOCATION SEARCH (Nominatim) ──────────────────────────────────────────────
+const searchInput   = document.getElementById('location-search');
+const searchResults = document.getElementById('search-results');
+const searchClear   = document.getElementById('search-clear');
+
+async function searchLocation(q) {
+  if (q.length < 2) { hideSearchResults(); return; }
+  searchResults.innerHTML = '<div class="search-loading">Buscando…</div>';
+  searchResults.classList.add('visible');
+  try {
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&countrycodes=es&limit=6&format=json&addressdetails=1`;
+    const res  = await fetch(url, { headers: { 'Accept-Language': 'es' } });
+    const data = await res.json();
+    if (!data.length) {
+      searchResults.innerHTML = '<div class="search-loading">Sin resultados</div>';
+      return;
+    }
+    searchResults.innerHTML = '';
+    data.forEach(r => {
+      const name = r.display_name.split(',').slice(0, 3).join(', ');
+      const type = r.type || r.class || '';
+      const item = document.createElement('div');
+      item.className = 'search-result-item';
+      item.innerHTML = `
+        <span class="search-result-icon">📍</span>
+        <div>
+          <div class="search-result-name">${name}</div>
+          <div class="search-result-sub">${type}</div>
+        </div>`;
+      item.addEventListener('click', () => {
+        const lat = parseFloat(r.lat), lng = parseFloat(r.lon);
+        userLatLng = { lat, lng };
+        updateDistances();
+        map.flyTo([lat, lng], 13, { duration: 1.2 });
+        if (userMarker) userMarker.remove();
+        userMarker = L.marker([lat, lng], { icon: iconUser, zIndexOffset: 1000 })
+          .addTo(map).bindPopup(r.display_name.split(',')[0]).openPopup();
+        searchInput.value = r.display_name.split(',').slice(0,2).join(', ');
+        searchClear.classList.add('visible');
+        hideSearchResults();
+        setStatus(`Mostrando radio ${radiusKm} km · ${r.display_name.split(',')[0]}`);
+        renderAll();
+      });
+      searchResults.appendChild(item);
+    });
+  } catch {
+    searchResults.innerHTML = '<div class="search-loading">Error de conexión</div>';
+  }
+}
+
+function hideSearchResults() {
+  searchResults.classList.remove('visible');
+}
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim();
+  searchClear.classList.toggle('visible', q.length > 0);
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => searchLocation(q), 350);
+});
+
+searchInput.addEventListener('keydown', e => {
+  if (e.key === 'Escape') hideSearchResults();
+});
+
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  searchClear.classList.remove('visible');
+  hideSearchResults();
+  userLatLng = null;
+  if (userMarker) { userMarker.remove(); userMarker = null; }
+  allStations.forEach(s => s.dist = null);
+  setStatus(`${allStations.length.toLocaleString('es-ES')} estaciones cargadas`);
+  renderAll();
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#panel > .filters > div:first-child')) hideSearchResults();
+});
+
+// ─── BRAND FILTER ─────────────────────────────────────────────────────────────
+document.getElementById('brand-select').addEventListener('change', e => {
+  activeBrand = e.target.value;
+  renderAll();
 });
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
