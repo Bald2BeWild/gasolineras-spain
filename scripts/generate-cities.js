@@ -49,7 +49,7 @@ const FUELS = {
   GLP:  { field: 'Precio Gases licuados del petróleo',     label: 'GLP',             color: '#10b981' },
 };
 
-const SITE_URL = 'https://bald2bewild.github.io/gasolineras-spain'; // ← cambia por tu dominio si tienes uno
+const SITE_URL = 'https://llenoporfavor.app'; // ← cambia por tu dominio si tienes uno
 
 function haversine(la1, ln1, la2, ln2) {
   const R = 6371;
