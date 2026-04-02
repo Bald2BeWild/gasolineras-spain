@@ -367,21 +367,23 @@ body.dark .scard-nav{border-color:rgba(59,130,246,.3);background:rgba(59,130,246
 .sf-btn.secondary:hover{border-color:var(--c);color:var(--c)}
 
 /* ── MAP FABs (right side) ── */
-/* Locate FAB — bottom-right, circular, prominent */
+/* Base offset = drawer collapsed (52px) + gap (12px) */
+:root { --drawer-h: 52px; }
+
 #fab-locate-map{
-  position:fixed;bottom:96px;right:16px;z-index:88;
+  position:fixed;bottom:calc(var(--drawer-h) + 12px);right:16px;z-index:95;
   width:52px;height:52px;border-radius:50%;
   background:var(--c);color:#fff;border:none;
   box-shadow:0 4px 20px rgba(26,86,219,.5);
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;transition:all .18s;
+  cursor:pointer;transition:bottom .35s cubic-bezier(.4,0,.2,1), transform .18s, box-shadow .18s;
 }
 #fab-locate-map:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(26,86,219,.6)}
 #fab-locate-map:active{transform:scale(.94)}
 
-/* Lucky button — above locate FAB */
+/* Lucky button — above locate FAB (52px FAB + 12px gap) */
 #btn-lucky{
-  position:fixed;bottom:162px;right:16px;z-index:88;
+  position:fixed;bottom:calc(var(--drawer-h) + 12px + 52px + 10px);right:16px;z-index:95;
   display:flex;align-items:center;gap:7px;
   padding:11px 16px;border-radius:24px;
   background:linear-gradient(135deg,#f59e0b,#ef4444);
@@ -389,18 +391,21 @@ body.dark .scard-nav{border-color:rgba(59,130,246,.3);background:rgba(59,130,246
   box-shadow:0 4px 18px rgba(245,158,11,.5);
   font-size:13px;font-weight:700;cursor:pointer;
   font-family:'Inter',sans-serif;white-space:nowrap;
-  transition:all .18s;
+  transition:bottom .35s cubic-bezier(.4,0,.2,1), transform .18s, box-shadow .18s;
 }
 #btn-lucky:hover{transform:scale(1.05);box-shadow:0 6px 24px rgba(245,158,11,.65)}
 #btn-lucky:active{transform:scale(.96)}
 
 /* Map legend — above lucky button */
 #map-legend{
-  position:fixed;bottom:244px;right:16px;z-index:85;
+  position:fixed;
+  bottom:calc(var(--drawer-h) + 12px + 52px + 10px + 44px + 10px);
+  right:16px;z-index:85;
   background:var(--surface);border:1px solid var(--border);
   border-radius:10px;padding:8px 11px;font-size:11px;
   display:flex;flex-direction:column;gap:4px;
   box-shadow:0 2px 10px rgba(0,0,0,.1);pointer-events:none;
+  transition:bottom .35s cubic-bezier(.4,0,.2,1);
 }
 .lr{display:flex;align-items:center;gap:6px;color:var(--text2);font-weight:500}
 .ld{width:10px;height:10px;border-radius:50%;flex-shrink:0}
@@ -502,8 +507,7 @@ canvas.sc-spark{width:100%;height:44px;display:block}
   #results-drawer.peek{height:260px}
   #results-drawer.half{height:55vh}
   #station-float{bottom:80px}
-  #fab-locate-map{bottom:104px}
-  #btn-lucky{bottom:172px;font-size:12px;padding:9px 14px}
+  #btn-lucky{font-size:12px;padding:9px 14px}
 }
 </style>
 </head>
@@ -1214,14 +1218,35 @@ fpLocClear.addEventListener('click',()=>{fpLocIn.value='';fpLocClear.classList.r
 document.getElementById('fp-brand-search').addEventListener('input',function(){buildBrandList(this.value);});
 
 // ── DRAWER ────────────────────────────────────────────────────────────────────
-function setDrawer(state){const dr=document.getElementById('results-drawer');dr.className=state;document.getElementById('drawer-toggle').textContent=state==='full'?'↓ Cerrar':'↑ Ver lista';}
+const DRAWER_HEIGHTS={
+  '': 52,
+  'peek': window.innerWidth <= 600 ? 260 : 300,
+  'half': Math.round(window.innerHeight * 0.5),
+  'full': window.innerHeight - 120,
+};
+function syncDrawerVar(state){
+  const h = state === 'peek'
+    ? (window.innerWidth <= 600 ? 260 : 300)
+    : state === 'half'
+    ? Math.round(window.innerHeight * 0.5)
+    : state === 'full'
+    ? (window.innerHeight - 120)
+    : 52;
+  document.documentElement.style.setProperty('--drawer-h', h + 'px');
+}
+function setDrawer(state){
+  const dr=document.getElementById('results-drawer');
+  dr.className=state;
+  document.getElementById('drawer-toggle').textContent=state==='full'?'↓ Cerrar':'↑ Ver lista';
+  syncDrawerVar(state);
+}
 const dh=document.getElementById('drawer-handle-area');
 dh.addEventListener('click',()=>{const dr=document.getElementById('results-drawer');setDrawer(dr.className==='full'?'peek':dr.className==='peek'?'half':'full');});
 document.getElementById('drawer-toggle').addEventListener('click',e=>{e.stopPropagation();const dr=document.getElementById('results-drawer');setDrawer(dr.className==='full'?'peek':'full');});
 {const dr=document.getElementById('results-drawer');let sY=0,sH=0,drag=false;
 dh.addEventListener('touchstart',e=>{sY=e.touches[0].clientY;sH=dr.offsetHeight;drag=true;dr.style.transition='none';},{passive:true});
-window.addEventListener('touchmove',e=>{if(!drag) return;const dy=sY-e.touches[0].clientY;dr.style.height=Math.max(52,Math.min(window.innerHeight*.88,sH+dy))+'px';},{passive:true});
-window.addEventListener('touchend',()=>{if(!drag) return;drag=false;dr.style.transition='';const h=dr.offsetHeight;setDrawer(h<160?'':h<window.innerHeight*.4?'peek':'half');});}
+window.addEventListener('touchmove',e=>{if(!drag) return;const dy=sY-e.touches[0].clientY;const newH=Math.max(52,Math.min(window.innerHeight*.88,sH+dy));dr.style.height=newH+'px';document.documentElement.style.setProperty('--drawer-h',newH+'px');},{passive:true});
+window.addEventListener('touchend',()=>{if(!drag) return;drag=false;dr.style.transition='';const h=dr.offsetHeight;const state=h<160?'':h<window.innerHeight*.4?'peek':'half';setDrawer(state);});}
 document.querySelectorAll('.sort-chip').forEach(c=>c.addEventListener('click',()=>{sortMode=c.dataset.sort;document.querySelectorAll('.sort-chip').forEach(x=>x.classList.toggle('on',x===c));renderAll();}));
 
 // ── THEME ─────────────────────────────────────────────────────────────────────
