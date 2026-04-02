@@ -855,6 +855,31 @@ function saveCache(raw){try{localStorage.setItem(CK,JSON.stringify({ts:Date.now(
 
 async function load(){
   try{
+    // 1. Intentar cargar data.json local (generado por GitHub Actions cada mañana)
+    let usedLocal = false;
+    try{
+      const localRes = await fetch('data.json');
+      if(localRes.ok){
+        const localData = await localRes.json();
+        if(localData.stations?.length > 100){
+          all = parseStations(localData.stations);
+          brands=[...new Set(all.map(s=>s.brand))].filter(Boolean).sort((a,b)=>a.localeCompare(b,'es'));
+          // Usar stats precalculadas si existen
+          if(localData.stats) saveHistFromStats(localData.stats, localData.date);
+          else saveHist();
+          const d = new Date(localData.updated);
+          const ago = Math.round((Date.now()-d.getTime())/60000);
+          const agoStr = ago < 60 ? `hace ${ago} min` : `hace ${Math.floor(ago/60)}h`;
+          setStatus(`${all.length.toLocaleString('es-ES')} estaciones · ${agoStr}`);
+          restoreLoc();renderAll();renderStats();
+          usedLocal = true;
+        }
+      }
+    }catch(e){ /* data.json no existe aún, continuar con API */ }
+
+    if(usedLocal) return;
+
+    // 2. Fallback: API del Ministerio via corsproxy (mientras no hay data.json)
     const cached=getCached();
     if(cached){
       all=parseStations(cached.data);
@@ -869,6 +894,15 @@ async function load(){
     setStatus('Descargando datos…');
     await fetchFresh(false);
   }catch(e){setStatus('Error al cargar');document.getElementById('station-list').innerHTML=`<div class="msg-empty">❌ ${e.message}</div>`;}
+}
+
+function saveHistFromStats(stats, date){
+  if(!stats||!date) return;
+  const today=date;
+  const snap={date:today,fuels:{}};
+  for(const[k,v]of Object.entries(stats)) snap.fuels[k]=v;
+  const h=getHist().filter(x=>x.date!==today);h.push(snap);
+  try{localStorage.setItem(HK,JSON.stringify(h.slice(-30)));}catch{}
 }
 async function fetchFresh(bg){
   try{
