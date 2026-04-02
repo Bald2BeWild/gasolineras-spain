@@ -1,0 +1,41 @@
+name: Actualizar precios de carburantes
+
+on:
+  schedule:
+    # Cada día a las 8:15 AM hora española (UTC+1/+2)
+    # El Ministerio actualiza entre 8:00 y 9:00
+    - cron: '15 7 * * *'
+  workflow_dispatch: # Permite lanzarlo manualmente desde GitHub
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # necesario para hacer commit al repo
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Descargar datos del Ministerio
+        run: node scripts/fetch-data.js
+
+      - name: Generar páginas estáticas por ciudad
+        run: node scripts/generate-cities.js
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json ciudades/ sitemap.xml
+          # Solo hace commit si hay cambios reales
+          git diff --staged --quiet || git commit -m "🔄 Precios actualizados $(date +'%d/%m/%Y %H:%M')"
+          git push
