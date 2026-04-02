@@ -1,0 +1,14 @@
+{
+  "name": "gasolineras-spain",
+  "version": "1.0.0",
+  "description": "Precios de carburantes en España — datos del Ministerio de Industria",
+  "scripts": {
+    "fetch": "node scripts/fetch-data.js",
+    "generate": "node scripts/generate-cities.js",
+    "build": "node scripts/fetch-data.js && node scripts/generate-cities.js"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=18"
+  }
+}
