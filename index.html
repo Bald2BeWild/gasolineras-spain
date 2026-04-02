@@ -410,6 +410,24 @@ body.dark .scard-nav{border-color:rgba(59,130,246,.3);background:rgba(59,130,246
 .lr{display:flex;align-items:center;gap:6px;color:var(--text2);font-weight:500}
 .ld{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 
+/* Fuel selector (step 1) */
+.lf-grid{display:flex;flex-direction:column;gap:8px;width:100%}
+.lf-btn{
+  display:flex;align-items:center;gap:10px;width:100%;
+  padding:10px 14px;border-radius:10px;cursor:pointer;
+  border:1.5px solid var(--border);background:var(--surface2);
+  font-family:'Inter',sans-serif;transition:all .15s;text-align:left;
+}
+.lf-btn:hover{border-color:var(--c)}
+.lf-btn.lf-on{border-width:2px;border-color:var(--c);background:#eff6ff}
+body.dark .lf-btn.lf-on{background:rgba(26,86,219,.15)}
+.lf-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+.lf-text{flex:1;display:flex;flex-direction:column;gap:1px}
+.lf-text b{font-size:13px;font-weight:600;color:var(--text)}
+.lf-text small{font-size:11px;color:var(--muted);font-weight:400}
+.lf-ck{font-size:14px;color:var(--c);opacity:0;transition:opacity .15s;flex-shrink:0}
+.lf-btn.lf-on .lf-ck{opacity:1}
+
 /* ── LUCKY CARD ── */
 #lucky-overlay{
   position:fixed;inset:0;z-index:499;background:rgba(0,0,0,.4);
@@ -944,121 +962,154 @@ function locate(){
 function restoreLoc(){try{const s=JSON.parse(localStorage.getItem(LK)||'null');if(s&&(Date.now()-s.ts)<43200000) setLoc(s.lat,s.lng,s.label||'Última ubicación');}catch{}}
 
 // ── 🍀 LUCKY ─────────────────────────────────────────────────────────────────
+const LUCKY_RADIUS = 10;
+
 function showLucky(){
   if(!all.length){alert('Espera a que carguen las estaciones.');return;}
-
-  // Show loading state
-  document.getElementById('lucky-name').textContent='Buscando…';
-  document.getElementById('lucky-meta').innerHTML='';
-  document.getElementById('lucky-score-bar').innerHTML='<div style="text-align:center;font-size:28px;padding:8px 0">🍀</div>';
-  document.getElementById('lucky-prices').innerHTML='';
-  document.getElementById('lucky-actions').innerHTML='';
   document.getElementById('lucky-overlay').classList.add('open');
+  renderLuckyStep1();
+}
 
-  setTimeout(()=>{
-    // 1. Actualizar distancias si hay ubicación
+function renderLuckyStep1(){
+  if(uLL) updDist();
+
+  // Carburantes con precios reales en el radio
+  const nearby = uLL ? all.filter(s => s.dist !== null && s.dist <= LUCKY_RADIUS) : all;
+  const available = ['G95','G98','GOA','GOP','GLP'].filter(f => nearby.some(s => s.prices[f] > 0));
+
+  const fuelInfo = {
+    G95: {label:'Gasolina 95 E5',  sub:'Sin plomo 95',     dot:'#f59e0b'},
+    G98: {label:'Gasolina 98 E5',  sub:'Sin plomo 98',     dot:'#f97316'},
+    GOA: {label:'Gasóleo A',       sub:'Diésel estándar',  dot:'#3b82f6'},
+    GOP: {label:'Gasóleo Premium', sub:'Diésel mejorado',  dot:'#8b5cf6'},
+    GLP: {label:'GLP',             sub:'Gas licuado',      dot:'#10b981'},
+  };
+
+  // Preseleccionar los chips activos en la barra que estén disponibles
+  const presel = new Set([...aF].filter(f => available.includes(f)));
+  if(!presel.size) available.forEach(f => presel.add(f));
+
+  document.getElementById('lucky-eyebrow').textContent = '🍀 Voy a tener suerte';
+  document.getElementById('lucky-name').textContent = '¿Qué carburante usas?';
+  document.getElementById('lucky-meta').innerHTML = uLL
+    ? `<span style="font-size:11px;opacity:.85">📍 Busco en un radio de ${LUCKY_RADIUS} km desde tu ubicación</span>`
+    : `<span style="font-size:11px;opacity:.85">⚠️ Sin ubicación — busco en toda España</span>`;
+  document.getElementById('lucky-score-bar').innerHTML =
+    `<span style="font-size:12px;color:var(--text2)">Selecciona uno o varios y te busco la opción más barata y cercana.</span>`;
+
+  const grid = available.length
+    ? available.map(f => {
+        const m = fuelInfo[f];
+        const sel = presel.has(f);
+        return `<button class="lf-btn${sel?' lf-on':''}" data-lf="${f}">
+          <span class="lf-dot" style="background:${m.dot}"></span>
+          <span class="lf-text"><b>${m.label}</b><small>${m.sub}</small></span>
+          <span class="lf-ck">✓</span>
+        </button>`;
+      }).join('')
+    : `<p style="color:var(--muted);font-size:13px;padding:8px 0">No hay datos de precio en ${LUCKY_RADIUS} km.</p>`;
+
+  document.getElementById('lucky-prices').innerHTML = `<div class="lf-grid">${grid}</div>`;
+  document.getElementById('lucky-actions').innerHTML =
+    `<button class="lucky-btn secondary" onclick="closeLucky()">Cancelar</button>
+     <button class="lucky-btn primary" id="lf-go" ${!available.length?'disabled':''}>Buscar →</button>`;
+
+  document.querySelectorAll('.lf-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('lf-on');
+      document.getElementById('lf-go').disabled =
+        document.querySelectorAll('.lf-btn.lf-on').length === 0;
+    });
+  });
+
+  document.getElementById('lf-go')?.addEventListener('click', () => {
+    const chosen = new Set([...document.querySelectorAll('.lf-btn.lf-on')].map(b => b.dataset.lf));
+    if(chosen.size) renderLuckyStep2(chosen);
+  });
+}
+
+function renderLuckyStep2(chosenFuels){
+  document.getElementById('lucky-name').textContent = 'Calculando…';
+  document.getElementById('lucky-meta').innerHTML = '';
+  document.getElementById('lucky-score-bar').innerHTML =
+    '<div style="text-align:center;font-size:28px;padding:8px 0">🍀</div>';
+  document.getElementById('lucky-prices').innerHTML = '';
+  document.getElementById('lucky-actions').innerHTML = '';
+
+  setTimeout(() => {
     if(uLL) updDist();
 
-    // 2. Candidatos: estaciones con al menos un carburante activo con precio real
-    //    Si hay ubicación, filtrar por radio. Si no, usar todas.
     let candidates = all.filter(s => {
-      // Debe tener precio en al menos un carburante activo
-      const hasFuel = [...aF].some(f => s.prices[f] > 0);
-      if(!hasFuel) return false;
-      // Si hay ubicación, respetar el radio configurado
-      if(uLL) return s.dist !== null && s.dist <= radius;
+      if(![...chosenFuels].some(f => s.prices[f] > 0)) return false;
+      if(uLL) return s.dist !== null && s.dist <= LUCKY_RADIUS;
       return true;
     });
 
-    // Si con radio no hay candidatos, avisa y usa un radio mayor
-    if(uLL && candidates.length === 0){
-      // Fallback: 50km
-      candidates = all.filter(s => [...aF].some(f => s.prices[f] > 0) && s.dist !== null && s.dist <= 50);
-    }
-
     if(!candidates.length){
-      document.getElementById('lucky-name').textContent='Sin resultados';
-      document.getElementById('lucky-score-bar').innerHTML='No hay gasolineras con datos de precio cerca de tu ubicación.';
-      document.getElementById('lucky-actions').innerHTML=`<button class="lucky-btn secondary" onclick="closeLucky()">Cerrar</button>`;
+      document.getElementById('lucky-name').textContent = 'Sin resultados';
+      document.getElementById('lucky-meta').innerHTML = '';
+      document.getElementById('lucky-score-bar').innerHTML =
+        `No hay gasolineras con ese carburante en ${LUCKY_RADIUS} km.`;
+      document.getElementById('lucky-actions').innerHTML =
+        `<button class="lucky-btn secondary" onclick="renderLuckyStep1()">← Volver</button>
+         <button class="lucky-btn secondary" onclick="closeLucky()">Cerrar</button>`;
       return;
     }
 
-    // 3. Precio medio: SOLO los carburantes activos que la estación TIENE
-    //    (ignora los que no tienen precio — no penaliza por ello)
-    function avgActiveFuel(s){
-      const vals = [...aF].map(f => s.prices[f]).filter(v => v > 0);
+    function avgChosen(s){
+      const vals = [...chosenFuels].map(f => s.prices[f]).filter(v => v > 0);
       return vals.length ? vals.reduce((a,b) => a+b, 0) / vals.length : Infinity;
     }
 
-    // 4. Scoring: combina precio y distancia solo cuando hay ubicación
     let winner;
     if(uLL){
-      const prices = candidates.map(avgActiveFuel);
+      const prices = candidates.map(avgChosen);
       const dists  = candidates.map(s => s.dist);
-
-      const pMin = Math.min(...prices), pMax = Math.max(...prices), pRange = pMax - pMin || 0.001;
-      const dMin = Math.min(...dists),  dMax = Math.max(...dists),  dRange = dMax - dMin || 0.001;
-
-      // Score: 60% precio + 40% distancia (precio pesa más)
-      candidates.forEach((s, i) => {
-        s._score = (prices[i] - pMin) / pRange * 0.6 + (dists[i] - dMin) / dRange * 0.4;
+      const pMin = Math.min(...prices), pMax = Math.max(...prices), pR = pMax-pMin||0.001;
+      const dMin = Math.min(...dists),  dMax = Math.max(...dists),  dR = dMax-dMin||0.001;
+      candidates.forEach((s,i) => {
+        s._score = (prices[i]-pMin)/pR * 0.6 + (dists[i]-dMin)/dR * 0.4;
       });
-      winner = candidates.reduce((a, b) => a._score < b._score ? a : b);
+      winner = candidates.reduce((a,b) => a._score < b._score ? a : b);
     } else {
-      // Sin ubicación: simplemente la más barata en media
-      winner = candidates.reduce((a, b) => avgActiveFuel(a) < avgActiveFuel(b) ? a : b);
+      winner = candidates.reduce((a,b) => avgChosen(a) < avgChosen(b) ? a : b);
     }
 
-    // 5. Renderizar tarjeta
     const sc = parseSched(winner.schedule);
-    const schBadge = sc.s==='h24' ? '🟢 24h'
-      : sc.s==='open'   ? `🟢 ${sc.l||'Abierta'}`
-      : sc.s==='closed' ? `🔴 ${sc.l||'Cerrada'}` : '';
-    const distStr = winner.dist != null ? `📍 ${winner.dist.toFixed(1)} km · ` : '';
-    const avg = avgActiveFuel(winner);
+    const schBadge = sc.s==='h24'?'🟢 24h':sc.s==='open'?`🟢 ${sc.l||'Abierta'}`:sc.s==='closed'?`🔴 ${sc.l||'Cerrada'}`:'';
+    const avg = avgChosen(winner);
 
     document.getElementById('lucky-eyebrow').textContent = '🍀 La mejor opción para ti';
     document.getElementById('lucky-name').textContent = winner.name;
     document.getElementById('lucky-meta').innerHTML =
-      `<span>${distStr}${winner.locality}</span>`+
-      (winner.isLC ? '<span style="background:rgba(255,255,255,.25);border-radius:20px;padding:1px 8px;font-size:10px;font-weight:700">LOW COST</span>' : '')+
-      (schBadge ? `<span>${schBadge}</span>` : '');
+      `<span>${winner.dist!=null?`📍 ${winner.dist.toFixed(1)} km · `:''}${winner.locality}</span>`+
+      (winner.isLC?'<span style="background:rgba(255,255,255,.25);border-radius:20px;padding:1px 8px;font-size:10px;font-weight:700">LOW COST</span>':'')+
+      (schBadge?`<span>${schBadge}</span>`:'');
 
-    const reason = uLL
-      ? `Media de precios activos: <b>${avg.toFixed(3)} €/L</b> · Distancia: <b>${winner.dist.toFixed(1)} km</b>`
-      : `Media de precios activos: <b>${avg.toFixed(3)} €/L</b> · Activa tu ubicación para refinar por distancia`;
-    document.getElementById('lucky-score-bar').innerHTML = reason;
+    document.getElementById('lucky-score-bar').innerHTML = uLL
+      ? `Media seleccionada: <b>${avg.toFixed(3)} €/L</b> · Distancia: <b>${winner.dist.toFixed(1)} km</b>`
+      : `Media seleccionada: <b>${avg.toFixed(3)} €/L</b>`;
 
-    // Precios: mostrar todos los carburantes activos que la estación tiene
-    // Destacar el más barato de los disponibles
-    const activePrices = [...aF].map(f => winner.prices[f]).filter(v => v > 0);
-    const cheapestPrice = activePrices.length ? Math.min(...activePrices) : null;
-
-    const priceCells = [...aF].map(f => {
-      const p = winner.prices[f];
-      if(!p) return ''; // esta estación no vende este carburante
-      const isBest = p === cheapestPrice;
-      const tc = tank > 0 ? `<div class="lp-tank">${(p * tank).toFixed(2)} €</div>` : '';
-      return `<div class="lp-cell${isBest?' best':''}">
+    const activePrices = [...chosenFuels].map(f => winner.prices[f]).filter(v => v > 0);
+    const cheapest = activePrices.length ? Math.min(...activePrices) : null;
+    document.getElementById('lucky-prices').innerHTML = [...chosenFuels].map(f => {
+      const p = winner.prices[f]; if(!p) return '';
+      const tc = tank>0 ? `<div class="lp-tank">${(p*tank).toFixed(2)} €</div>` : '';
+      return `<div class="lp-cell${p===cheapest?' best':''}">
         <div class="lp-label">${FL[f]}</div>
         <div class="lp-price">${p.toFixed(3)} €</div>${tc}
       </div>`;
-    }).join('');
-
-    document.getElementById('lucky-prices').innerHTML =
-      priceCells || '<div style="color:var(--muted);font-size:13px">Sin precios disponibles</div>';
+    }).join('') || '<div style="color:var(--muted);font-size:13px">Sin precios</div>';
 
     document.getElementById('lucky-actions').innerHTML =
-      `<button class="lucky-btn primary" onclick="luckyNav(${winner.id})">✈ Cómo llegar</button>
+      `<button class="lucky-btn secondary" onclick="renderLuckyStep1()" style="flex:0 0 auto;padding:11px 14px">← Cambiar</button>
+       <button class="lucky-btn primary" onclick="luckyNav(${winner.id})">✈ Cómo llegar</button>
        <button class="lucky-btn secondary" onclick="luckyFlyTo(${winner.id})">🗺 Ver en mapa</button>`;
-
-  }, 200);
+  }, 150);
 }
 window.luckyNav=function(id){nav(id);};
-window.luckyFlyTo=function(id){
-  const s=all.find(x=>x.id===id);if(!s) return;
-  closeLucky();select(s);
-};
+window.luckyFlyTo=function(id){const s=all.find(x=>x.id===id);if(!s) return;closeLucky();select(s);};
+window.renderLuckyStep1=renderLuckyStep1;
 function closeLucky(){document.getElementById('lucky-overlay').classList.remove('open');}
 document.getElementById('lucky-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('lucky-overlay')) closeLucky();});
 document.getElementById('lucky-close').addEventListener('click',closeLucky);
