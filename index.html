@@ -73,23 +73,6 @@ body.dark .leaflet-tile{filter:brightness(.85) saturate(.65)}
   box-shadow:0 1px 4px rgba(0,0,0,.04);overflow-x:auto;scrollbar-width:none;
 }
 #filter-bar::-webkit-scrollbar{display:none}
-
-/* Tank calculator inline in filter bar */
-#fb-tank-wrap{
-  display:flex;align-items:center;gap:6px;flex-shrink:0;
-  background:var(--surface2);border:1.5px solid var(--border);
-  border-radius:10px;padding:5px 10px;transition:border-color .15s;
-  cursor:text;
-}
-#fb-tank-wrap:focus-within{border-color:var(--c)}
-#fb-tank-wrap label{font-size:11px;font-weight:600;color:var(--muted);white-space:nowrap;cursor:pointer}
-#fb-tank-input{
-  width:44px;border:none;outline:none;background:transparent;
-  font-size:13px;font-weight:600;font-family:'JetBrains Mono',monospace;
-  color:var(--text);text-align:right;
-}
-#fb-tank-input::placeholder{color:var(--muted);font-weight:400;font-size:12px}
-#fb-tank-unit{font-size:11px;color:var(--muted);white-space:nowrap}
 #btn-loc-bar{display:flex;align-items:center;gap:6px;padding:6px 13px;border-radius:10px;
   border:1.5px solid var(--border);background:var(--surface2);color:var(--text2);
   font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;
@@ -127,6 +110,35 @@ body.dark .af-pill.opt{color:var(--glp);background:rgba(16,185,129,.15)}
 #filter-count-badge{background:rgba(255,255,255,.25);border-radius:10px;
   padding:1px 6px;font-size:11px;font-weight:700;display:none}
 #filter-count-badge.visible{display:inline-block}
+
+/* ── PER-CARD TANK CALCULATOR ── */
+.card-calc{
+  display:flex;align-items:stretch;
+  background:var(--surface2);border:1.5px solid var(--border);
+  border-radius:9px;overflow:hidden;transition:border-color .15s;
+  height:30px;
+}
+.card-calc:focus-within{border-color:var(--c)}
+.card-calc-label{
+  font-size:11px;color:var(--muted);padding:0 6px 0 9px;
+  display:flex;align-items:center;white-space:nowrap;user-select:none;
+}
+.card-calc-input{
+  width:42px;border:none;outline:none;background:transparent;
+  font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace;
+  color:var(--text);text-align:right;padding:0 3px;
+}
+.card-calc-input::placeholder{color:var(--muted);font-weight:400;font-size:11px}
+.card-calc-unit{font-size:10px;color:var(--muted);padding:0 8px 0 2px;
+  display:flex;align-items:center}
+.card-calc-result{
+  display:none;align-items:center;gap:3px;
+  background:var(--c);color:#fff;
+  padding:0 10px;font-size:12px;font-weight:700;
+  font-family:'JetBrains Mono',monospace;white-space:nowrap;
+  border-left:0;
+}
+.card-calc-result.visible{display:flex}
 
 /* ── SMART SEARCH PANEL ── */
 #search-panel{
@@ -352,7 +364,6 @@ body.dark .price-cell.priciest{background:rgba(239,68,68,.1);border-color:rgba(2
 body.dark .price-cell.cheapest .pc-price{color:#4ade80}
 .price-cell.priciest .pc-price{color:#dc2626}
 body.dark .price-cell.priciest .pc-price{color:#f87171}
-.pc-tank{font-size:10px;color:var(--c);font-family:'JetBrains Mono',monospace;margin-top:2px}
 .scard-nav{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;
   padding:5px 12px;border-radius:8px;border:1.5px solid #bfdbfe;background:#eff6ff;
   color:#1d4ed8;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;
@@ -585,14 +596,6 @@ canvas.sc-spark{width:100%;height:44px;display:block}
   </div>
   <div class="fb-sep"></div>
   <div id="active-filters-bar"></div>
-  <!-- Tank calculator — visible directly in the bar -->
-  <div class="fb-sep"></div>
-  <div id="fb-tank-wrap" title="Litros del depósito → coste en cada tarjeta">
-    <label for="fb-tank-input">🔋</label>
-    <input type="number" id="fb-tank-input" min="10" max="120" placeholder="litros">
-    <span id="fb-tank-unit">L</span>
-  </div>
-  <div class="fb-sep"></div>
   <button id="btn-open-filters">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
     Filtros <span id="filter-count-badge">0</span>
@@ -954,11 +957,34 @@ function renderAll(){
   vis.slice(0,200).forEach(s=>{
     const sc=parseSched(s.schedule);
     const schBadge=sc.s==='h24'?`<span class="badge badge-h24">24h</span>`:sc.s==='open'?`<span class="badge badge-open">● ${sc.l||'Abierta'}</span>`:sc.s==='closed'?`<span class="badge badge-closed">● ${sc.l||'Cerrada'}</span>`:'';
-    const pTags=[...aF].map(f=>{const p=s.prices[f];if(!p) return'';const cl=mm[f]?.min===p?'cheapest':mm[f]?.max===p?'priciest':'';const tc=tank>0?`<span class="pc-tank">${(p*tank).toFixed(2)} €</span>`:'';return`<div class="price-cell ${cl}"><span class="pc-label">${FL[f]}</span><span class="pc-price">${p.toFixed(3)}</span>${tc}</div>`;}).join('');
+    // Price cells — no global tank cost, calculator is per-card
+    const pTags=[...aF].map(f=>{const p=s.prices[f];if(!p) return'';const cl=mm[f]?.min===p?'cheapest':mm[f]?.max===p?'priciest':'';return`<div class="price-cell ${cl}" data-price="${p}"><span class="pc-label">${FL[f]}</span><span class="pc-price">${p.toFixed(3)}</span></div>`;}).join('');
     const distStr=s.dist!=null?`<span class="scard-dist">${s.dist.toFixed(1)} km</span>`:'';
+    // Per-card calculator — shows cheapest fuel cost
+    const cheapestP = Math.min(...[...aF].map(f=>s.prices[f]||Infinity));
+    const cheapestF = [...aF].find(f=>s.prices[f]===cheapestP);
+    const calcId = `calc-${s.id}`;
     const card=document.createElement('div');
     card.className='scard'+(s.id===selId?' selected':'');card.dataset.id=s.id;
-    card.innerHTML=`<div><div class="scard-name">${s.name}</div><div class="scard-meta">${distStr}${s.isLC?'<span class="badge badge-lc">LOW COST</span>':''}${schBadge}<span class="scard-loc">${s.locality}</span></div></div><div class="price-grid">${pTags}</div><button class="scard-nav" onclick="event.stopPropagation();nav(${s.id})"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> Cómo llegar</button>`;
+    card.innerHTML=`
+      <div>
+        <div class="scard-name">${s.name}</div>
+        <div class="scard-meta">${distStr}${s.isLC?'<span class="badge badge-lc">LOW COST</span>':''}${schBadge}<span class="scard-loc">${s.locality}</span></div>
+      </div>
+      <div class="price-grid">${pTags}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+        <button class="scard-nav" onclick="event.stopPropagation();nav(${s.id})">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          Cómo llegar
+        </button>
+        <div class="card-calc" id="${calcId}" onclick="event.stopPropagation()">
+          <span class="card-calc-label">🔋</span>
+          <input class="card-calc-input" type="number" min="1" max="200" placeholder="litros"
+            data-station="${s.id}" autocomplete="off">
+          <span class="card-calc-unit">L</span>
+          <span class="card-calc-result" id="res-${s.id}"></span>
+        </div>
+      </div>`;
     card.addEventListener('click',()=>select(s));
     el.appendChild(card);
   });
@@ -1292,13 +1318,30 @@ function clearLoc(){
   try{localStorage.removeItem(LK);}catch{}
 }
 
-// Tank input in filter bar (always visible)
-document.getElementById('fb-tank-input').addEventListener('input', function(){
-  tank = parseFloat(this.value) || 0;
-  // Sync with filter panel
-  const fp = document.getElementById('fp-tank');
-  if(fp) fp.value = this.value;
-  renderAll();
+// Per-card calculator — event delegation on station list
+document.getElementById('station-list').addEventListener('input', e => {
+  const input = e.target.closest('.card-calc-input');
+  if(!input) return;
+  const sid = parseInt(input.dataset.station);
+  const litros = parseFloat(input.value);
+  const resEl = document.getElementById(`res-${sid}`);
+  if(!resEl) return;
+  if(!litros || litros <= 0){
+    resEl.classList.remove('visible');
+    resEl.textContent = '';
+    return;
+  }
+  const s = all.find(x => x.id === sid);
+  if(!s) return;
+  // Mostrar coste por cada carburante activo que la estación tenga
+  const lines = [...aF].map(f => {
+    const p = s.prices[f];
+    if(!p) return null;
+    return `${FL[f]}: ${(p * litros).toFixed(2)} €`;
+  }).filter(Boolean);
+  if(!lines.length){ resEl.classList.remove('visible'); return; }
+  resEl.textContent = lines.join(' · ');
+  resEl.classList.add('visible');
 });
 
 // ── FUEL CHIPS ────────────────────────────────────────────────────────────────
@@ -1330,8 +1373,6 @@ function applyFilterPanel(){
   onlyOpen=document.getElementById('fp-open').checked;
   radius=parseInt(document.getElementById('fp-radius').value)||10;
   tank=parseFloat(document.getElementById('fp-tank').value)||0;
-  // Sync bar tank input
-  document.getElementById('fb-tank-input').value = tank || '';
   document.querySelectorAll('#fuel-chips-bar .fb-chip[data-fuel]').forEach(c=>c.classList.toggle('on',aF.has(c.dataset.fuel)));
   closeFilterPanel();updateActivePills();renderAll();
 }
@@ -1344,7 +1385,6 @@ function resetFilterPanel(){
   document.getElementById('fp-lc').checked=false;document.getElementById('fp-open').checked=false;
   document.getElementById('fp-radius').value=10;document.getElementById('fp-radius-val').textContent='10 km';
   document.getElementById('fp-tank').value='';
-  document.getElementById('fb-tank-input').value='';
   buildBrandList('');closeFilterPanel();updateActivePills();
   map.setView([40.4,-3.7],6);renderAll();
 }
