@@ -49,7 +49,7 @@ const FUELS = {
   GLP:  { field: 'Precio Gases licuados del petróleo',     label: 'GLP',             color: '#10b981' },
 };
 
-const SITE_URL = 'https://llenoporfavor.app'; // ← cambia por tu dominio si tienes uno
+const SITE_URL = 'https://bald2bewild.github.io/gasolineras-spain'; // ← cambia por tu dominio si tienes uno
 
 function haversine(la1, ln1, la2, ln2) {
   const R = 6371;
@@ -256,6 +256,8 @@ function generateCityPage(city, stations, date) {
     .hero{padding:28px 0 22px}
   }
 </style>
+<!-- Google AdSense -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3067134215443448" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -288,6 +290,17 @@ function generateCityPage(city, stations, date) {
       <div class="stat-avg">Media: ${s.avg.toFixed(3)} €/L</div>
       <div class="stat-label">Mín. de ${s.count} estaciones</div>
     </div>`).join('')}
+  </div>
+
+  <!-- Publicidad -->
+  <div style="margin-bottom:24px;text-align:center">
+    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-3067134215443448"
+      data-ad-slot="auto"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
 
   <!-- Top 10 más baratas -->
