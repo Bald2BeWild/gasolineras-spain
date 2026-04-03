@@ -130,6 +130,41 @@ body.dark .leaflet-tile{filter:brightness(.85) saturate(.65)}
   display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .15s}
 .icon-btn:hover{border-color:var(--c);color:var(--c)}
 
+/* Help button — slightly distinct */
+#btn-help{font-size:14px;font-weight:700;font-family:'Inter',sans-serif;color:var(--c);border-color:var(--c)}
+#btn-help:hover{background:var(--c);color:#fff}
+
+/* ── HELP MODAL ── */
+#help-modal{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.4);
+  display:none;align-items:flex-end;justify-content:center}
+#help-modal.open{display:flex}
+#help-inner{
+  background:var(--surface);width:min(520px,100vw);
+  border-radius:20px 20px 0 0;padding:24px 20px 32px;
+  max-height:90vh;overflow-y:auto;
+  animation:slideUp .3s cubic-bezier(.4,0,.2,1);
+}
+#help-inner::-webkit-scrollbar{width:3px}
+#help-inner::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.help-handle{width:40px;height:4px;border-radius:2px;background:var(--border);margin:0 auto 20px}
+.help-title{font-size:18px;font-weight:800;margin-bottom:4px;color:var(--text)}
+.help-sub{font-size:13px;color:var(--muted);margin-bottom:22px}
+.help-grid{display:flex;flex-direction:column;gap:14px}
+.help-item{display:flex;align-items:flex-start;gap:14px;
+  background:var(--surface2);border-radius:12px;padding:14px 16px;
+  border:1px solid var(--border)}
+.help-icon{font-size:24px;flex-shrink:0;width:36px;text-align:center;margin-top:1px}
+.help-text-wrap{}
+.help-item-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
+.help-item-desc{font-size:12px;color:var(--text2);line-height:1.55}
+.help-close-btn{
+  width:100%;margin-top:20px;padding:12px;border-radius:12px;
+  border:none;background:var(--c);color:#fff;
+  font-size:14px;font-weight:700;cursor:pointer;
+  font-family:'Inter',sans-serif;transition:opacity .15s;
+}
+.help-close-btn:hover{opacity:.88}
+
 /* ── FILTER BAR ── */
 #filter-bar{
   position:fixed;top:60px;left:0;right:0;z-index:99;
@@ -652,6 +687,7 @@ canvas.sc-spark{width:100%;height:44px;display:block}
   </div>
   <div class="h-right">
     <span id="status-pill">Cargando…</span>
+    <button class="icon-btn" id="btn-help" title="¿Cómo funciona?">?</button>
     <button class="icon-btn" id="btn-stats" title="Precios nacionales">📊</button>
     <button class="icon-btn" id="btn-theme" title="Cambiar tema">🌙</button>
   </div>
@@ -840,6 +876,75 @@ canvas.sc-spark{width:100%;height:44px;display:block}
       <div id="lucky-prices"></div>
       <div id="lucky-actions"></div>
     </div>
+  </div>
+</div>
+
+<!-- HELP MODAL -->
+<div id="help-modal">
+  <div id="help-inner">
+    <div class="help-handle"></div>
+    <div class="help-title">¿Cómo funciona? 🗺</div>
+    <div class="help-sub">Todo lo que puedes hacer en llenoporfavor.app</div>
+    <div class="help-grid">
+
+      <div class="help-item">
+        <div class="help-icon">📍</div>
+        <div class="help-text-wrap">
+          <div class="help-item-title">Localízate o busca una ciudad</div>
+          <div class="help-item-desc">Pulsa el botón azul <b>⊕</b> en el mapa o usa <b>"Buscar lugar…"</b> para escribir una ciudad, dirección o código postal. El mapa se centra en tu zona y filtra las gasolineras más cercanas.</div>
+        </div>
+      </div>
+
+      <div class="help-item">
+        <div class="help-icon">⛽</div>
+        <div class="help-text-wrap">
+          <div class="help-item-title">Filtra por tipo de carburante</div>
+          <div class="help-item-desc">Usa los chips de la barra superior para activar o desactivar <b>Gasolina 95</b>, <b>Gasóleo A</b>, <b>GLP</b> y más. Solo verás estaciones que vendan los carburantes seleccionados.</div>
+        </div>
+      </div>
+
+      <div class="help-item">
+        <div class="help-icon">💰</div>
+        <div class="help-text-wrap">
+          <div class="help-item-title">Ordena por precio o distancia</div>
+          <div class="help-item-desc">En el panel de resultados elige <b>Más barata</b> para ver primero la gasolina más económica, <b>Distancia</b> para la más cercana, o <b>Precio y distancia</b> para el mejor equilibrio entre ambas.</div>
+        </div>
+      </div>
+
+      <div class="help-item">
+        <div class="help-icon">🔋</div>
+        <div class="help-text-wrap">
+          <div class="help-item-title">Calcula cuánto te costará llenar</div>
+          <div class="help-item-desc">En cada tarjeta de gasolinera verás un campo <b>"litros"</b>. Escribe los litros de tu depósito y te muestra al instante el coste total del llenado para cada carburante disponible.</div>
+        </div>
+      </div>
+
+      <div class="help-item">
+        <div class="help-icon">🍀</div>
+        <div class="help-text-wrap">
+          <div class="help-item-title">Voy a tener suerte</div>
+          <div class="help-item-desc">¿No quieres tocar filtros? Pulsa el botón naranja del mapa, elige tu carburante y te encontramos <b>la mejor opción</b> en 10 km a la redonda combinando precio y distancia.</div>
+        </div>
+      </div>
+
+      <div class="help-item">
+        <div class="help-icon">⚙️</div>
+        <div class="help-text-wrap">
+          <div class="help-item-title">Filtros avanzados</div>
+          <div class="help-item-desc">El botón <b>Filtros</b> abre un panel completo donde puedes ajustar el radio de búsqueda, filtrar por marca, ver solo estaciones <b>low-cost</b> o solo las <b>abiertas ahora</b>.</div>
+        </div>
+      </div>
+
+      <div class="help-item">
+        <div class="help-icon">📊</div>
+        <div class="help-text-wrap">
+          <div class="help-item-title">Precios medios nacionales</div>
+          <div class="help-item-desc">El botón <b>📊</b> del header muestra los precios medios, mínimos y máximos de hoy en toda España, con la evolución histórica de los últimos días.</div>
+        </div>
+      </div>
+
+    </div>
+    <button class="help-close-btn" id="help-close-btn">Entendido ✓</button>
   </div>
 </div>
 
@@ -1628,6 +1733,11 @@ function sparkDraw(cv,data,color){
 }
 document.getElementById('btn-stats').addEventListener('click',()=>{document.getElementById('stats-modal').classList.add('open');renderStats();});
 document.getElementById('stats-modal').addEventListener('click',e=>{if(e.target===document.getElementById('stats-modal')) document.getElementById('stats-modal').classList.remove('open');});
+
+// ── HELP MODAL ─────────────────────────────────────────────────────────────────
+document.getElementById('btn-help').addEventListener('click',()=>document.getElementById('help-modal').classList.add('open'));
+document.getElementById('help-close-btn').addEventListener('click',()=>document.getElementById('help-modal').classList.remove('open'));
+document.getElementById('help-modal').addEventListener('click',e=>{if(e.target===document.getElementById('help-modal')) document.getElementById('help-modal').classList.remove('open');});
 
 function setStatus(m){document.getElementById('status-pill').textContent=m;}
 
