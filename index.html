@@ -987,6 +987,21 @@ async function fetchFresh(bg){
 // ── DISTANCE & FILTER ─────────────────────────────────────────────────────────
 function hav(la1,ln1,la2,ln2){const R=6371,a=Math.sin((la2-la1)*Math.PI/360)**2+Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin((ln2-ln1)*Math.PI/360)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
 function updDist(){if(uLL) all.forEach(s=>{s.dist=hav(uLL.lat,uLL.lng,s.lat,s.lng);});}
+// Precio del carburante más relevante para ordenar por "más barata"
+// Prioridad: G95 > GOA > G98 > GOP > GLP
+// Solo usa GLP si es el único activo
+function getRefPrice(s){
+  const PRIORITY = ['G95','GOA','G98','GOP','GLP'];
+  // Si hay carburantes activos "principales" (no GLP), usar el primero disponible en la estación
+  const mainFuels = PRIORITY.filter(f => f !== 'GLP' && aF.has(f));
+  for(const f of mainFuels){
+    if(s.prices[f] > 0) return s.prices[f];
+  }
+  // Fallback: GLP si es el único activo o si no hay precio de carburantes principales
+  if(aF.has('GLP') && s.prices['GLP'] > 0) return s.prices['GLP'];
+  // Último recurso: mínimo absoluto
+  return Math.min(...[...aF].map(f=>s.prices[f]||Infinity));
+}
 function getMin(s){return Math.min(...[...aF].map(f=>s.prices[f]||Infinity));}
 function getVis(){
   if(uLL) updDist();
@@ -1000,11 +1015,11 @@ function getVis(){
     return bounds.contains([s.lat,s.lng]);
   });
   if(sortMode==='dist'&&uLL) list.sort((a,b)=>a.dist-b.dist);
-  else if(sortMode==='price-asc') list.sort((a,b)=>getMin(a)-getMin(b));
+  else if(sortMode==='price-asc') list.sort((a,b)=>getRefPrice(a)-getRefPrice(b));
   else if(sortMode==='score'&&uLL){
-    const ps=list.map(s=>getMin(s)).filter(p=>p<Infinity),ds=list.map(s=>s.dist||0);
+    const ps=list.map(s=>getRefPrice(s)).filter(p=>p<Infinity),ds=list.map(s=>s.dist||0);
     const pn=Math.min(...ps),px=Math.max(...ps),pr=px-pn||1,dn=Math.min(...ds),dx=Math.max(...ds),dr=dx-dn||1;
-    list.sort((a,b)=>((getMin(a)-pn)/pr*.5+(a.dist-dn)/dr*.5)-((getMin(b)-pn)/pr*.5+(b.dist-dn)/dr*.5));
+    list.sort((a,b)=>((getRefPrice(a)-pn)/pr*.5+(a.dist-dn)/dr*.5)-((getRefPrice(b)-pn)/pr*.5+(b.dist-dn)/dr*.5));
   } else list.sort((a,b)=>a.name.localeCompare(b.name,'es'));
   return list;
 }
