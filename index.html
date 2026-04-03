@@ -107,19 +107,20 @@ body.dark .leaflet-tile{filter:brightness(.85) saturate(.65)}
   box-shadow:0 1px 8px rgba(0,0,0,.06);
 }
 .logo{
-  display:flex;align-items:center;gap:10px;
-  font-weight:800;font-size:18px;letter-spacing:-.4px;color:var(--c);
+  display:flex;align-items:center;gap:7px;
   white-space:nowrap;
 }
-.logo-icon{font-size:20px;line-height:1}
-.logo-title{color:var(--text);font-weight:700;font-size:17px}
+.logo-icon{font-size:22px;line-height:1;flex-shrink:0}
+.logo-title{color:var(--text);font-weight:800;font-size:17px;letter-spacing:-.3px}
 .logo-title span{color:var(--c)}
+.logo-sep{color:var(--border);font-size:14px;font-weight:300}
+.logo-sub2{color:var(--text2);font-weight:500;font-size:13px}
 .logo-sub{
   color:var(--muted);font-weight:400;font-size:11px;
-  border-left:1px solid var(--border);padding-left:10px;margin-left:2px;
-  letter-spacing:.1px;
+  border-left:1px solid var(--border);padding-left:8px;margin-left:1px;
 }
-@media(max-width:600px){.logo-sub{display:none}.logo-title{font-size:15px}}
+@media(max-width:700px){.logo-sub{display:none}}
+@media(max-width:520px){.logo-sub2{display:none}.logo-sep{display:none}.logo-title{font-size:15px}}
 .h-right{margin-left:auto;display:flex;align-items:center;gap:8px}
 #status-pill{font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--text2);
   background:var(--surface2);padding:4px 10px;border-radius:20px;border:1px solid var(--border);
@@ -176,21 +177,21 @@ body.dark .leaflet-tile{filter:brightness(.85) saturate(.65)}
 #btn-loc-bar{display:flex;align-items:center;gap:6px;padding:6px 13px;border-radius:10px;
   border:1.5px solid var(--border);background:var(--surface2);color:var(--text2);
   font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;
-  font-family:'Inter',sans-serif;transition:all .15s}
+  font-family:'Inter',sans-serif;transition:all .15s;align-self:center}
 #btn-loc-bar:hover,#btn-loc-bar.active{border-color:var(--c);color:var(--c);background:#eff6ff}
 body.dark #btn-loc-bar.active{background:rgba(26,86,219,.2)}
 .fb-sep{width:1px;height:22px;background:var(--border);flex-shrink:0}
 
 /* Fuel group labels in filter bar */
-.fuel-group{display:flex;flex-direction:column;gap:4px;flex-shrink:0}
+.fuel-group{display:flex;flex-direction:column;align-items:flex-start;gap:4px;flex-shrink:0}
 .fuel-group-label{
   font-size:9px;font-weight:700;text-transform:uppercase;
   letter-spacing:.7px;color:var(--muted);white-space:nowrap;
-  padding-left:2px;
+  padding-left:2px;line-height:1;
 }
 .fuel-group-sep{
-  width:1px;height:32px;background:var(--border);
-  flex-shrink:0;align-self:center;margin:0 2px;
+  width:1px;height:34px;background:var(--border);
+  flex-shrink:0;align-self:center;
 }
 .fb-chip{display:flex;align-items:center;padding:5px 11px;border-radius:20px;
   border:1.5px solid var(--border);background:var(--surface2);color:var(--text2);
@@ -482,7 +483,8 @@ body.dark .price-cell.priciest .pc-price{color:#f87171}
   align-self:flex-start;white-space:nowrap}
 body.dark .scard-nav{border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.12);color:#60a5fa}
 .scard-nav:hover{background:#dbeafe}
-.msg-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;line-height:1.8}
+.price-cell.sf-inactive{opacity:.4;filter:grayscale(.5)}
+.price-cell.sf-inactive .pc-price{color:var(--muted)}
 .spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--c);
   border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 12px}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -552,8 +554,10 @@ body.dark .scard-nav{border-color:rgba(59,130,246,.3);background:rgba(59,130,246
   box-shadow:0 2px 10px rgba(0,0,0,.1);pointer-events:none;
   transition:bottom .35s cubic-bezier(.4,0,.2,1);
 }
-.lr{display:flex;align-items:center;gap:6px;color:var(--text2);font-weight:500}
+.lr{display:flex;align-items:center;gap:6px;color:var(--text2);font-weight:500;font-size:11px}
 .ld{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.legend-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:2px}
+.legend-sep{height:1px;background:var(--border);margin:4px 0}
 
 /* Fuel selector (step 1) */
 .lf-grid{display:flex;flex-direction:column;gap:8px;width:100%}
@@ -681,8 +685,10 @@ canvas.sc-spark{width:100%;height:44px;display:block}
 <!-- HEADER -->
 <div id="header">
   <div class="logo">
-    <span class="logo-icon">⛽</span>
-    <span class="logo-title"><span>Gasolineras</span> España</span>
+    <span class="logo-icon">🛣️</span>
+    <span class="logo-title"><span>Lleno</span> por favor</span>
+    <span class="logo-sep">·</span>
+    <span class="logo-sub2">Gasolineras España</span>
     <span class="logo-sub">Precios actualizados al momento</span>
   </div>
   <div class="h-right">
@@ -848,10 +854,17 @@ canvas.sc-spark{width:100%;height:44px;display:block}
 
 <!-- MAP LEGEND -->
 <div id="map-legend">
-  <div class="lr"><div class="ld" style="background:var(--gas)"></div>Gasolina</div>
-  <div class="lr"><div class="ld" style="background:var(--diesel)"></div>Diésel</div>
-  <div class="lr"><div class="ld" style="background:var(--glp)"></div>GLP/Low-cost</div>
-  <div class="lr"><div class="ld" style="background:var(--mixed)"></div>Mixta</div>
+  <div class="legend-title">Tipos de pin</div>
+  <div class="lr"><div class="ld" style="background:var(--gas)"></div><span>Gasolina</span></div>
+  <div class="lr"><div class="ld" style="background:var(--diesel)"></div><span>Diésel</span></div>
+  <div class="lr"><div class="ld" style="background:var(--glp)"></div><span>GLP</span></div>
+  <div class="lr"><div class="ld" style="background:var(--mixed)"></div><span>Mixta</span></div>
+  <div class="legend-sep"></div>
+  <div class="lr"><div class="ld" style="background:#10b981;outline:2px solid #059669;outline-offset:1px"></div><span style="color:#065f46;font-weight:600">Low-cost</span></div>
+  <div class="legend-sep"></div>
+  <div class="legend-title">Precios</div>
+  <div class="lr"><div class="ld" style="background:#86efac;border-radius:3px"></div><span style="color:#16a34a">Más barata</span></div>
+  <div class="lr"><div class="ld" style="background:#fca5a5;border-radius:3px"></div><span style="color:#dc2626">Más cara</span></div>
 </div>
 
 <!-- LUCKY BUTTON -->
@@ -1154,9 +1167,22 @@ function getVis(){
   if(sortMode==='dist'&&uLL) list.sort((a,b)=>a.dist-b.dist);
   else if(sortMode==='price-asc') list.sort((a,b)=>getRefPrice(a)-getRefPrice(b));
   else if(sortMode==='score'&&uLL){
-    const ps=list.map(s=>getRefPrice(s)).filter(p=>p<Infinity),ds=list.map(s=>s.dist||0);
-    const pn=Math.min(...ps),px=Math.max(...ps),pr=px-pn||1,dn=Math.min(...ds),dx=Math.max(...ds),dr=dx-dn||1;
-    list.sort((a,b)=>((getRefPrice(a)-pn)/pr*.5+(a.dist-dn)/dr*.5)-((getRefPrice(b)-pn)/pr*.5+(b.dist-dn)/dr*.5));
+    // Exclude GLP-only stations from score sort when main fuels are active
+    const mainFuels=['G95','G98','GOA','GOP'].filter(f=>aF.has(f));
+    const hasMain=mainFuels.length>0;
+    const scored=hasMain
+      ? list.filter(s=>mainFuels.some(f=>s.prices[f]>0))
+      : list;
+    const rest=hasMain ? list.filter(s=>!mainFuels.some(f=>s.prices[f]>0)) : [];
+    const ps=scored.map(s=>getRefPrice(s)).filter(p=>p<Infinity);
+    const ds=scored.map(s=>s.dist||0);
+    const pn=Math.min(...ps),px=Math.max(...ps),pr=px-pn||1;
+    const dn=Math.min(...ds),dx=Math.max(...ds),dr=dx-dn||1;
+    scored.forEach(s=>{
+      s._score=(getRefPrice(s)-pn)/pr*.6+(s.dist-dn)/dr*.4;
+    });
+    scored.sort((a,b)=>a._score-b._score);
+    list.length=0;scored.forEach(s=>list.push(s));rest.forEach(s=>list.push(s));
   } else list.sort((a,b)=>a.name.localeCompare(b.name,'es'));
   return list;
 }
@@ -1175,12 +1201,8 @@ function renderAll(){
     const sc=parseSched(s.schedule);
     const schBadge=sc.s==='h24'?`<span class="badge badge-h24">24h</span>`:sc.s==='open'?`<span class="badge badge-open">● ${sc.l||'Abierta'}</span>`:sc.s==='closed'?`<span class="badge badge-closed">● ${sc.l||'Cerrada'}</span>`:'';
     // Price cells — no global tank cost, calculator is per-card
-    const pTags=[...aF].map(f=>{const p=s.prices[f];if(!p) return'';const cl=mm[f]?.min===p?'cheapest':mm[f]?.max===p?'priciest':'';return`<div class="price-cell ${cl}" data-price="${p}"><span class="pc-label">${FL[f]}</span><span class="pc-price">${p.toFixed(3)}</span></div>`;}).join('');
+    const pTags=[...aF].map(f=>{const p=s.prices[f];if(!p) return'';const cl=mm[f]?.min===p?'cheapest':mm[f]?.max===p?'priciest':'';return`<div class="price-cell ${cl}"><span class="pc-label">${FL[f]}</span><span class="pc-price">${p.toFixed(3)}</span></div>`;}).join('');
     const distStr=s.dist!=null?`<span class="scard-dist">${s.dist.toFixed(1)} km</span>`:'';
-    // Per-card calculator — shows cheapest fuel cost
-    const cheapestP = Math.min(...[...aF].map(f=>s.prices[f]||Infinity));
-    const cheapestF = [...aF].find(f=>s.prices[f]===cheapestP);
-    const calcId = `calc-${s.id}`;
     const card=document.createElement('div');
     card.className='scard'+(s.id===selId?' selected':'');card.dataset.id=s.id;
     card.innerHTML=`
@@ -1189,19 +1211,10 @@ function renderAll(){
         <div class="scard-meta">${distStr}${s.isLC?'<span class="badge badge-lc">LOW COST</span>':''}${schBadge}<span class="scard-loc">${s.locality}</span></div>
       </div>
       <div class="price-grid">${pTags}</div>
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
-        <button class="scard-nav" onclick="event.stopPropagation();nav(${s.id})">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-          Cómo llegar
-        </button>
-        <div class="card-calc" id="${calcId}" onclick="event.stopPropagation()">
-          <span class="card-calc-label">🔋</span>
-          <input class="card-calc-input" type="number" min="1" max="200" placeholder="litros"
-            data-station="${s.id}" autocomplete="off">
-          <span class="card-calc-unit">L</span>
-          <span class="card-calc-result" id="res-${s.id}"></span>
-        </div>
-      </div>`;
+      <button class="scard-nav" onclick="event.stopPropagation();nav(${s.id})">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        Cómo llegar
+      </button>`;
     card.addEventListener('click',()=>select(s));
     el.appendChild(card);
   });
@@ -1232,11 +1245,61 @@ function select(s){
 function showFloat(s){
   const sc=parseSched(s.schedule);
   const schBadge=sc.s==='h24'?`<span class="badge badge-h24">24h</span>`:sc.s==='open'?`<span class="badge badge-open">● ${sc.l||'Abierta'}</span>`:sc.s==='closed'?`<span class="badge badge-closed">● ${sc.l||'Cerrada'}</span>`:'';
+  const distStr=s.dist!=null?`<span class="scard-dist">📍 ${s.dist.toFixed(1)} km</span>`:'';
+
+  // All available prices (not just active filters)
+  const allPrices=Object.entries(FL).map(([f,label])=>{
+    const p=s.prices[f];if(!p) return'';
+    const isActive=aF.has(f);
+    return`<div class="price-cell${isActive?'':' sf-inactive'}">
+      <span class="pc-label">${label}</span>
+      <span class="pc-price">${p.toFixed(3)}</span>
+    </div>`;
+  }).join('');
+
   document.getElementById('sf-name').textContent=s.name;
-  document.getElementById('sf-meta').innerHTML=`${s.dist!=null?`<span class="scard-dist">${s.dist.toFixed(1)} km</span>`:''}${schBadge}<span class="scard-loc">${s.address}, ${s.locality}</span>`;
-  document.getElementById('sf-prices').innerHTML=[...aF].map(f=>{const p=s.prices[f];return p?`<div class="price-cell"><span class="pc-label">${FL[f]}</span><span class="pc-price">${p.toFixed(3)}</span>${tank>0?`<span class="pc-tank">${(p*tank).toFixed(2)} €</span>`:''}</div>`:''}).join('');
-  document.getElementById('sf-actions').innerHTML=`<button class="sf-btn primary" onclick="nav(${s.id})"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> Cómo llegar</button><button class="sf-btn secondary" onclick="closeFloat()">Cerrar</button>`;
+  document.getElementById('sf-meta').innerHTML=`
+    ${distStr}${schBadge}
+    ${s.isLC?'<span class="badge badge-lc">LOW COST</span>':''}
+    <span class="scard-loc">📌 ${s.address}, ${s.locality}</span>
+    ${s.schedule?`<span class="scard-loc" style="width:100%;margin-top:2px">🕐 ${s.schedule}</span>`:''}
+  `;
+  document.getElementById('sf-prices').innerHTML=allPrices;
+
+  // Calculator in float card
+  document.getElementById('sf-actions').innerHTML=`
+    <div style="width:100%;margin-bottom:10px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:6px">Calculadora de llenado</div>
+      <div class="card-calc" id="sf-calc" style="width:fit-content" onclick="event.stopPropagation()">
+        <span class="card-calc-label">🔋</span>
+        <input class="card-calc-input" type="number" min="1" max="200" placeholder="litros"
+          id="sf-calc-input" autocomplete="off">
+        <span class="card-calc-unit">L</span>
+        <span class="card-calc-result" id="sf-calc-result"></span>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="sf-btn primary" onclick="nav(${s.id})">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        Cómo llegar
+      </button>
+      <button class="sf-btn secondary" onclick="closeFloat()">Cerrar</button>
+    </div>`;
+
   document.getElementById('station-float').classList.add('visible');
+
+  // Wire calculator
+  const inp=document.getElementById('sf-calc-input');
+  const res=document.getElementById('sf-calc-result');
+  inp.addEventListener('input',()=>{
+    const l=parseFloat(inp.value);
+    if(!l||l<=0){res.style.display='none';return;}
+    const lines=Object.entries(FL).map(([f,label])=>{
+      const p=s.prices[f];if(!p) return null;
+      return`${label}: ${(p*l).toFixed(2)} €`;
+    }).filter(Boolean).join(' · ');
+    res.textContent=lines;res.style.display='flex';
+  });
 }
 function closeFloat(){document.getElementById('station-float').classList.remove('visible');selId=null;}
 document.getElementById('sf-close').addEventListener('click',closeFloat);
