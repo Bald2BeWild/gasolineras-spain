@@ -646,7 +646,25 @@ body.dark .scard-nav{border-color:rgba(59,130,246,.3);background:rgba(59,130,246
 .legend-title{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:2px}
 .legend-sep{height:1px;background:var(--border);margin:4px 0}
 
-/* Fuel selector (step 1) */
+/* ── BUSCAR AQUÍ ── */
+#btn-search-here{
+  position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:95;
+  display:none;align-items:center;gap:7px;
+  padding:10px 20px;border-radius:24px;
+  background:var(--surface);color:var(--text);
+  border:2px solid var(--c);
+  box-shadow:0 4px 20px rgba(0,0,0,.2);
+  font-size:13px;font-weight:700;cursor:pointer;
+  font-family:'Inter',sans-serif;white-space:nowrap;
+  transition:all .18s;
+  animation:popIn .2s cubic-bezier(.4,0,.2,1);
+}
+#btn-search-here.visible{display:flex}
+#btn-search-here:hover{background:var(--c);color:#fff;transform:translate(-50%,-50%) scale(1.04)}
+#btn-search-here:active{transform:translate(-50%,-50%) scale(.97)}
+@keyframes popIn{from{opacity:0;transform:translate(-50%,-50%) scale(.85)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 .lf-grid{display:flex;flex-direction:column;gap:8px;width:100%}
 .lf-btn{
   display:flex;align-items:center;gap:10px;width:100%;
@@ -966,6 +984,12 @@ canvas.sc-spark{width:100%;height:44px;display:block}
   </div>
 </div>
 
+<!-- BUSCAR AQUÍ -->
+<button id="btn-search-here" style="display:none">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+  Buscar aquí
+</button>
+
 <!-- LUCKY BUTTON -->
 <button id="btn-lucky">🍀 Voy a tener suerte</button>
 
@@ -1156,8 +1180,31 @@ function gIcon(s,sel){
 }
 const iUser=L.divIcon({className:'',html:`<div style="width:18px;height:18px;border-radius:50%;background:#1a56db;border:3px solid #fff;box-shadow:0 0 14px rgba(26,86,219,.5)"></div>`,iconSize:[18,18],iconAnchor:[9,9]});
 let uMark=null;
+// Track if map move was triggered programmatically (flyTo, etc.)
+let programmaticMove = false;
+const origFlyTo = map.flyTo.bind(map);
+map.flyTo = function(...args){ programmaticMove = true; return origFlyTo(...args); };
+
 let mvT=null;
-map.on('moveend zoomend',()=>{clearTimeout(mvT);mvT=setTimeout(()=>{if(all.length) renderAll();},250);});
+let searchHereT=null;
+map.on('movestart',()=>{
+  // Hide button while moving
+  clearTimeout(searchHereT);
+  document.getElementById('btn-search-here').classList.remove('visible');
+});
+map.on('moveend zoomend',()=>{
+  clearTimeout(mvT);
+  mvT=setTimeout(()=>{if(all.length) renderAll();},250);
+
+  // Show "Buscar aquí" only after manual user drag (not programmatic flyTo)
+  if(!programmaticMove && !uLL){
+    clearTimeout(searchHereT);
+    searchHereT=setTimeout(()=>{
+      document.getElementById('btn-search-here').classList.add('visible');
+    },400);
+  }
+  programmaticMove=false;
+});
 
 // ── CACHE & FETCH ─────────────────────────────────────────────────────────────
 function parseStations(raw){
@@ -1412,6 +1459,7 @@ window.nav=function(id){const s=all.find(x=>x.id===id);if(!s) return;const ll=`$
 
 // ── LOCATION ──────────────────────────────────────────────────────────────────
 function setLoc(lat,lng,label){
+  document.getElementById('btn-search-here').classList.remove('visible');
   uLL={lat,lng};if(uMark) uMark.remove();
   uMark=L.marker([lat,lng],{icon:iUser,zIndexOffset:2000}).addTo(map).bindPopup(label||'Tu ubicación');
   map.flyTo([lat,lng],14,{duration:1.5});updDist();
@@ -1723,6 +1771,7 @@ function updateActivePills(){
   badge.textContent=total||'';total?badge.classList.add('visible'):badge.classList.remove('visible');
 }
 function clearLoc(){
+  document.getElementById('btn-search-here').classList.remove('visible');
   uLL=null;if(uMark){uMark.remove();uMark=null;}all.forEach(s=>s.dist=null);
   document.getElementById('fb-loc-label').textContent='Buscar lugar…';
   document.getElementById('btn-loc-bar').classList.remove('active');
@@ -1882,6 +1931,42 @@ document.getElementById('btn-theme').addEventListener('click',()=>{
 
 // ── LOCATE button ─────────────────────────────────────────────────────────────
 document.getElementById('fab-locate-map').addEventListener('click',locate);
+
+// ── BUSCAR AQUÍ ───────────────────────────────────────────────────────────────
+document.getElementById('btn-search-here').addEventListener('click',()=>{
+  const center = map.getCenter();
+  const btn = document.getElementById('btn-search-here');
+  btn.classList.remove('visible');
+
+  // Use map center as reference location
+  uLL = {lat: center.lat, lng: center.lng};
+  if(uMark) uMark.remove();
+  uMark = L.marker([center.lat, center.lng], {icon: iUser, zIndexOffset:2000})
+    .addTo(map)
+    .bindPopup('Centro del mapa');
+
+  updDist();
+
+  // Reverse geocode to get place name
+  fetch(`https://nominatim.openstreetmap.org/reverse?lat=${center.lat}&lon=${center.lng}&format=json&accept-language=es`)
+    .then(r=>r.json())
+    .then(data=>{
+      const parts = data.display_name?.split(',') || [];
+      const label = parts.slice(0,2).join(', ').trim() || 'Esta zona';
+      document.getElementById('fb-loc-label').textContent = label;
+      document.getElementById('btn-loc-bar').classList.add('active');
+      setStatus(`${all.length.toLocaleString('es-ES')} estaciones · ${radius} km`);
+      try{localStorage.setItem(LK, JSON.stringify({lat:center.lat, lng:center.lng, label, ts:Date.now()}));}catch{}
+    })
+    .catch(()=>{
+      document.getElementById('fb-loc-label').textContent = 'Esta zona';
+      document.getElementById('btn-loc-bar').classList.add('active');
+    });
+
+  updateActivePills();
+  renderAll();
+  setDrawer('peek');
+});
 
 // ── STATS ─────────────────────────────────────────────────────────────────────
 function getHist(){try{return JSON.parse(localStorage.getItem(HK)||'[]');}catch{return[];}}
