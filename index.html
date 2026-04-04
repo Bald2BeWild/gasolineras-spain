@@ -1758,10 +1758,37 @@ async function runNominatim(q){
   if(q.length<2) return;
   spBody.innerHTML='<div class="sp-loading">Buscando…</div>';
   try{
-    const data=await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&countrycodes=es&limit=7&format=json&addressdetails=1`,{headers:{'Accept-Language':'es'}}).then(r=>r.json());
+    // Ask for more results so after dedup we still have enough
+    const data=await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&countrycodes=es&limit=15&format=json&addressdetails=1`,{headers:{'Accept-Language':'es'}}).then(r=>r.json());
     if(!data.length){spBody.innerHTML=`<div class="sp-no-results">Sin resultados para "<b>${q}</b>"<br><small>Prueba con otra ciudad o código postal</small></div>`;return;}
+
+    // Priority order: city/town/village beat administrative/municipality duplicates
+    const TYPE_PRIORITY=['city','town','village','suburb','postcode','hamlet','administrative','municipality','county'];
+    function typePriority(r){
+      const t=TYPE_PRIORITY.indexOf(r.type);
+      return t===-1?99:t;
+    }
+
+    // Deduplicate: normalize name (first part of display_name, lowercase, no accents)
+    function normKey(r){
+      return r.display_name.split(',')[0].trim().toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    }
+
+    // Sort by type priority first, then deduplicate by normalized first name
+    const sorted=[...data].sort((a,b)=>typePriority(a)-typePriority(b));
+    const seen=new Set();
+    const deduped=sorted.filter(r=>{
+      const key=normKey(r);
+      if(seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    }).slice(0,6);
+
+    if(!deduped.length){spBody.innerHTML=`<div class="sp-no-results">Sin resultados para "<b>${q}</b>"</div>`;return;}
+
     spBody.innerHTML='<div class="sp-section-header">📍 Resultados</div>';
-    data.forEach(r=>{
+    deduped.forEach(r=>{
       const parts=r.display_name.split(',');
       const name=parts.slice(0,2).join(', ').trim(),sub=parts.slice(2,4).join(', ').trim();
       const icon=r.type==='city'||r.type==='town'?'🏙':r.type==='village'?'🏘':r.type==='postcode'?'📮':r.class==='highway'?'🛣':'📍';
@@ -1780,10 +1807,19 @@ async function doLocSearch(q,resId){
   const res=document.getElementById(resId);
   res.innerHTML='<div class="fp-sri" style="color:var(--muted);font-size:12px;padding:10px 12px">Buscando…</div>';res.classList.add('open');
   try{
-    const data=await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&countrycodes=es&limit=5&format=json`,{headers:{'Accept-Language':'es'}}).then(r=>r.json());
+    const data=await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&countrycodes=es&limit=12&format=json`,{headers:{'Accept-Language':'es'}}).then(r=>r.json());
     if(!data.length){res.innerHTML='<div class="fp-sri" style="color:var(--muted);font-size:12px;padding:10px 12px">Sin resultados</div>';return;}
+    // Deduplicate by normalized first name
+    const seen=new Set();
+    const deduped=[...data].sort((a,b)=>{
+      const p=['city','town','village','suburb','postcode','hamlet','administrative','municipality'];
+      return(p.indexOf(a.type)||99)-(p.indexOf(b.type)||99);
+    }).filter(r=>{
+      const key=r.display_name.split(',')[0].trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      if(seen.has(key)) return false;seen.add(key);return true;
+    }).slice(0,5);
     res.innerHTML='';
-    data.forEach(r=>{
+    deduped.forEach(r=>{
       const name=r.display_name.split(',').slice(0,2).join(', ');
       const item=document.createElement('div');item.className='fp-sri';
       item.innerHTML=`<span>📍</span><div><div class="fp-sri-name">${name}</div><div class="fp-sri-sub">${r.type||r.class||''}</div></div>`;
