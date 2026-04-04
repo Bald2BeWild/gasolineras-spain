@@ -671,25 +671,37 @@ body.dark .scard-nav{border-color:rgba(59,130,246,.3);background:rgba(59,130,246
 
 /* ── BUSCAR AQUÍ ── */
 #btn-search-here{
-  position:fixed;top:50%;left:50%;
-  transform:translate(-50%,-50%);
+  position:fixed;
+  bottom:calc(var(--drawer-h) + 12px + 52px + 10px + 44px + 10px + 44px + 8px);
+  left:50%;transform:translateX(-50%);
   z-index:95;
-  display:none;align-items:center;gap:7px;
-  padding:10px 20px;border-radius:24px;
-  background:var(--surface);color:var(--text);
-  border:2px solid var(--c);
-  box-shadow:0 4px 20px rgba(0,0,0,.2);
-  font-size:13px;font-weight:700;cursor:pointer;
+  display:none;align-items:center;gap:6px;
+  padding:7px 16px;border-radius:20px;
+  background:var(--surface);color:var(--text2);
+  border:1.5px solid var(--border);
+  box-shadow:0 2px 12px rgba(0,0,0,.15);
+  font-size:12px;font-weight:600;cursor:pointer;
   font-family:'Inter',sans-serif;white-space:nowrap;
-  transition:background .18s, color .18s, box-shadow .18s;
+  transition:background .15s,color .15s,border-color .15s;
+  opacity:.92;
 }
 #btn-search-here.visible{
   display:flex;
-  animation:popIn .2s cubic-bezier(.4,0,.2,1);
+  animation:popIn .25s cubic-bezier(.4,0,.2,1);
 }
-#btn-search-here:hover{background:var(--c);color:#fff;box-shadow:0 6px 24px rgba(26,86,219,.4)}
-#btn-search-here:active{transform:translate(-50%,-50%) scale(.97)}
-@keyframes popIn{from{opacity:0;transform:translate(-50%,-50%) scale(.85)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+#btn-search-here:hover{
+  background:var(--c);color:#fff;
+  border-color:var(--c);opacity:1;
+}
+#btn-search-here:active{transform:translateX(-50%) scale(.97)}
+@keyframes popIn{
+  from{opacity:0;transform:translateX(-50%) translateY(8px)}
+  to{opacity:.92;transform:translateX(-50%) translateY(0)}
+}
+@media(min-width:900px){
+  /* On desktop sidebar is on left — center button in remaining map space */
+  #btn-search-here{left:calc(420px + (100vw - 420px) / 2);bottom:80px}
+}
 .lf-grid{display:flex;flex-direction:column;gap:8px;width:100%}
 .lf-btn{
   display:flex;align-items:center;gap:10px;width:100%;
@@ -1227,7 +1239,7 @@ map.on('moveend zoomend',()=>{
     clearTimeout(searchHereT);
     searchHereT=setTimeout(()=>{
       document.getElementById('btn-search-here').classList.add('visible');
-    },400);
+    },1200);
   }
   programmaticMove=false;
 });
@@ -1498,6 +1510,9 @@ function setLoc(lat,lng,label){
   updateActivePills();renderAll();setDrawer('peek');
 }
 function locate(){
+  document.getElementById('btn-search-here').classList.remove('visible');
+  clearTimeout(searchHereT);
+  programmaticMove = true;
   setStatus('Obteniendo ubicación…');
   navigator.geolocation.getCurrentPosition(
     p=>setLoc(p.coords.latitude,p.coords.longitude,'Tu ubicación'),
