@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="16" fill="#1a56db"/>
+  <!-- Pump body -->
+  <rect x="7" y="9" width="11" height="16" rx="2" fill="white"/>
+  <!-- Screen -->
+  <rect x="9" y="11" width="7" height="5" rx="1" fill="#1a56db" opacity="0.8"/>
+  <!-- Hose arm -->
+  <path d="M18 13 L22 13 L22 10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Nozzle -->
+  <rect x="21" y="8" width="3" height="4" rx="1.5" fill="white"/>
+  <!-- Base -->
+  <rect x="6" y="24" width="13" height="2" rx="1" fill="white" opacity="0.6"/>
+</svg>
