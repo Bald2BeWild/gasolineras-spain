@@ -292,12 +292,12 @@ function generateCityPage(city, stations, date) {
     </div>`).join('')}
   </div>
 
-  <!-- Publicidad -->
+  <!-- Publicidad — entre estadísticas y tabla (slot 3) -->
   <div style="margin-bottom:24px;text-align:center">
     <ins class="adsbygoogle"
       style="display:block"
       data-ad-client="ca-pub-3067134215443448"
-      data-ad-slot="auto"
+      data-ad-slot="9280951657"
       data-ad-format="auto"
       data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
@@ -380,6 +380,17 @@ function generateCityPage(city, stations, date) {
     </div>
   </section>
 
+</div>
+
+<!-- Publicidad — antes del footer (slot 3) -->
+<div style="text-align:center;padding:16px;background:#f8fafc;border-top:1px solid #e2e8f0">
+  <ins class="adsbygoogle"
+    style="display:block"
+    data-ad-client="ca-pub-3067134215443448"
+    data-ad-slot="9280951657"
+    data-ad-format="auto"
+    data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
 <footer>
