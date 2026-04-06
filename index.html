@@ -1491,10 +1491,6 @@ async function load(){
   }
 }
 
-function showLoadingMsg(html){
-  document.getElementById('station-list').innerHTML=`<div class="msg-empty">${html}</div>`;
-}
-
 function saveHistFromStats(stats, date){
   if(!stats||!date) return;
   const today=date;
@@ -2465,6 +2461,14 @@ setInterval(async()=>{
 },60*60*1000); // cada hora
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
+function setStatus(m){
+  const el=document.getElementById('status-pill');
+  if(el) el.textContent=m;
+}
+function showLoadingMsg(html){
+  const el=document.getElementById('station-list');
+  if(el) el.innerHTML=`<div class="msg-empty">${html}</div>`;
+}
 setDrawer('peek');
 // Init sidebar toggle position on desktop
 if(isDesktop()){
