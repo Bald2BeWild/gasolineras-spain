@@ -170,6 +170,106 @@ body.dark .leaflet-tile{filter:brightness(.85) saturate(.65)}
 #btn-help{font-size:14px;font-weight:700;font-family:'Inter',sans-serif;color:var(--c);border-color:var(--c)}
 #btn-help:hover{background:var(--c);color:#fff}
 
+/* Feedback button */
+#btn-feedback{
+  display:flex;align-items:center;gap:6px;
+  padding:0 12px;height:36px;border-radius:10px;
+  border:1px solid var(--border);background:var(--surface2);
+  color:var(--text2);font-size:12px;font-weight:600;
+  cursor:pointer;font-family:'Inter',sans-serif;
+  transition:all .15s;white-space:nowrap;flex-shrink:0;
+}
+#btn-feedback:hover{border-color:var(--c);color:var(--c);background:#eff6ff}
+body.dark #btn-feedback:hover{background:rgba(26,86,219,.2)}
+@media(max-width:600px){#btn-feedback span{display:none}}
+
+/* ── FEEDBACK MODAL ── */
+#feedback-overlay{
+  position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.4);
+  display:none;align-items:flex-end;justify-content:center;
+}
+#feedback-overlay.open{display:flex}
+@media(min-width:600px){
+  #feedback-overlay{align-items:center}
+}
+#feedback-panel{
+  background:var(--surface);width:min(480px,100vw);
+  border-radius:20px 20px 0 0;padding:24px 20px 32px;
+  max-height:90vh;overflow-y:auto;
+  animation:slideUp .28s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+@media(min-width:600px){
+  #feedback-panel{border-radius:20px;max-height:85vh}
+}
+#feedback-panel::-webkit-scrollbar{width:3px}
+#feedback-panel::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.fb-modal-handle{width:40px;height:4px;border-radius:2px;background:var(--border);margin:0 auto 20px}
+@media(min-width:600px){.fb-modal-handle{display:none}}
+.fb-modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.fb-modal-title{font-size:17px;font-weight:800;color:var(--text)}
+.fb-modal-sub{font-size:13px;color:var(--muted);margin-bottom:20px}
+.fb-modal-close{
+  width:30px;height:30px;border-radius:50%;border:1px solid var(--border);
+  background:var(--surface2);color:var(--muted);cursor:pointer;
+  font-size:14px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .15s;
+}
+.fb-modal-close:hover{border-color:var(--danger);color:var(--danger)}
+.fb-section-label{font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.7px;color:var(--muted);margin-bottom:10px}
+/* Category chips */
+.fb-cats{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.fb-cat{
+  padding:6px 14px;border-radius:20px;border:1.5px solid var(--border);
+  background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600;
+  cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;
+}
+.fb-cat:hover{border-color:var(--c);color:var(--c)}
+.fb-cat.on{border-color:var(--c);background:#eff6ff;color:var(--c)}
+body.dark .fb-cat.on{background:rgba(26,86,219,.2)}
+/* Stars */
+.fb-stars{display:flex;gap:6px;margin-bottom:20px}
+.fb-star{font-size:26px;cursor:pointer;transition:transform .1s;line-height:1;opacity:.3}
+.fb-star.on{opacity:1}
+.fb-star:hover{transform:scale(1.15)}
+/* Textarea */
+.fb-textarea{
+  width:100%;border:1.5px solid var(--border);border-radius:10px;
+  padding:10px 12px;font-size:13px;font-family:'Inter',sans-serif;
+  color:var(--text);background:var(--surface2);resize:vertical;
+  min-height:90px;outline:none;transition:border-color .15s;
+  margin-bottom:12px;
+}
+.fb-textarea:focus{border-color:var(--c)}
+.fb-textarea::placeholder{color:var(--muted)}
+/* Email */
+.fb-email{
+  width:100%;border:1.5px solid var(--border);border-radius:10px;
+  padding:9px 12px;font-size:13px;font-family:'Inter',sans-serif;
+  color:var(--text);background:var(--surface2);outline:none;
+  transition:border-color .15s;margin-bottom:20px;
+}
+.fb-email:focus{border-color:var(--c)}
+.fb-email::placeholder{color:var(--muted)}
+/* Submit */
+.fb-submit{
+  width:100%;padding:12px;border-radius:10px;border:none;
+  background:var(--c);color:#fff;font-size:14px;font-weight:700;
+  cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .15s;
+}
+.fb-submit:hover{opacity:.88}
+.fb-submit:disabled{opacity:.4;cursor:not-allowed}
+/* Success state */
+#fb-success{
+  display:none;flex-direction:column;align-items:center;
+  justify-content:center;padding:32px 20px;text-align:center;gap:12px;
+}
+#fb-success.visible{display:flex}
+.fb-success-icon{font-size:48px}
+.fb-success-title{font-size:17px;font-weight:800;color:var(--text)}
+.fb-success-sub{font-size:13px;color:var(--muted)}
+
 /* ── HELP MODAL ── */
 #help-modal{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.4);
   display:none;align-items:flex-end;justify-content:center}
@@ -867,6 +967,10 @@ canvas.sc-spark{width:100%;height:44px;display:block}
     <button class="icon-btn" id="btn-help" title="¿Cómo funciona?">?</button>
     <button class="icon-btn" id="btn-stats" title="Precios nacionales">📊</button>
     <button class="icon-btn" id="btn-theme" title="Cambiar tema">🌙</button>
+    <button id="btn-feedback" title="Enviar feedback">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Feedback
+    </button>
   </div>
 </div>
 
@@ -1130,6 +1234,57 @@ canvas.sc-spark{width:100%;height:44px;display:block}
 
     </div>
     <button class="help-close-btn" id="help-close-btn">Entendido ✓</button>
+  </div>
+</div>
+
+<!-- FEEDBACK MODAL -->
+<div id="feedback-overlay">
+  <div id="feedback-panel">
+    <div class="fb-modal-handle"></div>
+    <div class="fb-modal-header">
+      <div class="fb-modal-title">💬 Envíanos tu opinión</div>
+      <button class="fb-modal-close" id="fb-close">✕</button>
+    </div>
+    <div class="fb-modal-sub">Tu feedback nos ayuda a mejorar llenoporfavor.app</div>
+
+    <div id="fb-form">
+      <!-- Categoría -->
+      <div class="fb-section-label">¿Sobre qué es?</div>
+      <div class="fb-cats">
+        <span class="fb-cat" data-cat="idea">💡 Idea</span>
+        <span class="fb-cat" data-cat="bug">🐛 Error técnico</span>
+        <span class="fb-cat" data-cat="precio">⛽ Precio incorrecto</span>
+        <span class="fb-cat" data-cat="gasolinera">📍 Gasolinera</span>
+        <span class="fb-cat" data-cat="otro">💬 Otro</span>
+      </div>
+
+      <!-- Valoración -->
+      <div class="fb-section-label">¿Cómo valorarías la app?</div>
+      <div class="fb-stars" id="fb-stars">
+        <span class="fb-star" data-v="1">★</span>
+        <span class="fb-star" data-v="2">★</span>
+        <span class="fb-star" data-v="3">★</span>
+        <span class="fb-star" data-v="4">★</span>
+        <span class="fb-star" data-v="5">★</span>
+      </div>
+
+      <!-- Mensaje -->
+      <div class="fb-section-label">Tu mensaje <span style="color:var(--danger)">*</span></div>
+      <textarea class="fb-textarea" id="fb-msg" placeholder="Cuéntanos qué mejorarías, qué falla o qué te gusta…"></textarea>
+
+      <!-- Email -->
+      <div class="fb-section-label">Tu email <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(opcional, para responderte)</span></div>
+      <input type="email" class="fb-email" id="fb-email" placeholder="tu@email.com" autocomplete="email">
+
+      <button class="fb-submit" id="fb-submit" disabled>Enviar feedback</button>
+    </div>
+
+    <!-- Estado de éxito -->
+    <div id="fb-success">
+      <div class="fb-success-icon">🎉</div>
+      <div class="fb-success-title">¡Gracias por tu opinión!</div>
+      <div class="fb-success-sub">Tu feedback nos ayuda a mejorar cada día.</div>
+    </div>
   </div>
 </div>
 
@@ -2133,7 +2288,105 @@ document.getElementById('btn-help').addEventListener('click',()=>document.getEle
 document.getElementById('help-close-btn').addEventListener('click',()=>document.getElementById('help-modal').classList.remove('open'));
 document.getElementById('help-modal').addEventListener('click',e=>{if(e.target===document.getElementById('help-modal')) document.getElementById('help-modal').classList.remove('open');});
 
-function setStatus(m){document.getElementById('status-pill').textContent=m;}
+// ── FEEDBACK ──────────────────────────────────────────────────────────────────
+const FORMSPREE_ID = 'YOUR_FORMSPREE_ID'; // ← reemplaza con tu ID de formspree.io
+
+let fbCat='', fbRating=0;
+
+function fbOpen(){
+  document.getElementById('feedback-overlay').classList.add('open');
+  document.getElementById('fb-form').style.display='block';
+  document.getElementById('fb-success').classList.remove('visible');
+}
+function fbClose(){
+  document.getElementById('feedback-overlay').classList.remove('open');
+  // Reset form
+  fbCat=''; fbRating=0;
+  document.querySelectorAll('.fb-cat').forEach(c=>c.classList.remove('on'));
+  document.querySelectorAll('.fb-star').forEach(s=>s.classList.remove('on'));
+  document.getElementById('fb-msg').value='';
+  document.getElementById('fb-email').value='';
+  document.getElementById('fb-submit').disabled=true;
+}
+
+function fbCheckValid(){
+  const ok = document.getElementById('fb-msg').value.trim().length > 3;
+  document.getElementById('fb-submit').disabled = !ok;
+}
+
+// Category chips
+document.querySelectorAll('.fb-cat').forEach(chip=>{
+  chip.addEventListener('click',()=>{
+    document.querySelectorAll('.fb-cat').forEach(c=>c.classList.remove('on'));
+    chip.classList.add('on');
+    fbCat=chip.dataset.cat;
+  });
+});
+
+// Stars
+document.querySelectorAll('.fb-star').forEach(star=>{
+  star.addEventListener('mouseover',()=>{
+    const v=parseInt(star.dataset.v);
+    document.querySelectorAll('.fb-star').forEach(s=>s.classList.toggle('on',parseInt(s.dataset.v)<=v));
+  });
+  star.addEventListener('mouseout',()=>{
+    document.querySelectorAll('.fb-star').forEach(s=>s.classList.toggle('on',parseInt(s.dataset.v)<=fbRating));
+  });
+  star.addEventListener('click',()=>{
+    fbRating=parseInt(star.dataset.v);
+    document.querySelectorAll('.fb-star').forEach(s=>s.classList.toggle('on',parseInt(s.dataset.v)<=fbRating));
+  });
+});
+
+// Message validation
+document.getElementById('fb-msg').addEventListener('input', fbCheckValid);
+
+// Submit
+document.getElementById('fb-submit').addEventListener('click', async()=>{
+  const msg=document.getElementById('fb-msg').value.trim();
+  const email=document.getElementById('fb-email').value.trim();
+  if(!msg) return;
+
+  const btn=document.getElementById('fb-submit');
+  btn.disabled=true;
+  btn.textContent='Enviando…';
+
+  const body={
+    message: msg,
+    categoria: fbCat||'sin categoría',
+    valoracion: fbRating ? `${fbRating}/5 ★` : 'Sin valorar',
+    email: email||'no indicado',
+    url: location.href,
+  };
+
+  try{
+    if(FORMSPREE_ID && FORMSPREE_ID!=='YOUR_FORMSPREE_ID'){
+      await fetch(`https://formspree.io/f/${FORMSPREE_ID}`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify(body),
+      });
+    }
+    // Show success
+    document.getElementById('fb-form').style.display='none';
+    document.getElementById('fb-success').classList.add('visible');
+    setTimeout(()=>fbClose(), 3000);
+  }catch{
+    btn.disabled=false;
+    btn.textContent='Error — reintentar';
+    setTimeout(()=>{btn.textContent='Enviar feedback';fbCheckValid();},2500);
+  }
+});
+
+// Open/close
+document.getElementById('btn-feedback').addEventListener('click', fbOpen);
+document.getElementById('fb-close').addEventListener('click', fbClose);
+document.getElementById('feedback-overlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('feedback-overlay')) fbClose();
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&document.getElementById('feedback-overlay').classList.contains('open')) fbClose();
+});
 
 // ── SCHEDULE FORMATTER ────────────────────────────────────────────────────────
 // Converts raw API schedule string to human-readable format
