@@ -1429,13 +1429,14 @@ async function load(){
     // 1. Intentar cargar data.json local (generado por GitHub Actions cada mañana)
     let usedLocal = false;
     try{
-      const localRes = await fetch('data.json?v=' + new Date().toISOString().slice(0,10));
+      // Probar primero sin cache-bust, luego con él si falla
+      let localRes = await fetch('data.json');
+      if(!localRes.ok) localRes = await fetch('data.json?v=' + new Date().toISOString().slice(0,10));
       if(localRes.ok){
         const localData = await localRes.json();
         if(localData.stations?.length > 100){
           all = parseStations(localData.stations);
           brands=[...new Set(all.map(s=>s.brand))].filter(Boolean).sort((a,b)=>a.localeCompare(b,'es'));
-          // Usar stats precalculadas si existen
           if(localData.stats) saveHistFromStats(localData.stats, localData.date);
           else saveHist();
           loadedDate = localData.date || null;
@@ -1447,11 +1448,11 @@ async function load(){
           usedLocal = true;
         }
       }
-    }catch(e){ /* data.json no existe aún, continuar con API */ }
+    }catch(e){ /* data.json no disponible, continuar con fallback */ }
 
     if(usedLocal) return;
 
-    // 2. Fallback: API del Ministerio via corsproxy (mientras no hay data.json)
+    // 2. Fallback: caché localStorage
     const cached=getCached();
     if(cached){
       all=parseStations(cached.data);
@@ -1463,9 +1464,14 @@ async function load(){
       if(cached.age>60){setStatus(`${all.length.toLocaleString('es-ES')} estaciones · actualizando…`);fetchFresh(true);}
       return;
     }
+
+    // 3. Último recurso: API del Ministerio via corsproxy
     setStatus('Descargando datos…');
     await fetchFresh(false);
-  }catch(e){setStatus('Error al cargar');document.getElementById('station-list').innerHTML=`<div class="msg-empty">❌ ${e.message}</div>`;}
+  }catch(e){
+    setStatus('Error al cargar');
+    document.getElementById('station-list').innerHTML=`<div class="msg-empty">❌ ${e.message}<br><small>Recarga la página para intentarlo de nuevo.</small></div>`;
+  }
 }
 
 function saveHistFromStats(stats, date){
