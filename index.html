@@ -1425,53 +1425,71 @@ function getCached(){try{const r=localStorage.getItem(CK);if(!r) return null;con
 function saveCache(raw){try{localStorage.setItem(CK,JSON.stringify({ts:Date.now(),data:raw}));}catch(e){console.warn('Cache failed:',e.message);}}
 
 async function load(){
+  // ── Step 1: try data.json (GitHub Actions generates this every morning)
   try{
-    // 1. Intentar cargar data.json local (generado por GitHub Actions cada mañana)
-    let usedLocal = false;
-    try{
-      // Probar primero sin cache-bust, luego con él si falla
-      let localRes = await fetch('data.json');
-      if(!localRes.ok) localRes = await fetch('data.json?v=' + new Date().toISOString().slice(0,10));
-      if(localRes.ok){
-        const localData = await localRes.json();
-        if(localData.stations?.length > 100){
-          all = parseStations(localData.stations);
-          brands=[...new Set(all.map(s=>s.brand))].filter(Boolean).sort((a,b)=>a.localeCompare(b,'es'));
-          if(localData.stats) saveHistFromStats(localData.stats, localData.date);
-          else saveHist();
-          loadedDate = localData.date || null;
-          const d = new Date(localData.updated);
-          const ago = Math.round((Date.now()-d.getTime())/60000);
-          const agoStr = ago < 60 ? `hace ${ago} min` : `hace ${Math.floor(ago/60)}h`;
-          setStatus(`${all.length.toLocaleString('es-ES')} estaciones · ${agoStr}`);
-          restoreLoc();renderAll();renderStats();
-          usedLocal = true;
-        }
+    const localRes = await fetch('data.json');
+    if(localRes.ok){
+      const localData = await localRes.json();
+      if(localData.stations?.length > 100){
+        all = parseStations(localData.stations);
+        brands=[...new Set(all.map(s=>s.brand))].filter(Boolean).sort((a,b)=>a.localeCompare(b,'es'));
+        if(localData.stats) saveHistFromStats(localData.stats, localData.date);
+        else saveHist();
+        loadedDate = localData.date || null;
+        const d = new Date(localData.updated);
+        const ago = Math.round((Date.now()-d.getTime())/60000);
+        const agoStr = ago < 60 ? `hace ${ago} min` : `hace ${Math.floor(ago/60)}h`;
+        setStatus(`${all.length.toLocaleString('es-ES')} estaciones · ${agoStr}`);
+        restoreLoc();renderAll();renderStats();
+        return;
       }
-    }catch(e){ /* data.json no disponible, continuar con fallback */ }
+    }
+  }catch(e){ /* data.json no disponible */ }
 
-    if(usedLocal) return;
-
-    // 2. Fallback: caché localStorage
+  // ── Step 2: try localStorage cache
+  try{
     const cached=getCached();
     if(cached){
       all=parseStations(cached.data);
       brands=[...new Set(all.map(s=>s.brand))].filter(Boolean).sort((a,b)=>a.localeCompare(b,'es'));
       saveHist();
       const h=Math.floor(cached.age/60),m=cached.age%60;
-      setStatus(`${all.length.toLocaleString('es-ES')} estaciones · datos de ${h>0?`hace ${h}h ${m}m`:`hace ${m} min`}`);
+      setStatus(`${all.length.toLocaleString('es-ES')} estaciones · caché ${h>0?`${h}h `:''}${m}min`);
       restoreLoc();renderAll();renderStats();
-      if(cached.age>60){setStatus(`${all.length.toLocaleString('es-ES')} estaciones · actualizando…`);fetchFresh(true);}
+      if(cached.age>60) fetchFresh(true);
       return;
     }
+  }catch(e){ /* caché inválida */ }
 
-    // 3. Último recurso: API del Ministerio via corsproxy
-    setStatus('Descargando datos…');
+  // ── Step 3: fetch from Ministerio API via proxy
+  setStatus('Descargando datos del Ministerio…');
+  showLoadingMsg('Conectando con la API del Ministerio de Industria…<br><small>Esto puede tardar 10-20 segundos la primera vez</small>');
+  try{
     await fetchFresh(false);
   }catch(e){
-    setStatus('Error al cargar');
-    document.getElementById('station-list').innerHTML=`<div class="msg-empty">❌ ${e.message}<br><small>Recarga la página para intentarlo de nuevo.</small></div>`;
+    // All three methods failed — show actionable error
+    const msg = e?.message || 'Error desconocido';
+    document.getElementById('station-list').innerHTML=`
+      <div class="msg-empty" style="padding:20px;line-height:1.8">
+        <div style="font-size:28px;margin-bottom:12px">⚠️</div>
+        <div style="font-weight:700;margin-bottom:6px">No se pudieron cargar los datos</div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:16px">${msg}</div>
+        <div style="font-size:12px;color:var(--text2);margin-bottom:12px">
+          Posibles causas:<br>
+          · El archivo <code>data.json</code> no existe en el repositorio<br>
+          · El proxy de la API está temporalmente caído<br>
+          · Sin conexión a internet
+        </div>
+        <button onclick="location.reload()" style="padding:8px 20px;border-radius:8px;border:1.5px solid var(--c);background:var(--c);color:#fff;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif">
+          🔄 Reintentar
+        </button>
+      </div>`;
+    setStatus('Error al cargar datos');
   }
+}
+
+function showLoadingMsg(html){
+  document.getElementById('station-list').innerHTML=`<div class="msg-empty">${html}</div>`;
 }
 
 function saveHistFromStats(stats, date){
