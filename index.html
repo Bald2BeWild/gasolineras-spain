@@ -82,14 +82,16 @@
 <!-- ── GOOGLE ADSENSE ── -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3067134215443448" crossorigin="anonymous"></script>
 
+<!-- ── PRECONNECT — antes de cualquier recurso externo ── -->
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://basemaps.cartocdn.com">
+<link rel="dns-prefetch" href="https://corsproxy.io">
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"/>
-<!-- ── PRECONNECT para librerías externas ── -->
-<link rel="preconnect" href="https://unpkg.com">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="dns-prefetch" href="https://unpkg.com">
-<link rel="dns-prefetch" href="https://basemaps.cartocdn.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ── TOKENS ── */
@@ -929,6 +931,143 @@ canvas.sc-spark{width:100%;height:44px;display:block}
   #results-drawer.half{height:55vh}
   #btn-lucky{font-size:12px;padding:9px 14px}
 }
+
+/* ── FAVOURITES ── */
+.fav-btn{
+  background:none;border:none;cursor:pointer;
+  font-size:16px;padding:2px 4px;line-height:1;
+  opacity:.35;transition:opacity .15s,transform .15s;
+  flex-shrink:0;
+}
+.fav-btn:hover{opacity:.7}
+.fav-btn.on{opacity:1;transform:scale(1.15)}
+
+/* ── PRICE VS NATIONAL AVERAGE BADGE ── */
+.price-vs-avg{
+  display:inline-flex;align-items:center;gap:3px;
+  font-size:9px;font-weight:700;padding:2px 6px;
+  border-radius:20px;white-space:nowrap;
+  font-family:'JetBrains Mono',monospace;
+}
+.price-vs-avg.below{background:#f0fdf4;color:#16a34a;border:1px solid #bbf7d0}
+.price-vs-avg.above{background:#fef2f2;color:#dc2626;border:1px solid #fecaca}
+body.dark .price-vs-avg.below{background:rgba(34,197,94,.1);color:#4ade80;border-color:rgba(34,197,94,.25)}
+body.dark .price-vs-avg.above{background:rgba(239,68,68,.1);color:#f87171;border-color:rgba(239,68,68,.25)}
+
+/* ── OPEN NOW CHIP ── */
+.open-chip{
+  display:flex;align-items:center;padding:5px 11px;border-radius:20px;
+  border:1.5px solid var(--border);background:var(--surface2);color:var(--text2);
+  font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;
+  font-family:'Inter',sans-serif;transition:all .15s;user-select:none;
+}
+.open-chip[data-active="1"]{
+  border-color:#10b981;background:#f0fdf4;color:#065f46;
+}
+body.dark .open-chip[data-active="1"]{background:rgba(16,185,129,.15);color:#34d399;border-color:rgba(16,185,129,.4)}
+
+.fav-chip[data-active="1"]{
+  border-color:#f43f5e;background:#fff1f2;color:#be123c;
+}
+body.dark .fav-chip[data-active="1"]{background:rgba(244,63,94,.15);color:#fb7185;border-color:rgba(244,63,94,.4)}
+
+/* ── NEWS MODAL ── */
+#news-modal{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);
+  display:none;align-items:flex-end;justify-content:center}
+#news-modal.open{display:flex}
+@media(min-width:600px){#news-modal{align-items:center}}
+#news-inner{
+  background:var(--surface);width:min(540px,100vw);
+  border-radius:20px 20px 0 0;padding:20px 20px 32px;
+  max-height:88vh;overflow-y:auto;
+  animation:slideUp .3s cubic-bezier(.4,0,.2,1);
+}
+@media(min-width:600px){#news-inner{border-radius:20px;max-height:82vh}}
+#news-inner::-webkit-scrollbar{width:3px}
+#news-inner::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.news-handle{width:40px;height:4px;border-radius:2px;background:var(--border);margin:0 auto 16px}
+@media(min-width:600px){.news-handle{display:none}}
+.news-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.news-title{font-size:16px;font-weight:800}
+.news-close{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);
+  background:var(--surface2);color:var(--muted);cursor:pointer;font-size:14px;
+  display:flex;align-items:center;justify-content:center;transition:all .15s}
+.news-close:hover{border-color:var(--danger);color:var(--danger)}
+.news-sub{font-size:12px;color:var(--muted);margin-bottom:18px}
+.news-loading{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px}
+.news-card{
+  display:block;padding:13px 0;border-bottom:1px solid var(--border);
+  text-decoration:none;color:inherit;transition:background .1s;
+  cursor:pointer;
+}
+.news-card:last-child{border-bottom:none}
+.news-card:hover .news-card-title{color:var(--c)}
+.news-card-source{font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.6px;color:var(--muted);margin-bottom:5px;
+  display:flex;align-items:center;gap:6px}
+.news-card-title{font-size:14px;font-weight:600;color:var(--text);
+  line-height:1.4;margin-bottom:4px;transition:color .15s}
+.news-card-date{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.news-error{text-align:center;padding:32px 20px;color:var(--muted);font-size:13px;line-height:1.7}
+
+/* ── ONBOARDING TOOLTIP ── */
+#onboarding{
+  position:fixed;inset:0;z-index:800;
+  background:rgba(0,0,0,.55);
+  display:none;align-items:flex-end;justify-content:center;
+  padding-bottom:20px;
+}
+#onboarding.open{display:flex}
+#onboarding-card{
+  background:var(--surface);border-radius:20px;
+  width:min(400px,calc(100vw - 32px));
+  padding:24px 24px 28px;
+  animation:slideUp .35s cubic-bezier(.4,0,.2,1);
+  text-align:center;
+}
+.ob-steps{display:flex;justify-content:center;gap:8px;margin-bottom:20px}
+.ob-step{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--border);transition:background .2s;
+}
+.ob-step.on{background:var(--c)}
+.ob-icon{font-size:36px;margin-bottom:12px}
+.ob-title{font-size:17px;font-weight:800;color:var(--text);margin-bottom:6px}
+.ob-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px}
+.ob-btn{
+  width:100%;padding:12px;border-radius:10px;border:none;
+  background:var(--c);color:#fff;font-size:14px;font-weight:700;
+  cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .15s;
+}
+.ob-btn:hover{opacity:.88}
+.ob-skip{
+  display:block;margin-top:10px;font-size:12px;color:var(--muted);
+  cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;
+}
+.ob-skip:hover{color:var(--text2)}
+
+/* ── LOADING ANIMATION (pins dropping) ── */
+#loading-anim{
+  display:none;flex-direction:column;align-items:center;
+  justify-content:center;padding:32px 20px;gap:14px;
+}
+#loading-anim.visible{display:flex}
+.loading-pins{display:flex;gap:8px;align-items:flex-end;height:36px}
+.loading-pin{
+  width:10px;border-radius:5px 5px 0 0;
+  background:var(--c);
+  animation:pinBounce 1s ease-in-out infinite;
+}
+.loading-pin:nth-child(1){height:20px;animation-delay:0s;background:#8b5cf6}
+.loading-pin:nth-child(2){height:30px;animation-delay:.15s;background:var(--c)}
+.loading-pin:nth-child(3){height:24px;animation-delay:.3s;background:#10b981}
+.loading-pin:nth-child(4){height:32px;animation-delay:.45s;background:var(--c)}
+.loading-pin:nth-child(5){height:18px;animation-delay:.6s;background:#8b5cf6}
+@keyframes pinBounce{
+  0%,100%{transform:scaleY(1);opacity:.7}
+  50%{transform:scaleY(1.4);opacity:1}
+}
+.loading-text{font-size:13px;color:var(--muted);text-align:center;line-height:1.6}
 </style>
 </head>
 <body>
@@ -964,6 +1103,7 @@ canvas.sc-spark{width:100%;height:44px;display:block}
   <div class="h-spacer"></div>
   <div class="h-right">
     <span id="status-pill">Cargando…</span>
+    <button class="icon-btn" id="btn-news" title="Noticias del mercado">📰</button>
     <button class="icon-btn" id="btn-help" title="¿Cómo funciona?">?</button>
     <button class="icon-btn" id="btn-stats" title="Precios nacionales">📊</button>
     <button class="icon-btn" id="btn-theme" title="Cambiar tema">🌙</button>
@@ -993,10 +1133,10 @@ canvas.sc-spark{width:100%;height:44px;display:block}
     <div class="fuel-group-sep"></div>
     <!-- Gasóleo / Diésel -->
     <div class="fuel-group">
-      <span class="fuel-group-label">Gasóleo / Diésel</span>
+      <span class="fuel-group-label">Diésel</span>
       <div style="display:flex;gap:5px">
-        <span class="fb-chip diesel on" data-fuel="GOA">Gasóleo A</span>
-        <span class="fb-chip diesel on" data-fuel="GOP">Gasóleo P</span>
+        <span class="fb-chip diesel on" data-fuel="GOA">Diésel</span>
+        <span class="fb-chip diesel on" data-fuel="GOP">Diésel+</span>
       </div>
     </div>
     <div class="fuel-group-sep"></div>
@@ -1010,6 +1150,9 @@ canvas.sc-spark{width:100%;height:44px;display:block}
   </div>
   <div class="fb-sep"></div>
   <div id="active-filters-bar"></div>
+  <span class="fb-chip open-chip" id="chip-open" data-active="0">🕐 Abiertas</span>
+  <span class="fb-chip fav-chip" id="chip-favs" data-active="0">❤️ Favoritas</span>
+  <div class="fb-sep"></div>
   <button id="btn-open-filters">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
     Filtros <span id="filter-count-badge">0</span>
@@ -1061,8 +1204,8 @@ canvas.sc-spark{width:100%;height:44px;display:block}
         <div class="fp-fuel-grid">
           <button class="fp-fuel-btn on" data-fuel="G95"><div class="fp-fuel-dot" style="background:#f59e0b"></div><div><div class="fp-fuel-name">Gasolina 95 E5</div><div class="fp-fuel-sub">Sin plomo 95</div></div></button>
           <button class="fp-fuel-btn on" data-fuel="G98"><div class="fp-fuel-dot" style="background:#f97316"></div><div><div class="fp-fuel-name">Gasolina 98 E5</div><div class="fp-fuel-sub">Sin plomo 98</div></div></button>
-          <button class="fp-fuel-btn on" data-fuel="GOA"><div class="fp-fuel-dot" style="background:#3b82f6"></div><div><div class="fp-fuel-name">Gasóleo A</div><div class="fp-fuel-sub">Diésel estándar</div></div></button>
-          <button class="fp-fuel-btn on" data-fuel="GOP"><div class="fp-fuel-dot" style="background:#8b5cf6"></div><div><div class="fp-fuel-name">Gasóleo Premium</div><div class="fp-fuel-sub">Diésel mejorado</div></div></button>
+          <button class="fp-fuel-btn on" data-fuel="GOA"><div class="fp-fuel-dot" style="background:#3b82f6"></div><div><div class="fp-fuel-name">Diésel</div><div class="fp-fuel-sub">Gasóleo A — estándar</div></div></button>
+          <button class="fp-fuel-btn on" data-fuel="GOP"><div class="fp-fuel-dot" style="background:#8b5cf6"></div><div><div class="fp-fuel-name">Diésel+</div><div class="fp-fuel-sub">Gasóleo Premium</div></div></button>
           <button class="fp-fuel-btn on" data-fuel="GLP"><div class="fp-fuel-dot" style="background:#10b981"></div><div><div class="fp-fuel-name">GLP</div><div class="fp-fuel-sub">Gas licuado</div></div></button>
         </div>
       </div>
@@ -1114,7 +1257,16 @@ canvas.sc-spark{width:100%;height:44px;display:block}
     <span class="sort-chip" data-sort="name">A–Z</span>
   </div>
   <div id="station-list">
-    <div class="msg-empty"><div class="spinner"></div>Cargando estaciones…<br><small style="color:var(--muted)">(~10 MB, puede tardar unos segundos)</small></div>
+    <div id="loading-anim" class="visible">
+      <div class="loading-pins">
+        <div class="loading-pin"></div>
+        <div class="loading-pin"></div>
+        <div class="loading-pin"></div>
+        <div class="loading-pin"></div>
+        <div class="loading-pin"></div>
+      </div>
+      <div class="loading-text">Cargando estaciones…<br><small style="color:var(--muted)">(~10 MB, puede tardar unos segundos)</small></div>
+    </div>
   </div>
 </div>
 
@@ -1188,7 +1340,7 @@ canvas.sc-spark{width:100%;height:44px;display:block}
         <div class="help-icon">⛽</div>
         <div class="help-text-wrap">
           <div class="help-item-title">Filtra por tipo de carburante</div>
-          <div class="help-item-desc">Usa los chips de la barra superior para activar o desactivar <b>Gasolina 95</b>, <b>Gasóleo A</b>, <b>GLP</b> y más. Solo verás estaciones que vendan los carburantes seleccionados.</div>
+          <div class="help-item-desc">Usa los chips de la barra superior para activar o desactivar <b>Gasolina 95</b>, <b>Diésel</b>, <b>GLP</b> y más. Solo verás estaciones que vendan los carburantes seleccionados.</div>
         </div>
       </div>
 
@@ -1234,6 +1386,35 @@ canvas.sc-spark{width:100%;height:44px;display:block}
 
     </div>
     <button class="help-close-btn" id="help-close-btn">Entendido ✓</button>
+  </div>
+</div>
+
+<!-- NEWS MODAL -->
+<div id="news-modal">
+  <div id="news-inner">
+    <div class="news-handle"></div>
+    <div class="news-header">
+      <div class="news-title">📰 Mercado del petróleo</div>
+      <button class="news-close" id="news-close">✕</button>
+    </div>
+    <div class="news-sub">Últimas noticias sobre combustibles y energía</div>
+    <div id="news-content"><div class="news-loading">Cargando noticias…</div></div>
+  </div>
+</div>
+
+<!-- ONBOARDING -->
+<div id="onboarding">
+  <div id="onboarding-card">
+    <div class="ob-steps">
+      <div class="ob-step on" id="ob-s0"></div>
+      <div class="ob-step" id="ob-s1"></div>
+      <div class="ob-step" id="ob-s2"></div>
+    </div>
+    <div id="ob-icon" class="ob-icon">📍</div>
+    <div id="ob-title" class="ob-title">Activa tu ubicación</div>
+    <div id="ob-desc" class="ob-desc">Pulsa el botón azul ⊕ del mapa para ver las gasolineras más cercanas a ti ordenadas por precio.</div>
+    <button class="ob-btn" id="ob-next">Siguiente →</button>
+    <button class="ob-skip" id="ob-skip">Saltar introducción</button>
   </div>
 </div>
 
@@ -1297,10 +1478,20 @@ canvas.sc-spark{width:100%;height:44px;display:block}
   </div>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js'">
+</script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"
+  onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js'">
+</script>
 <script>
 // ── CONFIG ────────────────────────────────────────────────────────────────────
+// Guard: if Leaflet didn't load, show a clear error and stop
+if(typeof L === 'undefined'){
+  document.getElementById('station-list').innerHTML =
+    '<div class="msg-empty">⚠️ Error cargando el mapa.<br><small>Comprueba tu conexión y recarga la página.</small><br><br><button onclick="location.reload()" style="padding:8px 20px;border-radius:8px;background:var(--c);color:#fff;border:none;font-weight:600;cursor:pointer">🔄 Recargar</button></div>';
+  throw new Error('Leaflet not loaded');
+}
 const API='https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/';
 const PROXY='https://corsproxy.io/?url=';
 const HK='gasolineras_price_history', LK='gasolineras_last_loc';
@@ -1309,7 +1500,7 @@ const CACHE_TTL=6*60*60*1000;
 
 const FUEL_KEYS={G95:'Precio Gasolina 95 E5',G98:'Precio Gasolina 98 E5',
   GOA:'Precio Gasoleo A',GOP:'Precio Gasoleo Premium',GLP:'Precio Gases licuados del petróleo'};
-const FL={G95:'95 E5',G98:'98 E5',GOA:'Gasóleo A',GOP:'Gasóleo P',GLP:'GLP'};
+const FL={G95:'95 E5',G98:'98 E5',GOA:'Diésel',GOP:'Diésel+',GLP:'GLP'};
 const FC={G95:'#f59e0b',G98:'#f97316',GOA:'#3b82f6',GOP:'#8b5cf6',GLP:'#10b981'};
 const LC_BRANDS=['PLENOIL','PETROPRIX','BALLENOIL','PUMPING','MEROIL','ESSO','OIL LOW COST','LOWCOSTFUEL','GASGAS','GASCAT','LOWCOST','PRIMEGAS','ECONOGAS','BEGAS'];
 const BA={'REPSOL':'Repsol','CEPSA':'Cepsa','BP':'BP','SHELL':'Shell','GALP':'Galp',
@@ -1359,7 +1550,7 @@ function dayOk(ds,jd){const M={L:1,M:2,X:3,J:4,V:5,S:6,D:0};for(const p of ds.sp
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let all=[],uLL=null,aF=new Set(['G95','G98','GOA','GOP','GLP']);
-let onlyLC=false,onlyOpen=false,sortMode='dist',radius=10,brand='',tank=0;
+let onlyLC=false,onlyOpen=false,onlyFavs=false,sortMode='dist',radius=10,brand='',tank=0;
 let selId=null,marks={},brands=[],isDark=false;
 
 // ── MAP ───────────────────────────────────────────────────────────────────────
@@ -1440,8 +1631,9 @@ async function load(){
         const d = new Date(localData.updated);
         const ago = Math.round((Date.now()-d.getTime())/60000);
         const agoStr = ago < 60 ? `hace ${ago} min` : `hace ${Math.floor(ago/60)}h`;
-        setStatus(`${all.length.toLocaleString('es-ES')} estaciones · ${agoStr}`);
+        setStatusWithAvg(all.length.toLocaleString('es-ES'), agoStr);
         restoreLoc();renderAll();renderStats();
+        setTimeout(showOnboarding, 1500);
         return;
       } else {
         console.warn('data.json cargado pero sin estaciones válidas. stations:', localData.stations?.length, 'keys:', Object.keys(localData));
@@ -1536,6 +1728,7 @@ function getVis(){
   let list=all.filter(s=>{
     if(![...aF].some(f=>s.prices[f]>0)) return false;
     if(onlyLC&&!s.isLC) return false;
+    if(onlyFavs&&!favs.has(s.id)) return false;
     if(brand&&s.brand!==brand) return false;
     if(onlyOpen){const sc=parseSched(s.schedule);if(sc.s==='closed'||sc.s==='unknown') return false;}
     if(uLL) return s.dist!==null&&s.dist<=radius;
@@ -1568,30 +1761,55 @@ function getVis(){
 function renderAll(){
   const vis=getVis();
   const mm={};for(const f of aF){const v=vis.map(s=>s.prices[f]).filter(p=>p>0);if(v.length) mm[f]={min:Math.min(...v),max:Math.max(...v)};}
+
+  // National average for price badge
+  const hist=getHist();
+  const todayStats=hist.length?hist[hist.length-1]?.fuels:null;
+
   document.getElementById('drawer-count').textContent=`${vis.length.toLocaleString('es-ES')} gasolineras`;
   const dr=document.getElementById('results-drawer');
-  document.getElementById('drawer-toggle').textContent=dr.className==='full'?'↓ Cerrar':'↑ Ver lista';
+  document.getElementById('drawer-toggle').textContent=dr.classList.contains('desktop-collapsed')||dr.className===''?'↑ Ver lista':'↓ Ocultar lista';
   const el=document.getElementById('station-list');
   if(!vis.length){el.innerHTML=`<div class="msg-empty">Sin resultados.<br><small>Mueve el mapa, amplía el radio o cambia los filtros.</small></div>`;renderMap([]);return;}
   el.innerHTML='';
   vis.slice(0,200).forEach(s=>{
     const sc=parseSched(s.schedule);
     const schBadge=sc.s==='h24'?`<span class="badge badge-h24">24h</span>`:sc.s==='open'?`<span class="badge badge-open">● ${sc.l||'Abierta'}</span>`:sc.s==='closed'?`<span class="badge badge-closed">● ${sc.l||'Cerrada'}</span>`:'';
-    // Price cells — no global tank cost, calculator is per-card
+    const isFav=favs.has(s.id);
+
+    // Price cells with vs-avg badge on main fuel
+    const refF=[...aF].find(f=>s.prices[f]>0);
+    let avgBadge='';
+    if(refF && todayStats?.[refF]?.avg){
+      const diff=((s.prices[refF]-todayStats[refF].avg)/todayStats[refF].avg*100);
+      if(Math.abs(diff)>=0.5){
+        const cls=diff<0?'below':'above';
+        const sign=diff<0?'▼':'▲';
+        avgBadge=`<span class="price-vs-avg ${cls}">${sign}${Math.abs(diff).toFixed(1)}% media</span>`;
+      }
+    }
+
     const pTags=[...aF].map(f=>{const p=s.prices[f];if(!p) return'';const cl=mm[f]?.min===p?'cheapest':mm[f]?.max===p?'priciest':'';return`<div class="price-cell ${cl}"><span class="pc-label">${FL[f]}</span><span class="pc-price">${p.toFixed(3)}</span></div>`;}).join('');
     const distStr=s.dist!=null?`<span class="scard-dist">${s.dist.toFixed(1)} km</span>`:'';
     const card=document.createElement('div');
-    card.className='scard'+(s.id===selId?' selected':'');card.dataset.id=s.id;
+    card.className='scard'+(s.id===selId?' selected':'')+(isFav?' fav-card':'');
+    card.dataset.id=s.id;
     card.innerHTML=`
-      <div>
-        <div class="scard-name">${s.name}</div>
-        <div class="scard-meta">${distStr}${s.isLC?'<span class="badge badge-lc">LOW COST</span>':''}${schBadge}<span class="scard-loc">${s.locality}</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div style="flex:1;min-width:0">
+          <div class="scard-name">${s.name}</div>
+          <div class="scard-meta">${distStr}${s.isLC?'<span class="badge badge-lc">LOW COST</span>':''}${schBadge}${avgBadge}<span class="scard-loc">${s.locality}</span></div>
+        </div>
+        <button class="fav-btn${isFav?' on':''}" data-id="${s.id}" title="${isFav?'Quitar de favoritos':'Guardar como favorita'}">
+          ${isFav?'❤️':'🤍'}
+        </button>
       </div>
       <div class="price-grid">${pTags}</div>
       <button class="scard-nav" onclick="event.stopPropagation();nav(${s.id})">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
         Cómo llegar
       </button>`;
+    card.querySelector('.fav-btn').addEventListener('click',e=>{e.stopPropagation();toggleFav(s.id);});
     card.addEventListener('click',()=>select(s));
     el.appendChild(card);
   });
@@ -1730,8 +1948,8 @@ function renderLuckyStep1(){
   const fuelInfo = {
     G95: {label:'Gasolina 95 E5',  sub:'Sin plomo 95',     dot:'#f59e0b'},
     G98: {label:'Gasolina 98 E5',  sub:'Sin plomo 98',     dot:'#f97316'},
-    GOA: {label:'Gasóleo A',       sub:'Diésel estándar',  dot:'#3b82f6'},
-    GOP: {label:'Gasóleo Premium', sub:'Diésel mejorado',  dot:'#8b5cf6'},
+    GOA: {label:'Diésel',         sub:'Gasóleo A — estándar', dot:'#3b82f6'},
+    GOP: {label:'Diésel+',        sub:'Gasóleo Premium',       dot:'#8b5cf6'},
     GLP: {label:'GLP',             sub:'Gas licuado',      dot:'#10b981'},
   };
 
@@ -2023,6 +2241,7 @@ function updateActivePills(){
   const bar=document.getElementById('active-filters-bar');bar.innerHTML='';
   const pills=[];
   if(uLL){const lbl=document.getElementById('fb-loc-label')?.textContent||'Ubicación';pills.push({label:`📍 ${lbl} · ${radius} km`,cls:'loc',clear:()=>{clearLoc();renderAll();updateActivePills();}});}
+  if(onlyFavs) pills.push({label:'❤️ Favoritas',cls:'opt',clear:()=>{onlyFavs=false;document.getElementById('chip-favs').dataset.active='0';renderAll();updateActivePills();}});
   if(onlyLC) pills.push({label:'💚 Low-cost',cls:'opt',clear:()=>{onlyLC=false;document.getElementById('fp-lc').checked=false;renderAll();updateActivePills();}});
   if(onlyOpen) pills.push({label:'🕐 Abiertas',cls:'opt',clear:()=>{onlyOpen=false;document.getElementById('fp-open').checked=false;renderAll();updateActivePills();}});
   if(brand) pills.push({label:`🏷 ${brand}`,cls:'opt',clear:()=>{brand='';renderAll();updateActivePills();buildBrandList('');}});
@@ -2107,7 +2326,8 @@ function applyFilterPanel(){
 }
 function resetFilterPanel(){
   aF=new Set(['G95','G98','GOA','GOP','GLP']);
-  onlyLC=false;onlyOpen=false;radius=10;tank=0;brand='';
+  onlyLC=false;onlyOpen=false;onlyFavs=false;radius=10;tank=0;brand='';
+  document.getElementById('chip-favs').dataset.active='0';
   clearLoc();
   document.querySelectorAll('.fp-fuel-btn').forEach(b=>b.classList.add('on'));
   document.querySelectorAll('#fuel-chips-bar .fb-chip').forEach(c=>c.classList.add('on'));
@@ -2460,6 +2680,144 @@ setInterval(async()=>{
   }catch{}
 },60*60*1000); // cada hora
 
+// ── FAVOURITES ────────────────────────────────────────────────────────────────
+const FK='gasolineras_favs';
+let favs=new Set();
+try{const f=JSON.parse(localStorage.getItem(FK)||'[]');favs=new Set(f);}catch{}
+function saveFavs(){try{localStorage.setItem(FK,JSON.stringify([...favs]));}catch{}}
+function toggleFav(id){
+  if(favs.has(id)){favs.delete(id);}else{favs.add(id);}
+  saveFavs();
+  // If no favs left, deactivate the filter chip
+  if(!favs.size && onlyFavs){
+    onlyFavs=false;
+    document.getElementById('chip-favs').dataset.active='0';
+  }
+  renderAll();
+}
+// Favs float in sort unless user chose a specific sort
+function getVisSorted(list){
+  if(sortMode==='dist'&&uLL&&favs.size){
+    const fv=list.filter(s=>favs.has(s.id));
+    const rest=list.filter(s=>!favs.has(s.id));
+    return[...fv,...rest];
+  }
+  return list;
+}
+
+// ── OPEN NOW CHIP ─────────────────────────────────────────────────────────────
+document.getElementById('chip-open').addEventListener('click',()=>{
+  const chip=document.getElementById('chip-open');
+  onlyOpen=!onlyOpen;
+  chip.dataset.active=onlyOpen?'1':'0';
+  document.getElementById('fp-open').checked=onlyOpen;
+  renderAll();updateActivePills();
+});
+
+// ── FAVS CHIP ─────────────────────────────────────────────────────────────────
+document.getElementById('chip-favs').addEventListener('click',()=>{
+  const chip=document.getElementById('chip-favs');
+  if(!favs.size && !onlyFavs){
+    // No favourites yet — give user a hint
+    chip.textContent='❤️ Sin favoritas';
+    setTimeout(()=>{ chip.textContent='❤️ Favoritas'; },1800);
+    return;
+  }
+  onlyFavs=!onlyFavs;
+  chip.dataset.active=onlyFavs?'1':'0';
+  renderAll();updateActivePills();
+});
+
+// ── NEWS FEED ─────────────────────────────────────────────────────────────────
+const NEWS_PROXY='https://corsproxy.io/?url=';
+const NEWS_RSS='https://news.google.com/rss/search?q=precio+gasolina+petroleo+combustible+España&hl=es&gl=ES&ceid=ES:es';
+let newsCache=null;
+
+async function loadNews(){
+  if(newsCache){renderNews(newsCache);return;}
+  document.getElementById('news-content').innerHTML='<div class="news-loading">⏳ Cargando noticias…</div>';
+  try{
+    const xml=await fetch(NEWS_PROXY+encodeURIComponent(NEWS_RSS)).then(r=>r.text());
+    const parser=new DOMParser();
+    const doc=parser.parseFromString(xml,'text/xml');
+    const items=[...doc.querySelectorAll('item')].slice(0,10).map(item=>({
+      title:item.querySelector('title')?.textContent?.replace(/ - [^-]+$/,'').trim()||'',
+      link:item.querySelector('link')?.textContent||'#',
+      source:item.querySelector('source')?.textContent||'Google News',
+      pubDate:item.querySelector('pubDate')?.textContent||'',
+    }));
+    newsCache=items;
+    renderNews(items);
+  }catch{
+    document.getElementById('news-content').innerHTML=
+      '<div class="news-error">No se pudieron cargar las noticias.<br>Comprueba tu conexión e inténtalo de nuevo.</div>';
+  }
+}
+
+function renderNews(items){
+  if(!items.length){
+    document.getElementById('news-content').innerHTML='<div class="news-error">No hay noticias disponibles.</div>';
+    return;
+  }
+  document.getElementById('news-content').innerHTML=items.map(n=>{
+    const ago=timeAgo(n.pubDate);
+    return`<a class="news-card" href="${n.link}" target="_blank" rel="noopener noreferrer">
+      <div class="news-card-source">
+        <span>📰</span>${n.source}
+      </div>
+      <div class="news-card-title">${n.title}</div>
+      <div class="news-card-date">${ago}</div>
+    </a>`;
+  }).join('');
+}
+
+function timeAgo(dateStr){
+  if(!dateStr) return '';
+  const d=new Date(dateStr),now=Date.now(),diff=now-d.getTime();
+  const mins=Math.floor(diff/60000);
+  if(mins<60) return `hace ${mins} min`;
+  const hrs=Math.floor(mins/60);
+  if(hrs<24) return `hace ${hrs}h`;
+  return `hace ${Math.floor(hrs/24)}d`;
+}
+
+document.getElementById('btn-news').addEventListener('click',()=>{
+  document.getElementById('news-modal').classList.add('open');
+  loadNews();
+});
+document.getElementById('news-close').addEventListener('click',()=>document.getElementById('news-modal').classList.remove('open'));
+document.getElementById('news-modal').addEventListener('click',e=>{if(e.target===document.getElementById('news-modal'))document.getElementById('news-modal').classList.remove('open');});
+
+// ── ONBOARDING ────────────────────────────────────────────────────────────────
+const OB_STEPS=[
+  {icon:'📍',title:'Activa tu ubicación',desc:'Pulsa el botón azul ⊕ del mapa o busca tu ciudad para ver las gasolineras más cercanas.'},
+  {icon:'⛽',title:'Elige tu carburante',desc:'Usa los chips de la barra superior para filtrar por Gasolina 95, Diésel, GLP y más.'},
+  {icon:'🍀',title:'Encuentra la mejor opción',desc:'Pulsa "Voy a tener suerte" para que te encontremos la gasolinera con mejor precio y distancia en 10 km.'},
+];
+let obStep=0;
+function showOnboarding(){
+  if(localStorage.getItem('ob_done')) return;
+  document.getElementById('onboarding').classList.add('open');
+  renderObStep(0);
+}
+function renderObStep(i){
+  obStep=i;
+  const s=OB_STEPS[i];
+  document.getElementById('ob-icon').textContent=s.icon;
+  document.getElementById('ob-title').textContent=s.title;
+  document.getElementById('ob-desc').textContent=s.desc;
+  document.getElementById('ob-next').textContent=i<OB_STEPS.length-1?'Siguiente →':'¡Empezar!';
+  document.querySelectorAll('.ob-step').forEach((el,j)=>el.classList.toggle('on',j===i));
+}
+document.getElementById('ob-next').addEventListener('click',()=>{
+  if(obStep<OB_STEPS.length-1){renderObStep(obStep+1);}
+  else{localStorage.setItem('ob_done','1');document.getElementById('onboarding').classList.remove('open');}
+});
+document.getElementById('ob-skip').addEventListener('click',()=>{
+  localStorage.setItem('ob_done','1');
+  document.getElementById('onboarding').classList.remove('open');
+});
+
 // ── INIT ──────────────────────────────────────────────────────────────────────
 function setStatus(m){
   const el=document.getElementById('status-pill');
@@ -2468,6 +2826,16 @@ function setStatus(m){
 function showLoadingMsg(html){
   const el=document.getElementById('station-list');
   if(el) el.innerHTML=`<div class="msg-empty">${html}</div>`;
+}
+// Enhanced status with national avg price
+function setStatusWithAvg(count, timeStr){
+  const hist=getHist();
+  const today=hist.length?hist[hist.length-1]?.fuels:null;
+  const avg=today?.G95?.avg;
+  const pill=avg
+    ? `${count} estaciones · G95 ${avg.toFixed(3)}€ · ${timeStr}`
+    : `${count} estaciones · ${timeStr}`;
+  setStatus(pill);
 }
 setDrawer('peek');
 // Init sidebar toggle position on desktop
@@ -2487,7 +2855,7 @@ load().then(()=>{
 <!-- ── CONTENIDO INDEXABLE POR GOOGLE (oculto visualmente) ── -->
 <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap" aria-hidden="true">
   <h1>Llenoporfavor — Gasolineras baratas en España</h1>
-  <p>Encuentra la gasolinera más barata cerca de ti en España. Consulta los precios de gasolina 95 E5, gasolina 98, gasóleo A, gasóleo premium y GLP actualizados cada mañana con datos oficiales del Ministerio de Industria, Comercio y Turismo de España.</p>
+  <p>Encuentra la gasolinera más barata cerca de ti en España. Consulta los precios de gasolina 95 E5, gasolina 98, diésel, diésel premium y GLP actualizados cada mañana con datos oficiales del Ministerio de Industria, Comercio y Turismo de España.</p>
   <h2>¿Cómo funciona?</h2>
   <p>Llenoporfavor muestra en un mapa interactivo más de 12.000 estaciones de servicio de toda España con sus precios de combustible en tiempo real. Activa tu ubicación GPS para ver las gasolineras más cercanas ordenadas por precio. Filtra por tipo de carburante, marca o radio de búsqueda.</p>
   <h2>Precios de gasolina por ciudad</h2>
