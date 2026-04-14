@@ -1811,6 +1811,19 @@ function renderAll(){
       </button>`;
     card.querySelector('.fav-btn').addEventListener('click',e=>{e.stopPropagation();toggleFav(s.id);});
     card.addEventListener('click',()=>select(s));
+    // Hover: highlight pin on map
+    card.addEventListener('mouseenter',()=>{
+      if(marks[s.id] && s.id!==selId){
+        marks[s.id].setIcon(mkPin(s.isLC?'#10b981':'#8b5cf6', 26, false));
+        marks[s.id].setZIndexOffset(500);
+      }
+    });
+    card.addEventListener('mouseleave',()=>{
+      if(marks[s.id] && s.id!==selId){
+        marks[s.id].setIcon(gIcon(s,false));
+        marks[s.id].setZIndexOffset(0);
+      }
+    });
     el.appendChild(card);
   });
   if(vis.length>200){const n=document.createElement('div');n.className='msg-empty';n.style.padding='12px 20px';n.textContent=`Mostrando 200 de ${vis.length}.`;el.appendChild(n);}
@@ -2729,28 +2742,65 @@ document.getElementById('chip-favs').addEventListener('click',()=>{
 });
 
 // ── NEWS FEED ─────────────────────────────────────────────────────────────────
-const NEWS_PROXY='https://corsproxy.io/?url=';
-const NEWS_RSS='https://news.google.com/rss/search?q=precio+gasolina+petroleo+combustible+España&hl=es&gl=ES&ceid=ES:es';
+// ── NEWS FEED ─────────────────────────────────────────────────────────────────
+// Uses rss2json.com — free service that converts RSS to JSON, no CORS issues
+const NEWS_FEEDS=[
+  'https://news.google.com/rss/search?q=precio+gasolina+España&hl=es&gl=ES&ceid=ES:es',
+  'https://news.google.com/rss/search?q=precio+petroleo+crudo&hl=es&gl=ES&ceid=ES:es',
+];
+const RSS2JSON='https://api.rss2json.com/v1/api.json?rss_url=';
 let newsCache=null;
 
 async function loadNews(){
   if(newsCache){renderNews(newsCache);return;}
   document.getElementById('news-content').innerHTML='<div class="news-loading">⏳ Cargando noticias…</div>';
   try{
-    const xml=await fetch(NEWS_PROXY+encodeURIComponent(NEWS_RSS)).then(r=>r.text());
-    const parser=new DOMParser();
-    const doc=parser.parseFromString(xml,'text/xml');
-    const items=[...doc.querySelectorAll('item')].slice(0,10).map(item=>({
-      title:item.querySelector('title')?.textContent?.replace(/ - [^-]+$/,'').trim()||'',
-      link:item.querySelector('link')?.textContent||'#',
-      source:item.querySelector('source')?.textContent||'Google News',
-      pubDate:item.querySelector('pubDate')?.textContent||'',
-    }));
-    newsCache=items;
-    renderNews(items);
-  }catch{
-    document.getElementById('news-content').innerHTML=
-      '<div class="news-error">No se pudieron cargar las noticias.<br>Comprueba tu conexión e inténtalo de nuevo.</div>';
+    // Fetch both feeds in parallel
+    const results = await Promise.allSettled(
+      NEWS_FEEDS.map(feed =>
+        fetch(RSS2JSON + encodeURIComponent(feed))
+          .then(r=>r.json())
+      )
+    );
+
+    const items=[];
+    const seen=new Set();
+    for(const r of results){
+      if(r.status==='fulfilled' && r.value?.items?.length){
+        for(const item of r.value.items){
+          // Clean title — Google News appends " - Source Name"
+          const title=(item.title||'').replace(/ [-–] [^-–]+$/, '').trim();
+          const key=title.toLowerCase().slice(0,40);
+          if(seen.has(key)||!title) continue;
+          seen.add(key);
+          items.push({
+            title,
+            link: item.link||item.guid||'#',
+            source: item.author||r.value.feed?.title||'Google News',
+            pubDate: item.pubDate||'',
+          });
+        }
+      }
+    }
+
+    // Sort by date descending, take top 12
+    items.sort((a,b)=>new Date(b.pubDate)-new Date(a.pubDate));
+    const top=items.slice(0,12);
+
+    if(!top.length) throw new Error('Sin resultados');
+    newsCache=top;
+    renderNews(top);
+  }catch(e){
+    document.getElementById('news-content').innerHTML=`
+      <div class="news-error">
+        No se pudieron cargar las noticias.<br>
+        <small>${e.message||'Inténtalo de nuevo más tarde.'}</small><br><br>
+        <button onclick="newsCache=null;loadNews()" style="padding:6px 16px;border-radius:8px;
+          border:1.5px solid var(--c);background:none;color:var(--c);
+          font-weight:600;cursor:pointer;font-family:'Inter',sans-serif">
+          🔄 Reintentar
+        </button>
+      </div>`;
   }
 }
 
@@ -2761,24 +2811,29 @@ function renderNews(items){
   }
   document.getElementById('news-content').innerHTML=items.map(n=>{
     const ago=timeAgo(n.pubDate);
+    // Clean source name
+    const src=(n.source||'').replace('Google News · ','').split(' · ')[0].trim()||'Noticia';
     return`<a class="news-card" href="${n.link}" target="_blank" rel="noopener noreferrer">
       <div class="news-card-source">
-        <span>📰</span>${n.source}
+        <span>📰</span>${src}
       </div>
       <div class="news-card-title">${n.title}</div>
-      <div class="news-card-date">${ago}</div>
+      ${ago?`<div class="news-card-date">${ago}</div>`:''}
     </a>`;
   }).join('');
 }
 
 function timeAgo(dateStr){
   if(!dateStr) return '';
-  const d=new Date(dateStr),now=Date.now(),diff=now-d.getTime();
-  const mins=Math.floor(diff/60000);
-  if(mins<60) return `hace ${mins} min`;
-  const hrs=Math.floor(mins/60);
-  if(hrs<24) return `hace ${hrs}h`;
-  return `hace ${Math.floor(hrs/24)}d`;
+  try{
+    const d=new Date(dateStr),now=Date.now(),diff=now-d.getTime();
+    if(isNaN(diff)) return '';
+    const mins=Math.floor(diff/60000);
+    if(mins<60) return `hace ${mins} min`;
+    const hrs=Math.floor(mins/60);
+    if(hrs<24) return `hace ${hrs}h`;
+    return `hace ${Math.floor(hrs/24)}d`;
+  }catch{return '';}
 }
 
 document.getElementById('btn-news').addEventListener('click',()=>{
