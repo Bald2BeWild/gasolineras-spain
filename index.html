@@ -1435,6 +1435,18 @@ function dayOk(ds,jd){const M={L:1,M:2,X:3,J:4,V:5,S:6,D:0};for(const p of ds.sp
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let all=[],uLL=null,aF=new Set(['G95','G98','GOA','GOP','GLP']);
 let onlyLC=false,onlyOpen=false,onlyFavs=false,sortMode='dist',radius=10,brand='',tank=0;
+let favs=(()=>{try{return new Set(JSON.parse(localStorage.getItem('gasolineras_favs')||'[]'));}catch{return new Set();}})();
+function saveFavs(){try{localStorage.setItem('gasolineras_favs',JSON.stringify([...favs]));}catch{}}
+function toggleFav(id){
+  if(favs.has(id)){favs.delete(id);}else{favs.add(id);}
+  saveFavs();
+  if(!favs.size && onlyFavs){
+    onlyFavs=false;
+    const chip=document.getElementById('chip-favs');
+    if(chip) chip.dataset.active='0';
+  }
+  renderAll();
+}
 let selId=null,marks={},brands=[],isDark=false;
 
 // ── MAP ───────────────────────────────────────────────────────────────────────
