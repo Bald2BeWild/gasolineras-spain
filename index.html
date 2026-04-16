@@ -1308,7 +1308,18 @@ function showLoadingMsg(html){
   const el=document.getElementById('station-list');
   if(el) el.innerHTML='<div class="msg-empty">'+html+'</div>';
 }
+function getHist(){try{return JSON.parse(localStorage.getItem('gasolineras_price_history')||'[]');}catch{return[];}}
+function setStatusWithAvg(count, timeStr){
+  const hist=getHist();
+  const today=hist.length?hist[hist.length-1]?.fuels:null;
+  const avg=today?.G95?.avg;
+  const pill=avg
+    ? `${count} estaciones · G95 ${avg.toFixed(3)}€ · ${timeStr}`
+    : `${count} estaciones · ${timeStr}`;
+  setStatus(pill);
+}
 function isDesktop(){return window.innerWidth>=900;}
+let loadedDate=null; // tracks date of loaded data.json for auto-refresh
 function syncDrawerVar(state){
   if(window.innerWidth>=900){
     document.documentElement.style.setProperty('--drawer-h','52px');
@@ -2494,7 +2505,6 @@ window.addEventListener('resize',()=>{
 
 // ── AUTO-REFRESH ──────────────────────────────────────────────────────────────
 // Check every hour if data.json has a newer date than what we loaded
-let loadedDate=null;
 setInterval(async()=>{
   try{
     const r=await fetch('data.json?check='+Date.now());
