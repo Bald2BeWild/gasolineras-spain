@@ -1299,7 +1299,7 @@ body.dark .price-vs-avg.above{background:rgba(239,68,68,.1);color:#f87171;border
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"
   onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js'">
 </script>
-<script>// ── UTILITY FUNCTIONS (must be defined first) ────────────────────────────────
+<script defer>// ── UTILITY FUNCTIONS (must be defined first) ────────────────────────────────
 function setStatus(m){
   const el=document.getElementById('status-pill');
   if(el) el.textContent=m;
@@ -1331,25 +1331,23 @@ function syncDrawerVar(state){
 
 function setDrawer(state){
   const dr=document.getElementById('results-drawer');
+  if(!dr) return;
   if(isDesktop()){
-    // Desktop: toggle collapsed/expanded
-    const collapsed = state===''||state==='collapsed';
-    dr.classList.toggle('desktop-collapsed', collapsed);
-    // Keep a non-empty className for mobile state tracking
-    if(!collapsed) dr.className = dr.className.replace('desktop-collapsed','').trim()||'full';
-    document.getElementById('drawer-toggle').textContent = collapsed ? '↑ Ver lista' : '↓ Ocultar lista';
-    // Move sidebar toggle arrow
-    const st = document.getElementById('sidebar-toggle-desktop');
-    st.style.left = collapsed ? '0' : '420px';
-    st.textContent = collapsed ? '›' : '‹';
+    const collapsed=state===''||state==='collapsed';
+    dr.classList.toggle('desktop-collapsed',collapsed);
+    if(!collapsed) dr.className=dr.className.replace('desktop-collapsed','').trim()||'full';
+    const dt=document.getElementById('drawer-toggle');
+    if(dt) dt.textContent=collapsed?'↑ Ver lista':'↓ Ocultar lista';
+    const st=document.getElementById('sidebar-toggle-desktop');
+    if(st){st.style.left=collapsed?'0':'420px';st.textContent=collapsed?'›':'‹';}
     syncDrawerVar(state);
-    setTimeout(()=>map.invalidateSize({animate:false}),320);
+    setTimeout(()=>{try{map.invalidateSize({animate:false});}catch{}},320);
   } else {
-    // Mobile: bottom sheet states
     dr.className=state;
-    document.getElementById('drawer-toggle').textContent=state==='full'?'↓ Cerrar':'↑ Ver lista';
+    const dt=document.getElementById('drawer-toggle');
+    if(dt) dt.textContent=state==='full'?'↓ Cerrar':'↑ Ver lista';
     syncDrawerVar(state);
-    setTimeout(()=>map.invalidateSize({animate:false}),380);
+    setTimeout(()=>{try{map.invalidateSize({animate:false});}catch{}},380);
   }
 }
 
@@ -2704,10 +2702,8 @@ document.getElementById('ob-skip').addEventListener('click',()=>{
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 setDrawer('peek');
-if(isDesktop()){
-  const st=document.getElementById('sidebar-toggle-desktop');
-  if(st){st.style.left='420px';st.textContent='‹';}
-}
+const _st=document.getElementById('sidebar-toggle-desktop');
+if(_st&&isDesktop()){_st.style.left='420px';_st.textContent='‹';}
 load().then(()=>{
   try{
     const cached=localStorage.getItem('gasolineras_data_cache');
