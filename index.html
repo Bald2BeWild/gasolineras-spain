@@ -151,12 +151,55 @@ body.dark .leaflet-tile{filter:brightness(.85) saturate(.65)}
 .icon-btn{width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .15s;flex-shrink:0}
 .icon-btn:hover{border-color:var(--c);color:var(--c);background:#eff6ff}
 body.dark .icon-btn:hover{background:rgba(26,86,219,.2)}
-#btn-help{font-size:13px;font-weight:800;font-family:'Inter',sans-serif;color:var(--c);border-color:var(--c)}
-#btn-help:hover{background:var(--c);color:#fff}
-#btn-feedback{display:flex;align-items:center;gap:5px;padding:0 11px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;white-space:nowrap;flex-shrink:0}
-#btn-feedback:hover{border-color:var(--c);color:var(--c);background:#eff6ff}
-body.dark #btn-feedback:hover{background:rgba(26,86,219,.2)}
-@media(max-width:700px){#btn-feedback .fb-label{display:none}}
+#btn-ayuda{font-size:13px;font-weight:800;font-family:'Inter',sans-serif;color:var(--c);border-color:var(--c)}
+#btn-ayuda:hover{background:var(--c);color:#fff}
+#btn-feedback2{display:flex;align-items:center;gap:5px;padding:0 11px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;white-space:nowrap;flex-shrink:0}
+#btn-feedback2:hover{border-color:var(--c);color:var(--c);background:#eff6ff}
+body.dark #btn-feedback2:hover{background:rgba(26,86,219,.2)}
+@media(max-width:700px){#btn-feedback2 .fb2-label-btn{display:none}}
+
+/* ── AYUDA + FEEDBACK MODALS ── */
+#modal-ayuda,#modal-feedback{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center}
+@media(min-width:600px){#modal-ayuda,#modal-feedback{align-items:center}}
+#modal-ayuda.abierto,#modal-feedback.abierto{display:flex}
+.modal-caja{background:var(--surface);width:min(500px,100vw);border-radius:20px 20px 0 0;padding:24px 20px 32px;max-height:88vh;overflow-y:auto;animation:subirModal .28s cubic-bezier(.4,0,.2,1);position:relative}
+@media(min-width:600px){.modal-caja{border-radius:20px;max-height:82vh}}
+@keyframes subirModal{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.modal-caja::-webkit-scrollbar{width:3px}
+.modal-caja::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.modal-barra{width:40px;height:4px;border-radius:2px;background:var(--border);margin:0 auto 18px}
+@media(min-width:600px){.modal-barra{display:none}}
+.modal-cabecera{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.modal-titulo{font-size:17px;font-weight:800;color:var(--text)}
+.modal-cerrar{width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.modal-cerrar:hover{border-color:var(--danger);color:var(--danger)}
+.ayuda-lista{display:flex;flex-direction:column;gap:12px}
+.ayuda-item{display:flex;gap:14px;background:var(--surface2);border-radius:12px;padding:13px 15px;border:1px solid var(--border)}
+.ayuda-icono{font-size:22px;flex-shrink:0;width:32px;text-align:center}
+.ayuda-item-titulo{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
+.ayuda-item-desc{font-size:12px;color:var(--text2);line-height:1.55}
+.ayuda-ok{width:100%;margin-top:18px;padding:12px;border-radius:10px;border:none;background:var(--c);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif}
+.ayuda-ok:hover{opacity:.88}
+.fb2-section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:8px}
+.fb2-cats{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.fb2-cat{padding:5px 13px;border-radius:16px;border:1.5px solid var(--border);background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.fb2-cat.sel{border-color:var(--c);background:#eff6ff;color:var(--c)}
+body.dark .fb2-cat.sel{background:rgba(26,86,219,.2)}
+.fb2-stars{display:flex;gap:7px;margin-bottom:18px}
+.fb2-star{font-size:24px;cursor:pointer;opacity:.3;transition:opacity .1s,transform .1s;line-height:1}
+.fb2-star.sel{opacity:1}
+.fb2-star:hover{transform:scale(1.2)}
+.fb2-textarea{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;font-family:'Inter',sans-serif;color:var(--text);background:var(--surface2);resize:vertical;min-height:80px;outline:none;transition:border-color .15s;margin-bottom:10px}
+.fb2-textarea:focus{border-color:var(--c)}
+.fb2-textarea::placeholder{color:var(--muted)}
+.fb2-email{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;font-size:13px;font-family:'Inter',sans-serif;color:var(--text);background:var(--surface2);outline:none;transition:border-color .15s;margin-bottom:18px}
+.fb2-email:focus{border-color:var(--c)}
+.fb2-email::placeholder{color:var(--muted)}
+.fb2-enviar{width:100%;padding:12px;border-radius:10px;border:none;background:var(--c);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .15s}
+.fb2-enviar:hover{opacity:.88}
+.fb2-enviar:disabled{opacity:.4;cursor:not-allowed}
+.fb2-exito{display:none;flex-direction:column;align-items:center;padding:24px 0;gap:10px;text-align:center}
+.fb2-exito.visible{display:flex}
 
 /* ── FILTER BAR ── */
 #filter-bar{
@@ -919,12 +962,12 @@ body.dark .price-vs-avg.above{background:rgba(239,68,68,.1);color:#f87171;border
   </div>
   <div class="h-right">
     <button class="icon-btn" id="btn-news" title="Noticias del mercado">📰</button>
-    <button class="icon-btn" id="btn-help" title="¿Cómo funciona?">?</button>
+    <button class="icon-btn" id="btn-ayuda" title="¿Cómo funciona?" onclick="document.getElementById('modal-ayuda').classList.add('abierto')">?</button>
     <button class="icon-btn" id="btn-stats" title="Precios nacionales">📊</button>
     <button class="icon-btn" id="btn-theme" title="Cambiar tema">🌙</button>
-    <button id="btn-feedback" title="Enviar feedback">
+    <button id="btn-feedback2" title="Enviar feedback" onclick="abrirFeedback()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <span class="fb-label">Feedback</span>
+      <span class="fb2-label-btn">Feedback</span>
     </button>
   </div>
 </div>
@@ -1135,151 +1178,125 @@ body.dark .price-vs-avg.above{background:rgba(239,68,68,.1);color:#f87171;border
   </div>
 </div>
 
-<!-- HELP MODAL -->
-<div id="help-modal">
-  <div id="help-inner">
-    <div class="help-handle"></div>
-    <div class="help-title">¿Cómo funciona? 🗺</div>
-    <div class="help-sub">Todo lo que puedes hacer en llenoporfavor.app</div>
-    <div class="help-grid">
-
-      <div class="help-item">
-        <div class="help-icon">📍</div>
-        <div class="help-text-wrap">
-          <div class="help-item-title">Localízate o busca una ciudad</div>
-          <div class="help-item-desc">Pulsa el botón azul <b>⊕</b> en el mapa o usa <b>"Buscar lugar…"</b> para escribir una ciudad, dirección o código postal. El mapa se centra en tu zona y filtra las gasolineras más cercanas.</div>
-        </div>
-      </div>
-
-      <div class="help-item">
-        <div class="help-icon">⛽</div>
-        <div class="help-text-wrap">
-          <div class="help-item-title">Filtra por tipo de carburante</div>
-          <div class="help-item-desc">Usa los chips de la barra superior para activar o desactivar <b>Gasolina 95</b>, <b>Diésel</b>, <b>GLP</b> y más. Solo verás estaciones que vendan los carburantes seleccionados.</div>
-        </div>
-      </div>
-
-      <div class="help-item">
-        <div class="help-icon">💰</div>
-        <div class="help-text-wrap">
-          <div class="help-item-title">Ordena por precio o distancia</div>
-          <div class="help-item-desc">En el panel de resultados elige <b>Más barata</b> para ver primero la gasolina más económica, <b>Distancia</b> para la más cercana, o <b>Precio y distancia</b> para el mejor equilibrio entre ambas.</div>
-        </div>
-      </div>
-
-      <div class="help-item">
-        <div class="help-icon">🔋</div>
-        <div class="help-text-wrap">
-          <div class="help-item-title">Calcula cuánto te costará llenar</div>
-          <div class="help-item-desc">En cada tarjeta de gasolinera verás un campo <b>"litros"</b>. Escribe los litros de tu depósito y te muestra al instante el coste total del llenado para cada carburante disponible.</div>
-        </div>
-      </div>
-
-      <div class="help-item">
-        <div class="help-icon">🍀</div>
-        <div class="help-text-wrap">
-          <div class="help-item-title">Voy a tener suerte</div>
-          <div class="help-item-desc">¿No quieres tocar filtros? Pulsa el botón naranja del mapa, elige tu carburante y te encontramos <b>la mejor opción</b> en 10 km a la redonda combinando precio y distancia.</div>
-        </div>
-      </div>
-
-      <div class="help-item">
-        <div class="help-icon">⚙️</div>
-        <div class="help-text-wrap">
-          <div class="help-item-title">Filtros avanzados</div>
-          <div class="help-item-desc">El botón <b>Filtros</b> abre un panel completo donde puedes ajustar el radio de búsqueda, filtrar por marca, ver solo estaciones <b>low-cost</b> o solo las <b>abiertas ahora</b>.</div>
-        </div>
-      </div>
-
-      <div class="help-item">
-        <div class="help-icon">📊</div>
-        <div class="help-text-wrap">
-          <div class="help-item-title">Precios medios nacionales</div>
-          <div class="help-item-desc">El botón <b>📊</b> del header muestra los precios medios, mínimos y máximos de hoy en toda España, con la evolución histórica de los últimos días.</div>
-        </div>
-      </div>
-
+<!-- MODAL NOTICIAS -->
+<div id="news-modal" style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center">
+  <div id="news-inner" style="background:var(--surface);width:min(540px,100vw);border-radius:20px 20px 0 0;padding:20px 20px 32px;max-height:88vh;overflow-y:auto">
+    <div class="news-handle" style="width:40px;height:4px;border-radius:2px;background:var(--border);margin:0 auto 16px"></div>
+    <div class="news-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      <div class="news-title" style="font-size:16px;font-weight:800">📰 Mercado del petróleo</div>
+      <button class="news-close" id="news-close" style="width:30px;height:30px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;font-size:14px">✕</button>
     </div>
-    <button class="help-close-btn" id="help-close-btn">Entendido ✓</button>
-  </div>
-</div>
-
-<!-- NEWS MODAL -->
-<div id="news-modal">
-  <div id="news-inner">
-    <div class="news-handle"></div>
-    <div class="news-header">
-      <div class="news-title">📰 Mercado del petróleo</div>
-      <button class="news-close" id="news-close">✕</button>
-    </div>
-    <div class="news-sub">Últimas noticias sobre combustibles y energía</div>
-    <div id="news-content"><div class="news-loading">Cargando noticias…</div></div>
+    <div class="news-sub" style="font-size:12px;color:var(--muted);margin-bottom:18px">Últimas noticias sobre combustibles y energía</div>
+    <div id="news-content"><div class="news-loading" style="text-align:center;padding:40px 20px;color:var(--muted);font-size:13px">Cargando noticias…</div></div>
   </div>
 </div>
 
 <!-- ONBOARDING -->
-<div id="onboarding">
-  <div id="onboarding-card">
-    <div class="ob-steps">
-      <div class="ob-step on" id="ob-s0"></div>
-      <div class="ob-step" id="ob-s1"></div>
-      <div class="ob-step" id="ob-s2"></div>
+<div id="onboarding" style="position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;padding-bottom:20px">
+  <div id="onboarding-card" style="background:var(--surface);border-radius:20px;width:min(400px,calc(100vw - 32px));padding:24px 24px 28px;text-align:center">
+    <div class="ob-steps" style="display:flex;justify-content:center;gap:8px;margin-bottom:20px">
+      <div class="ob-step on" id="ob-s0" style="width:8px;height:8px;border-radius:50%;background:var(--c)"></div>
+      <div class="ob-step" id="ob-s1" style="width:8px;height:8px;border-radius:50%;background:var(--border)"></div>
+      <div class="ob-step" id="ob-s2" style="width:8px;height:8px;border-radius:50%;background:var(--border)"></div>
     </div>
-    <div id="ob-icon" class="ob-icon">📍</div>
-    <div id="ob-title" class="ob-title">Activa tu ubicación</div>
-    <div id="ob-desc" class="ob-desc">Pulsa el botón azul ⊕ del mapa para ver las gasolineras más cercanas a ti ordenadas por precio.</div>
-    <button class="ob-btn" id="ob-next">Siguiente →</button>
-    <button class="ob-skip" id="ob-skip">Saltar introducción</button>
+    <div id="ob-icon" style="font-size:36px;margin-bottom:12px">📍</div>
+    <div id="ob-title" style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:6px">Activa tu ubicación</div>
+    <div id="ob-desc" style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px">Pulsa el botón azul ⊕ del mapa para ver las gasolineras más cercanas.</div>
+    <button id="ob-next" style="width:100%;padding:12px;border-radius:10px;border:none;background:var(--c);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif">Siguiente →</button>
+    <button id="ob-skip" style="display:block;margin-top:10px;font-size:12px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;width:100%">Saltar introducción</button>
   </div>
 </div>
 
-<!-- FEEDBACK MODAL -->
-<div id="feedback-overlay">
-  <div id="feedback-panel">
-    <div class="fb-modal-handle"></div>
-    <div class="fb-modal-header">
-      <div class="fb-modal-title">💬 Envíanos tu opinión</div>
-      <button class="fb-modal-close" id="fb-close">✕</button>
+<!-- MODAL AYUDA -->
+<div id="modal-ayuda" onclick="if(event.target===this)this.classList.remove('abierto')">
+  <div class="modal-caja">
+    <div class="modal-barra"></div>
+    <div class="modal-cabecera">
+      <div class="modal-titulo">¿Cómo funciona? 🗺</div>
+      <button class="modal-cerrar" onclick="document.getElementById('modal-ayuda').classList.remove('abierto')">✕</button>
     </div>
-    <div class="fb-modal-sub">Tu feedback nos ayuda a mejorar llenoporfavor.app</div>
-
-    <div id="fb-form">
-      <!-- Categoría -->
-      <div class="fb-section-label">¿Sobre qué es?</div>
-      <div class="fb-cats">
-        <span class="fb-cat" data-cat="idea">💡 Idea</span>
-        <span class="fb-cat" data-cat="bug">🐛 Error técnico</span>
-        <span class="fb-cat" data-cat="precio">⛽ Precio incorrecto</span>
-        <span class="fb-cat" data-cat="gasolinera">📍 Gasolinera</span>
-        <span class="fb-cat" data-cat="otro">💬 Otro</span>
+    <div class="ayuda-lista">
+      <div class="ayuda-item">
+        <div class="ayuda-icono">📍</div>
+        <div>
+          <div class="ayuda-item-titulo">Localízate o busca una ciudad</div>
+          <div class="ayuda-item-desc">Pulsa el botón azul ⊕ del mapa o usa <b>Buscar lugar…</b> para escribir una ciudad, dirección o código postal.</div>
+        </div>
       </div>
-
-      <!-- Valoración -->
-      <div class="fb-section-label">¿Cómo valorarías la app?</div>
-      <div class="fb-stars" id="fb-stars">
-        <span class="fb-star" data-v="1">★</span>
-        <span class="fb-star" data-v="2">★</span>
-        <span class="fb-star" data-v="3">★</span>
-        <span class="fb-star" data-v="4">★</span>
-        <span class="fb-star" data-v="5">★</span>
+      <div class="ayuda-item">
+        <div class="ayuda-icono">⛽</div>
+        <div>
+          <div class="ayuda-item-titulo">Filtra por carburante</div>
+          <div class="ayuda-item-desc">Activa o desactiva <b>Gasolina 95</b>, <b>Diésel</b>, <b>GLP</b> y más en la barra superior. Solo verás estaciones con esos carburantes.</div>
+        </div>
       </div>
-
-      <!-- Mensaje -->
-      <div class="fb-section-label">Tu mensaje <span style="color:var(--danger)">*</span></div>
-      <textarea class="fb-textarea" id="fb-msg" placeholder="Cuéntanos qué mejorarías, qué falla o qué te gusta…"></textarea>
-
-      <!-- Email -->
-      <div class="fb-section-label">Tu email <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(opcional, para responderte)</span></div>
-      <input type="email" class="fb-email" id="fb-email" placeholder="tu@email.com" autocomplete="email">
-
-      <button class="fb-submit" id="fb-submit" disabled>Enviar feedback</button>
+      <div class="ayuda-item">
+        <div class="ayuda-icono">💰</div>
+        <div>
+          <div class="ayuda-item-titulo">Ordena por precio o distancia</div>
+          <div class="ayuda-item-desc">En el panel de resultados elige <b>Más barata</b>, <b>Distancia</b> o <b>Precio y distancia</b> para el mejor equilibrio.</div>
+        </div>
+      </div>
+      <div class="ayuda-item">
+        <div class="ayuda-icono">🔋</div>
+        <div>
+          <div class="ayuda-item-titulo">Calculadora de llenado</div>
+          <div class="ayuda-item-desc">Pulsa cualquier gasolinera e introduce los litros de tu depósito para ver el coste total al instante.</div>
+        </div>
+      </div>
+      <div class="ayuda-item">
+        <div class="ayuda-icono">🍀</div>
+        <div>
+          <div class="ayuda-item-titulo">Voy a tener suerte</div>
+          <div class="ayuda-item-desc">Pulsa el botón naranja del mapa, elige tu carburante y te encontramos la mejor opción en 10 km combinando precio y distancia.</div>
+        </div>
+      </div>
+      <div class="ayuda-item">
+        <div class="ayuda-icono">❤️</div>
+        <div>
+          <div class="ayuda-item-titulo">Favoritas</div>
+          <div class="ayuda-item-desc">Guarda tus gasolineras habituales con el corazón de cada tarjeta. Filtra por favoritas con el chip <b>❤️ Favoritas</b> de la barra superior.</div>
+        </div>
+      </div>
     </div>
+    <button class="ayuda-ok" onclick="document.getElementById('modal-ayuda').classList.remove('abierto')">Entendido ✓</button>
+  </div>
+</div>
 
-    <!-- Estado de éxito -->
-    <div id="fb-success">
-      <div class="fb-success-icon">🎉</div>
-      <div class="fb-success-title">¡Gracias por tu opinión!</div>
-      <div class="fb-success-sub">Tu feedback nos ayuda a mejorar cada día.</div>
+<!-- MODAL FEEDBACK -->
+<div id="modal-feedback" onclick="if(event.target===this)cerrarFeedback()">
+  <div class="modal-caja">
+    <div class="modal-barra"></div>
+    <div class="modal-cabecera">
+      <div class="modal-titulo">💬 Envíanos tu opinión</div>
+      <button class="modal-cerrar" onclick="cerrarFeedback()">✕</button>
+    </div>
+    <div id="fb2-form">
+      <div class="fb2-section-label">¿Sobre qué es?</div>
+      <div class="fb2-cats">
+        <span class="fb2-cat" onclick="selCat(this,'idea')">💡 Idea</span>
+        <span class="fb2-cat" onclick="selCat(this,'bug')">🐛 Error</span>
+        <span class="fb2-cat" onclick="selCat(this,'precio')">⛽ Precio incorrecto</span>
+        <span class="fb2-cat" onclick="selCat(this,'otro')">💬 Otro</span>
+      </div>
+      <div class="fb2-section-label">Valoración</div>
+      <div class="fb2-stars">
+        <span class="fb2-star" onclick="selStar(1)">★</span>
+        <span class="fb2-star" onclick="selStar(2)">★</span>
+        <span class="fb2-star" onclick="selStar(3)">★</span>
+        <span class="fb2-star" onclick="selStar(4)">★</span>
+        <span class="fb2-star" onclick="selStar(5)">★</span>
+      </div>
+      <div class="fb2-section-label">Tu mensaje <span style="color:var(--danger)">*</span></div>
+      <textarea class="fb2-textarea" id="fb2-msg" placeholder="Cuéntanos qué mejorarías, qué falla o qué te gusta…" oninput="fb2Validar()"></textarea>
+      <div class="fb2-section-label">Email <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0">(opcional)</span></div>
+      <input type="email" class="fb2-email" id="fb2-email" placeholder="tu@email.com">
+      <button class="fb2-enviar" id="fb2-enviar" disabled onclick="fb2Enviar()">Enviar feedback</button>
+    </div>
+    <div class="fb2-exito" id="fb2-exito">
+      <div style="font-size:44px">🎉</div>
+      <div style="font-size:16px;font-weight:800;color:var(--text)">¡Gracias por tu opinión!</div>
+      <div style="font-size:13px;color:var(--muted)">Tu feedback nos ayuda a mejorar cada día.</div>
     </div>
   </div>
 </div>
@@ -2367,182 +2384,66 @@ function sparkDraw(cv,data,color){
 document.getElementById('btn-stats').addEventListener('click',()=>{document.getElementById('stats-modal').classList.add('open');renderStats();});
 document.getElementById('stats-modal').addEventListener('click',e=>{if(e.target===document.getElementById('stats-modal')) document.getElementById('stats-modal').classList.remove('open');});
 
-// ── HELP MODAL ─────────────────────────────────────────────────────────────────
-document.getElementById('btn-help').addEventListener('click',()=>document.getElementById('help-modal').classList.add('open'));
-document.getElementById('help-close-btn').addEventListener('click',()=>document.getElementById('help-modal').classList.remove('open'));
-document.getElementById('help-modal').addEventListener('click',e=>{if(e.target===document.getElementById('help-modal')) document.getElementById('help-modal').classList.remove('open');});
+// ── AYUDA + FEEDBACK (global functions — onclick safe) ───────────────────────
+let fb2Cat='', fb2Rating=0;
 
-// ── FEEDBACK ──────────────────────────────────────────────────────────────────
-const FORMSPREE_ID = 'mgoprnbv';
-
-let fbCat='', fbRating=0;
-
-function fbOpen(){
-  document.getElementById('feedback-overlay').classList.add('open');
-  document.getElementById('fb-form').style.display='block';
-  document.getElementById('fb-success').classList.remove('visible');
+function abrirFeedback(){
+  document.getElementById('modal-feedback').classList.add('abierto');
+  document.getElementById('fb2-form').style.display='block';
+  document.getElementById('fb2-exito').classList.remove('visible');
+  fb2Cat=''; fb2Rating=0;
+  document.querySelectorAll('.fb2-cat').forEach(c=>c.classList.remove('sel'));
+  document.querySelectorAll('.fb2-star').forEach(s=>s.classList.remove('sel'));
+  const msg=document.getElementById('fb2-msg');
+  const email=document.getElementById('fb2-email');
+  if(msg) msg.value='';
+  if(email) email.value='';
+  fb2Validar();
 }
-function fbClose(){
-  document.getElementById('feedback-overlay').classList.remove('open');
-  // Reset form
-  fbCat=''; fbRating=0;
-  document.querySelectorAll('.fb-cat').forEach(c=>c.classList.remove('on'));
-  document.querySelectorAll('.fb-star').forEach(s=>s.classList.remove('on'));
-  document.getElementById('fb-msg').value='';
-  document.getElementById('fb-email').value='';
-  document.getElementById('fb-submit').disabled=true;
+function cerrarFeedback(){
+  document.getElementById('modal-feedback').classList.remove('abierto');
 }
-
-function fbCheckValid(){
-  const ok = document.getElementById('fb-msg').value.trim().length > 3;
-  document.getElementById('fb-submit').disabled = !ok;
+function selCat(el, cat){
+  fb2Cat=cat;
+  document.querySelectorAll('.fb2-cat').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
 }
-
-// Category chips
-document.querySelectorAll('.fb-cat').forEach(chip=>{
-  chip.addEventListener('click',()=>{
-    document.querySelectorAll('.fb-cat').forEach(c=>c.classList.remove('on'));
-    chip.classList.add('on');
-    fbCat=chip.dataset.cat;
-  });
-});
-
-// Stars
-document.querySelectorAll('.fb-star').forEach(star=>{
-  star.addEventListener('mouseover',()=>{
-    const v=parseInt(star.dataset.v);
-    document.querySelectorAll('.fb-star').forEach(s=>s.classList.toggle('on',parseInt(s.dataset.v)<=v));
-  });
-  star.addEventListener('mouseout',()=>{
-    document.querySelectorAll('.fb-star').forEach(s=>s.classList.toggle('on',parseInt(s.dataset.v)<=fbRating));
-  });
-  star.addEventListener('click',()=>{
-    fbRating=parseInt(star.dataset.v);
-    document.querySelectorAll('.fb-star').forEach(s=>s.classList.toggle('on',parseInt(s.dataset.v)<=fbRating));
-  });
-});
-
-// Message validation
-document.getElementById('fb-msg').addEventListener('input', fbCheckValid);
-
-// Submit
-document.getElementById('fb-submit').addEventListener('click', async()=>{
-  const msg=document.getElementById('fb-msg').value.trim();
-  const email=document.getElementById('fb-email').value.trim();
-  if(!msg) return;
-
-  const btn=document.getElementById('fb-submit');
+function selStar(n){
+  fb2Rating=n;
+  document.querySelectorAll('.fb2-star').forEach((s,i)=>s.classList.toggle('sel',i<n));
+}
+function fb2Validar(){
+  const msg=document.getElementById('fb2-msg');
+  const btn=document.getElementById('fb2-enviar');
+  if(btn) btn.disabled=!msg||msg.value.trim().length<3;
+}
+async function fb2Enviar(){
+  const msg=document.getElementById('fb2-msg')?.value.trim();
+  const email=document.getElementById('fb2-email')?.value.trim();
+  const btn=document.getElementById('fb2-enviar');
+  if(!msg||!btn) return;
   btn.disabled=true;
   btn.textContent='Enviando…';
-
-  const body={
-    message: msg,
-    categoria: fbCat||'sin categoría',
-    valoracion: fbRating ? `${fbRating}/5 ★` : 'Sin valorar',
-    email: email||'no indicado',
-    url: location.href,
-  };
-
   try{
-    if(FORMSPREE_ID && FORMSPREE_ID!=='YOUR_FORMSPREE_ID'){
-      await fetch(`https://formspree.io/f/${FORMSPREE_ID}`,{
-        method:'POST',
-        headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify(body),
-      });
-    }
-    // Show success
-    document.getElementById('fb-form').style.display='none';
-    document.getElementById('fb-success').classList.add('visible');
-    setTimeout(()=>fbClose(), 3000);
+    await fetch('https://formspree.io/f/mgoprnbv',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        message:msg,
+        categoria:fb2Cat||'sin categoría',
+        valoracion:fb2Rating?`${fb2Rating}/5 ★`:'Sin valorar',
+        email:email||'no indicado',
+        url:location.href,
+      }),
+    });
+    document.getElementById('fb2-form').style.display='none';
+    document.getElementById('fb2-exito').classList.add('visible');
+    setTimeout(cerrarFeedback, 2800);
   }catch{
     btn.disabled=false;
     btn.textContent='Error — reintentar';
-    setTimeout(()=>{btn.textContent='Enviar feedback';fbCheckValid();},2500);
+    setTimeout(()=>{btn.textContent='Enviar feedback';fb2Validar();},2500);
   }
-});
-
-// Open/close
-document.getElementById('btn-feedback').addEventListener('click', fbOpen);
-document.getElementById('fb-close').addEventListener('click', fbClose);
-document.getElementById('feedback-overlay').addEventListener('click',e=>{
-  if(e.target===document.getElementById('feedback-overlay')) fbClose();
-});
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'&&document.getElementById('feedback-overlay').classList.contains('open')) fbClose();
-});
-
-// ── SCHEDULE FORMATTER ────────────────────────────────────────────────────────
-// Converts raw API schedule string to human-readable format
-const DAY_MAP={L:'Lun',M:'Mar',X:'Mié',J:'Jue',V:'Vie',S:'Sáb',D:'Dom'};
-function formatSched(raw){
-  if(!raw||!raw.trim()) return '';
-  const u=raw.trim().toUpperCase();
-  if(u.includes('L-D: 24H')||u==='24H'||u.includes('24 HORAS')) return '24 horas';
-  try{
-    return u.split(';').map(seg=>{
-      const m=seg.trim().match(/([LMXJVSD][LMXJVSD\-,]*)\s*:\s*(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})/);
-      if(!m) return seg.trim();
-      const days=m[1].replace(/([LMXJVSD])-([LMXJVSD])/g,(_,a,b)=>
-        `${DAY_MAP[a]||a}–${DAY_MAP[b]||b}`
-      ).replace(/[LMXJVSD]/g,d=>DAY_MAP[d]||d);
-      return `${days} ${m[2]}–${m[3]}`;
-    }).join(' · ');
-  }catch{return raw;}
-}
-
-// ── WINDOW RESIZE ─────────────────────────────────────────────────────────────
-let resizeT=null;
-window.addEventListener('resize',()=>{
-  clearTimeout(resizeT);
-  resizeT=setTimeout(()=>{
-    syncDrawerVar(document.getElementById('results-drawer').className||'');
-    map.invalidateSize({animate:false});
-  },200);
-});
-
-// ── AUTO-REFRESH ──────────────────────────────────────────────────────────────
-// Check every hour if data.json has a newer date than what we loaded
-setInterval(async()=>{
-  try{
-    const r=await fetch('data.json?check='+Date.now());
-    if(!r.ok) return;
-    const d=await r.json();
-    if(d.date && d.date!==loadedDate && all.length){
-      loadedDate=d.date;
-      all=parseStations(d.stations);
-      brands=[...new Set(all.map(s=>s.brand))].filter(Boolean).sort((a,b)=>a.localeCompare(b,'es'));
-      if(d.stats) saveHistFromStats(d.stats,d.date);
-      if(uLL) updDist();
-      renderAll();
-      setStatus(`${all.length.toLocaleString('es-ES')} estaciones · actualizado`);
-    }
-  }catch{}
-},60*60*1000); // cada hora
-
-// ── FAVOURITES ────────────────────────────────────────────────────────────────
-const FK='gasolineras_favs';
-let favs=new Set();
-try{const f=JSON.parse(localStorage.getItem(FK)||'[]');favs=new Set(f);}catch{}
-function saveFavs(){try{localStorage.setItem(FK,JSON.stringify([...favs]));}catch{}}
-function toggleFav(id){
-  if(favs.has(id)){favs.delete(id);}else{favs.add(id);}
-  saveFavs();
-  // If no favs left, deactivate the filter chip
-  if(!favs.size && onlyFavs){
-    onlyFavs=false;
-    document.getElementById('chip-favs').dataset.active='0';
-  }
-  renderAll();
-}
-// Favs float in sort unless user chose a specific sort
-function getVisSorted(list){
-  if(sortMode==='dist'&&uLL&&favs.size){
-    const fv=list.filter(s=>favs.has(s.id));
-    const rest=list.filter(s=>!favs.has(s.id));
-    return[...fv,...rest];
-  }
-  return list;
 }
 
 // ── OPEN NOW CHIP ─────────────────────────────────────────────────────────────
