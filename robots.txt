@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*.json$
+
+# Allow Googlebot to crawl city pages explicitly
+User-agent: Googlebot
+Allow: /ciudades/
+Allow: /
+
+Sitemap: https://llenoporfavor.app/sitemap.xml
