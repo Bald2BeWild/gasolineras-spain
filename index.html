@@ -162,6 +162,55 @@
 }
 </script>
 
+<!-- ── HOWTO SCHEMA (aparece como resultado enriquecido en Google) ── -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Cómo encontrar la gasolinera más barata cerca de ti",
+  "description": "Guía paso a paso para localizar la gasolinera con el mejor precio cerca de tu ubicación en España.",
+  "image": "https://llenoporfavor.app/og-image.png",
+  "estimatedCost": {
+    "@type": "MonetaryAmount",
+    "currency": "EUR",
+    "value": "0"
+  },
+  "totalTime": "PT2M",
+  "tool": [{
+    "@type": "HowToTool",
+    "name": "Dispositivo con navegador web y conexión a internet"
+  }],
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Abre Llenoporfavor",
+      "text": "Accede a llenoporfavor.app desde cualquier navegador en tu móvil u ordenador. No necesitas registro ni descarga.",
+      "url": "https://llenoporfavor.app/"
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Activa tu ubicación",
+      "text": "Pulsa el botón azul ⊕ del mapa para que detecte automáticamente tu ubicación GPS. También puedes buscar una ciudad o dirección manualmente."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Filtra por carburante",
+      "text": "Selecciona en la barra superior el tipo de combustible que usa tu vehículo: Gasolina 95, Gasolina 98, Diésel, Diésel Premium o GLP."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Ordena por precio",
+      "text": "Elige el modo de ordenación 'Más barata' para ver primero las estaciones con mejor precio, o 'Distancia' para priorizar cercanía."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Selecciona una gasolinera",
+      "text": "Pulsa cualquier gasolinera del mapa o de la lista para ver sus precios detallados y obtener la ruta en Google Maps."
+    }
+  ]
+}
+</script>
+
 <!-- ── FAVICON & MANIFEST ── -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="manifest" href="/manifest.json">
@@ -176,6 +225,27 @@
 
 <!-- ── GOOGLE SEARCH CONSOLE ── -->
 <meta name="google-site-verification" content="ace2d45d3ef5fd6d">
+
+<!-- ── GOOGLE ANALYTICS 4 (sustituye G-XXXXXXXXXX por tu ID cuando lo tengas) ── -->
+<!-- Obtén tu ID gratis en https://analytics.google.com → Admin → Property → Data Streams -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX', {anonymize_ip: true});
+</script>
+-->
+
+<!-- ── SERVICE WORKER (mejora rendimiento y permite instalación PWA) ── -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(()=>{});
+  });
+}
+</script>
 
 <!-- ── GOOGLE ADSENSE (deferred for LCP) ── -->
 <script>
@@ -2595,55 +2665,94 @@ document.getElementById('chip-favs').addEventListener('click',()=>{
 
 // ── NEWS FEED ─────────────────────────────────────────────────────────────────
 // ── NEWS FEED ─────────────────────────────────────────────────────────────────
-// Uses rss2json.com — free service that converts RSS to JSON, no CORS issues
+// Uses multiple fallback proxies — more robust than single service
 const NEWS_FEEDS=[
   'https://news.google.com/rss/search?q=precio+gasolina+España&hl=es&gl=ES&ceid=ES:es',
   'https://news.google.com/rss/search?q=precio+petroleo+crudo&hl=es&gl=ES&ceid=ES:es',
 ];
-const RSS2JSON='https://api.rss2json.com/v1/api.json?rss_url=';
+// Fallback chain: if one fails, try the next
+const NEWS_PROXIES=[
+  url => `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`,
+  url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+  url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+];
 let newsCache=null;
+
+// Parse RSS XML text into items array
+function parseRSS(xmlText){
+  try{
+    const doc=new DOMParser().parseFromString(xmlText,'text/xml');
+    const items=[...doc.querySelectorAll('item')].map(item=>({
+      title:item.querySelector('title')?.textContent||'',
+      link:item.querySelector('link')?.textContent||item.querySelector('guid')?.textContent||'#',
+      source:item.querySelector('source')?.textContent||'Google News',
+      pubDate:item.querySelector('pubDate')?.textContent||'',
+    }));
+    return items;
+  }catch{return [];}
+}
+
+// Fetch a single feed using fallback proxies
+async function fetchFeedWithFallback(feedUrl){
+  for(const makeProxy of NEWS_PROXIES){
+    try{
+      const proxyUrl=makeProxy(feedUrl);
+      const res=await fetch(proxyUrl,{signal:AbortSignal.timeout(8000)});
+      if(!res.ok) continue;
+      const ct=res.headers.get('content-type')||'';
+      if(ct.includes('json')){
+        const data=await res.json();
+        // rss2json format
+        if(data.items?.length) return data.items.map(i=>({
+          title:(i.title||'').replace(/ [-–] [^-–]+$/,'').trim(),
+          link:i.link||i.guid||'#',
+          source:i.author||data.feed?.title||'Google News',
+          pubDate:i.pubDate||'',
+        }));
+        // allorigins format (wraps response in {contents: "..."})
+        if(data.contents){
+          const parsed=parseRSS(data.contents);
+          if(parsed.length) return parsed.map(i=>({...i,title:(i.title||'').replace(/ [-–] [^-–]+$/,'').trim()}));
+        }
+      } else {
+        // direct XML (corsproxy returns raw content)
+        const text=await res.text();
+        const parsed=parseRSS(text);
+        if(parsed.length) return parsed.map(i=>({...i,title:(i.title||'').replace(/ [-–] [^-–]+$/,'').trim()}));
+      }
+    }catch(e){
+      console.warn('Proxy failed, trying next:',e.message);
+    }
+  }
+  return [];
+}
 
 async function loadNews(){
   if(newsCache){renderNews(newsCache);return;}
-  document.getElementById('news-content').innerHTML='<div class="news-loading">⏳ Cargando noticias…</div>';
+  const el=document.getElementById('news-content');
+  if(!el) return;
+  el.innerHTML='<div class="news-loading">⏳ Cargando noticias…</div>';
   try{
-    // Fetch both feeds in parallel
-    const results = await Promise.allSettled(
-      NEWS_FEEDS.map(feed =>
-        fetch(RSS2JSON + encodeURIComponent(feed))
-          .then(r=>r.json())
-      )
-    );
-
+    const results=await Promise.allSettled(NEWS_FEEDS.map(fetchFeedWithFallback));
     const items=[];
     const seen=new Set();
     for(const r of results){
-      if(r.status==='fulfilled' && r.value?.items?.length){
-        for(const item of r.value.items){
-          // Clean title — Google News appends " - Source Name"
-          const title=(item.title||'').replace(/ [-–] [^-–]+$/, '').trim();
-          const key=title.toLowerCase().slice(0,40);
-          if(seen.has(key)||!title) continue;
+      if(r.status==='fulfilled' && r.value?.length){
+        for(const item of r.value){
+          const key=(item.title||'').toLowerCase().slice(0,40);
+          if(seen.has(key)||!item.title) continue;
           seen.add(key);
-          items.push({
-            title,
-            link: item.link||item.guid||'#',
-            source: item.author||r.value.feed?.title||'Google News',
-            pubDate: item.pubDate||'',
-          });
+          items.push(item);
         }
       }
     }
-
-    // Sort by date descending, take top 12
     items.sort((a,b)=>new Date(b.pubDate)-new Date(a.pubDate));
     const top=items.slice(0,12);
-
-    if(!top.length) throw new Error('Sin resultados');
+    if(!top.length) throw new Error('Sin resultados en ningún feed');
     newsCache=top;
     renderNews(top);
   }catch(e){
-    document.getElementById('news-content').innerHTML=`
+    el.innerHTML=`
       <div class="news-error">
         No se pudieron cargar las noticias.<br>
         <small>${e.message||'Inténtalo de nuevo más tarde.'}</small><br><br>
@@ -2752,6 +2861,58 @@ load().then(()=>{
 });
 </script>
 
+<!-- ── CONTENIDO VISIBLE SIN JAVASCRIPT (bots y usuarios sin JS) ── -->
+<noscript>
+<style>
+  #map,#header,#filter-bar,#results-drawer,#station-float,#search-panel,#filter-overlay,#lucky-overlay,#stats-modal,#news-modal,#modal-ayuda,#modal-feedback,#ad-banner,#ad-sidebar,#onboarding,#legal-footer{display:none!important}
+  .noscript-content{max-width:780px;margin:0 auto;padding:28px 22px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.65;color:#1f2937}
+  .noscript-content header{background:#1a56db;color:#fff;padding:28px 22px;border-radius:14px;margin-bottom:28px;text-align:center}
+  .noscript-content h1{font-size:28px;font-weight:800;margin-bottom:8px}
+  .noscript-content h2{font-size:20px;font-weight:700;margin:24px 0 10px;color:#111827}
+  .noscript-content p{margin-bottom:14px;color:#374151}
+  .noscript-content ul{margin:8px 0 18px 22px}
+  .noscript-content li{margin-bottom:6px;color:#374151}
+  .noscript-content a{color:#1a56db}
+  .noscript-warning{background:#fef3c7;border-left:4px solid #f59e0b;padding:14px 18px;border-radius:0 8px 8px 0;margin-bottom:24px}
+</style>
+<div class="noscript-content">
+  <header>
+    <h1>Llenoporfavor</h1>
+    <p>Gasolineras baratas cerca de ti en España</p>
+  </header>
+  <div class="noscript-warning">
+    <strong>⚠️ JavaScript desactivado</strong><br>
+    Llenoporfavor necesita JavaScript para mostrar el mapa interactivo con gasolineras en tiempo real. Actívalo en tu navegador para usar todas las funciones.
+  </div>
+  <h2>¿Qué es Llenoporfavor?</h2>
+  <p>Llenoporfavor es un comparador gratuito de precios de combustible que muestra en un mapa interactivo más de 12.000 gasolineras de toda España. Consulta precios de gasolina 95, gasolina 98, diésel, diésel premium y GLP actualizados cada mañana con datos oficiales del Ministerio para la Transición Ecológica.</p>
+  <h2>Gasolineras por ciudad</h2>
+  <p>Si no puedes ver el mapa, navega directamente a las páginas de tu ciudad:</p>
+  <ul>
+    <li><a href="/ciudades/madrid.html">Gasolineras baratas en Madrid</a></li>
+    <li><a href="/ciudades/barcelona.html">Gasolineras baratas en Barcelona</a></li>
+    <li><a href="/ciudades/valencia.html">Gasolineras baratas en Valencia</a></li>
+    <li><a href="/ciudades/sevilla.html">Gasolineras baratas en Sevilla</a></li>
+    <li><a href="/ciudades/zaragoza.html">Gasolineras baratas en Zaragoza</a></li>
+    <li><a href="/ciudades/malaga.html">Gasolineras baratas en Málaga</a></li>
+    <li><a href="/ciudades/bilbao.html">Gasolineras baratas en Bilbao</a></li>
+    <li><a href="/ciudades/alicante.html">Gasolineras baratas en Alicante</a></li>
+    <li><a href="/ciudades/murcia.html">Gasolineras baratas en Murcia</a></li>
+    <li><a href="/ciudades/palma.html">Gasolineras baratas en Palma de Mallorca</a></li>
+    <li><a href="/ciudades/granada.html">Gasolineras baratas en Granada</a></li>
+    <li><a href="/ciudades/cordoba.html">Gasolineras baratas en Córdoba</a></li>
+  </ul>
+  <h2>Sobre el servicio</h2>
+  <p>Llenoporfavor es un proyecto independiente, gratuito y sin registro. Los precios se actualizan cada mañana con datos oficiales del Ministerio. Para más información:</p>
+  <ul>
+    <li><a href="/sobre.html">Sobre nosotros</a></li>
+    <li><a href="/privacidad.html">Política de privacidad</a></li>
+    <li><a href="/terminos.html">Términos de uso</a></li>
+    <li><a href="/cookies.html">Política de cookies</a></li>
+  </ul>
+</div>
+</noscript>
+
 <!-- ── CONTENIDO INDEXABLE POR GOOGLE (oculto visualmente) ── -->
 <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap" aria-hidden="true">
   <h1>Llenoporfavor — Gasolineras baratas en España</h1>
@@ -2857,6 +3018,8 @@ load().then(()=>{
 
 <!-- ── LEGAL FOOTER (VISIBLE — REQUISITO DE ADSENSE) ── -->
 <div id="legal-footer" style="position:fixed;bottom:0;left:0;right:0;z-index:85;background:var(--surface);border-top:1px solid var(--border);padding:6px 12px;font-size:10.5px;color:var(--muted);text-align:center;font-family:'Inter',sans-serif;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;line-height:1">
+  <a href="/blog/" style="color:var(--muted);text-decoration:none">Blog</a>
+  <span style="opacity:.4">·</span>
   <a href="/sobre.html" style="color:var(--muted);text-decoration:none">Sobre</a>
   <span style="opacity:.4">·</span>
   <a href="/privacidad.html" style="color:var(--muted);text-decoration:none">Privacidad</a>
