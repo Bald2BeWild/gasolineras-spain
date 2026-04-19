@@ -2855,5 +2855,27 @@ load().then(()=>{
   </nav>
 </footer>
 
+<!-- ── LEGAL FOOTER (VISIBLE — REQUISITO DE ADSENSE) ── -->
+<div id="legal-footer" style="position:fixed;bottom:0;left:0;right:0;z-index:85;background:var(--surface);border-top:1px solid var(--border);padding:6px 12px;font-size:10.5px;color:var(--muted);text-align:center;font-family:'Inter',sans-serif;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;line-height:1">
+  <a href="/sobre.html" style="color:var(--muted);text-decoration:none">Sobre</a>
+  <span style="opacity:.4">·</span>
+  <a href="/privacidad.html" style="color:var(--muted);text-decoration:none">Privacidad</a>
+  <span style="opacity:.4">·</span>
+  <a href="/terminos.html" style="color:var(--muted);text-decoration:none">Términos</a>
+  <span style="opacity:.4">·</span>
+  <a href="/cookies.html" style="color:var(--muted);text-decoration:none">Cookies</a>
+  <span style="opacity:.4">·</span>
+  <span>© 2026 Llenoporfavor</span>
+</div>
+<style>
+  #legal-footer a:hover{color:var(--c)!important}
+  #legal-footer{height:26px}
+  /* Push content up so map doesn't hide behind footer */
+  #ad-banner{bottom:26px!important}
+  @media(min-width:900px){
+    #legal-footer{left:auto;right:0;width:calc(100% - 420px)}
+  }
+</style>
+
 </body>
 </html>
