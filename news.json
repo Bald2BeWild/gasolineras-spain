@@ -1,0 +1,43 @@
+{
+  "updated": "2026-04-20T13:01:49.847358+00:00",
+  "count": 6,
+  "items": [
+    {
+      "title": "Los precios del combustible mantienen su tendencia en España",
+      "link": "https://www.google.com/search?q=precio+gasolina+espa%C3%B1a+noticias",
+      "source": "Expansión",
+      "pubDate": "Mon, 20 Apr 2026 11:01:49 GMT"
+    },
+    {
+      "title": "El petróleo Brent cotiza con volatilidad en los mercados internacionales",
+      "link": "https://www.google.com/search?q=precio+petroleo+brent+hoy",
+      "source": "El Economista",
+      "pubDate": "Mon, 20 Apr 2026 08:01:49 GMT"
+    },
+    {
+      "title": "Las gasolineras low cost ganan cuota de mercado en España",
+      "link": "https://www.google.com/search?q=gasolineras+low+cost+espa%C3%B1a",
+      "source": "La Vanguardia",
+      "pubDate": "Mon, 20 Apr 2026 05:01:49 GMT"
+    },
+    {
+      "title": "Cómo ahorrar en el repostaje: consejos prácticos para conductores",
+      "link": "https://llenoporfavor.app/blog/como-ahorrar-gasolina.html",
+      "source": "Llenoporfavor",
+      "pubDate": "Mon, 20 Apr 2026 01:01:49 GMT"
+    },
+    {
+      "title": "¿Por qué varían tanto los precios entre gasolineras cercanas?",
+      "link": "https://llenoporfavor.app/blog/por-que-varian-precios-gasolina.html",
+      "source": "Llenoporfavor",
+      "pubDate": "Sun, 19 Apr 2026 19:01:49 GMT"
+    },
+    {
+      "title": "Guía completa de gasolineras low cost en España",
+      "link": "https://llenoporfavor.app/blog/gasolineras-low-cost-espana.html",
+      "source": "Llenoporfavor",
+      "pubDate": "Sun, 19 Apr 2026 13:01:49 GMT"
+    }
+  ],
+  "note": "Seed data — will be replaced by GitHub Actions workflow on next run"
+}
