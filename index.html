@@ -426,49 +426,88 @@ body.dark .fb2-cat.sel{background:rgba(26,86,219,.2)}
 .fb2-exito{display:none;flex-direction:column;align-items:center;padding:24px 0;gap:10px;text-align:center}
 .fb2-exito.visible{display:flex}
 
-/* ── FILTER BAR ── */
+/* ── FILTER BAR (modern, Linear-style) ── */
 #filter-bar{
-  position:fixed;top:54px;left:0;right:0;z-index:99;
-  background:var(--surface);border-bottom:1px solid var(--border);
+  position:fixed;top:56px;left:0;right:0;z-index:99;
+  background:var(--surface);border-bottom:1px solid var(--border-soft);
   display:flex;align-items:center;
-  gap:0;padding:0 16px;height:50px;
-  box-shadow:0 2px 6px rgba(15,23,42,.06);
+  gap:8px;padding:0 16px;height:54px;
+  box-shadow:var(--shadow-xs);
   overflow-x:auto;scrollbar-width:none;
+  backdrop-filter:saturate(180%) blur(12px);
+  -webkit-backdrop-filter:saturate(180%) blur(12px);
 }
 #filter-bar::-webkit-scrollbar{display:none}
-#btn-loc-bar{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;height:30px;border:1.5px solid var(--border);background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Inter',sans-serif;transition:all .15s;max-width:200px;overflow:hidden}
+
+#btn-loc-bar{
+  display:flex;align-items:center;gap:7px;padding:0 14px;border-radius:10px;height:36px;
+  border:1.5px solid var(--border);background:var(--surface);
+  color:var(--text);font-size:13px;font-weight:600;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  font-family:'Inter',sans-serif;transition:all var(--t-fast);
+  max-width:220px;overflow:hidden;
+}
 #btn-loc-bar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#btn-loc-bar:hover,#btn-loc-bar.active{border-color:var(--c);color:var(--c);background:#eff6ff}
-body.dark #btn-loc-bar.active{background:rgba(26,86,219,.2)}
-.fb-sep{width:1px;height:20px;background:var(--border);flex-shrink:0;margin:0 10px}
-.fuel-group{display:flex;flex-direction:column;align-items:flex-start;gap:3px;flex-shrink:0}
-.fuel-group-label{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);white-space:nowrap;padding-left:2px;line-height:1}
-.fuel-group-sep{width:1px;height:30px;background:var(--border);flex-shrink:0;align-self:center;margin:0 10px}
-.fb-chip{display:flex;align-items:center;padding:5px 12px;border-radius:16px;border:1.5px solid var(--border);background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Inter',sans-serif;transition:all .15s;user-select:none;height:28px}
-.fb-chip:not(.on){opacity:.5}
-.fb-chip.gas.on{border-color:var(--gas);background:#fef3c7;color:#78350f}
-.fb-chip.diesel.on{border-color:var(--diesel);background:#dbeafe;color:#1e3a8a}
-.fb-chip.glp.on{border-color:var(--glp);background:#d1fae5;color:#064e3b}
-body.dark .fb-chip.gas.on{background:rgba(245,158,11,.25);color:#fcd34d;border-color:rgba(245,158,11,.5)}
-body.dark .fb-chip.diesel.on{background:rgba(59,130,246,.25);color:#93c5fd;border-color:rgba(59,130,246,.5)}
-body.dark .fb-chip.glp.on{background:rgba(16,185,129,.25);color:#6ee7b7;border-color:rgba(16,185,129,.5)}
-#active-filters-bar{flex:1;display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none;min-width:0;padding:0 4px}
+#btn-loc-bar:hover{border-color:var(--c);color:var(--c);background:var(--c-soft)}
+#btn-loc-bar.active{border-color:var(--c);background:var(--c-soft);color:var(--c)}
+
+#fuel-chips-bar{display:flex;align-items:center;gap:6px;flex-shrink:0}
+
+.fuel-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:0 12px;height:32px;border-radius:8px;
+  border:1.5px solid var(--border);background:var(--surface);
+  color:var(--text2);font-size:12.5px;font-weight:600;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  font-family:'Inter',sans-serif;transition:all var(--t-fast);
+  user-select:none;
+}
+.fuel-chip:not(.on){opacity:.55;background:var(--surface2)}
+.fuel-chip.on{border-color:var(--text);color:var(--text);background:var(--surface)}
+body.dark .fuel-chip.on{border-color:var(--text2)}
+.fuel-chip:hover{transform:translateY(-1px)}
+.fc-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;display:inline-block}
+
+#active-filters-bar{flex:1;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;padding:0 4px}
 #active-filters-bar::-webkit-scrollbar{display:none}
-.af-pill{display:flex;align-items:center;gap:4px;padding:3px 8px;border-radius:16px;font-size:11px;font-weight:600;background:var(--surface2);border:1.5px solid var(--border);color:var(--text2);white-space:nowrap;flex-shrink:0;font-family:'Inter',sans-serif;height:24px}
-.af-pill.loc{border-color:var(--c);color:var(--c);background:#eff6ff}
-body.dark .af-pill.loc{background:rgba(26,86,219,.2)}
-.af-pill.opt{border-color:var(--glp);color:#065f46;background:#f0fdf4}
-body.dark .af-pill.opt{color:var(--glp);background:rgba(16,185,129,.15)}
-.af-pill-rm{background:none;border:none;cursor:pointer;color:inherit;font-size:10px;padding:0 0 0 2px;opacity:.6}
+.af-pill{
+  display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:16px;
+  font-size:11.5px;font-weight:600;background:var(--c-soft);border:none;
+  color:var(--c);white-space:nowrap;flex-shrink:0;
+  font-family:'Inter',sans-serif;height:26px;
+}
+.af-pill.opt{background:rgba(34,197,94,.12);color:#15803d}
+body.dark .af-pill.opt{background:rgba(34,197,94,.18);color:#86efac}
+.af-pill-rm{background:none;border:none;cursor:pointer;color:inherit;font-size:11px;padding:0 0 0 2px;opacity:.7;font-weight:700}
 .af-pill-rm:hover{opacity:1}
-.open-chip,.fav-chip{display:flex;align-items:center;padding:4px 10px;border-radius:16px;border:1.5px solid var(--border);background:var(--surface2);color:var(--text2);font-size:11.5px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Inter',sans-serif;transition:all .15s;user-select:none;height:26px}
-.open-chip[data-active="1"]{border-color:#10b981;background:#f0fdf4;color:#065f46}
-body.dark .open-chip[data-active="1"]{background:rgba(16,185,129,.15);color:#34d399;border-color:rgba(16,185,129,.4)}
-.fav-chip[data-active="1"]{border-color:#f43f5e;background:#fff1f2;color:#be123c}
-body.dark .fav-chip[data-active="1"]{background:rgba(244,63,94,.15);color:#fb7185;border-color:rgba(244,63,94,.4)}
-#btn-open-filters{display:flex;align-items:center;gap:6px;padding:0 12px;height:30px;border-radius:20px;background:var(--c);color:#fff;border:none;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;font-family:'Inter',sans-serif;transition:opacity .15s}
-#btn-open-filters:hover{opacity:.88}
-#filter-count-badge{background:rgba(255,255,255,.3);border-radius:10px;padding:1px 5px;font-size:10px;font-weight:700;display:none}
+
+.quick-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:0 12px;height:32px;border-radius:8px;
+  border:1.5px solid var(--border);background:var(--surface);
+  color:var(--text2);font-size:12.5px;font-weight:600;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  font-family:'Inter',sans-serif;transition:all var(--t-fast);
+  user-select:none;
+}
+.quick-chip:hover{transform:translateY(-1px);border-color:var(--text2)}
+.quick-chip[data-active="1"]{border-color:var(--text);color:var(--text);background:var(--surface2)}
+body.dark .quick-chip[data-active="1"]{border-color:var(--text2);background:var(--surface3)}
+.quick-chip svg{flex-shrink:0}
+
+#btn-open-filters{
+  display:flex;align-items:center;gap:7px;padding:0 14px;height:36px;
+  border-radius:10px;background:var(--text);color:var(--surface);
+  border:none;font-size:13px;font-weight:700;cursor:pointer;
+  white-space:nowrap;flex-shrink:0;font-family:'Inter',sans-serif;
+  transition:all var(--t-fast);
+}
+#btn-open-filters:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+#filter-count-badge{
+  background:var(--c);color:#fff;border-radius:10px;
+  padding:1px 7px;font-size:10px;font-weight:800;
+  display:none;font-family:'JetBrains Mono',monospace;
+}
 #filter-count-badge.visible{display:inline-block}
 
 /* ── PER-CARD TANK CALCULATOR ── */
@@ -502,7 +541,7 @@ body.dark .fav-chip[data-active="1"]{background:rgba(244,63,94,.15);color:#fb718
 
 /* ── SMART SEARCH PANEL ── */
 #search-panel{
-  position:fixed;top:108px;left:16px;z-index:300;
+  position:fixed;top:110px;left:16px;z-index:300;
   width:min(380px,calc(100vw - 32px));
   background:var(--surface);border:1px solid var(--border);
   border-radius:16px;box-shadow:var(--shadow-lg);
@@ -696,7 +735,7 @@ body.dark #drawer-sort-bar{background:#1c1f2b}
 /* ── DESKTOP LAYOUT: sidebar left ── */
 @media(min-width:900px){
   #results-drawer{
-    top:108px;bottom:0;left:0;right:auto;
+    top:110px;bottom:0;left:0;right:auto;
     width:420px;height:auto!important;max-height:none;
     border-radius:0;border-top:none;border-right:1px solid var(--border);
     box-shadow:4px 0 16px rgba(15,23,42,.08),2px 0 4px rgba(15,23,42,.04);
@@ -1107,6 +1146,25 @@ canvas.sc-spark{width:100%;height:44px;display:block}
 body.dark .price-vs-avg.below{background:rgba(34,197,94,.1);color:#4ade80;border-color:rgba(34,197,94,.25)}
 body.dark .price-vs-avg.above{background:rgba(239,68,68,.1);color:#f87171;border-color:rgba(239,68,68,.25)}
 
+/* ── 💰 SAVINGS ON CARD ── */
+.scard-savings{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 12px;border-radius:10px;
+  background:linear-gradient(135deg,rgba(21,128,61,.08),rgba(34,197,94,.05));
+  border:1px solid rgba(21,128,61,.2);
+  font-size:12.5px;color:#15803d;font-weight:500;
+  line-height:1.3;
+}
+body.dark .scard-savings{background:linear-gradient(135deg,rgba(34,197,94,.12),rgba(34,197,94,.06));border-color:rgba(34,197,94,.3);color:#86efac}
+.scard-savings strong{font-weight:800;font-family:'JetBrains Mono',monospace;color:#15803d}
+body.dark .scard-savings strong{color:#4ade80}
+.scard-savings.expensive{
+  background:linear-gradient(135deg,rgba(239,68,68,.06),rgba(239,68,68,.03));
+  border-color:rgba(239,68,68,.18);color:#b91c1c;
+}
+body.dark .scard-savings.expensive{background:linear-gradient(135deg,rgba(239,68,68,.1),rgba(239,68,68,.05));border-color:rgba(239,68,68,.25);color:#fca5a5}
+.scard-savings-icon{font-size:14px;flex-shrink:0;line-height:1}
+
 /* ── 💰 PRICE PINS (GasBuddy style) ── */
 .price-pin-wrap{background:transparent !important;border:none !important}
 .price-pin{
@@ -1249,41 +1307,98 @@ body.dark .price-vs-avg.above{background:rgba(239,68,68,.1);color:#f87171;border
 .news-card-date{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace}
 .news-error{text-align:center;padding:32px 20px;color:var(--muted);font-size:13px;line-height:1.7}
 
-/* ── ONBOARDING TOOLTIP ── */
+/* ── ONBOARDING (modern, Linear/Stripe style) ── */
 #onboarding{
   position:fixed;inset:0;z-index:800;
-  background:rgba(0,0,0,.55);
-  display:none;align-items:flex-end;justify-content:center;
-  padding-bottom:20px;
+  background:rgba(10,10,10,.7);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;
 }
+@media(max-width:600px){#onboarding{align-items:flex-end;padding:0}}
 #onboarding.open{display:flex}
 #onboarding-card{
-  background:var(--surface);border-radius:20px;
-  width:min(400px,calc(100vw - 32px));
-  padding:24px 24px 28px;
-  animation:slideUp .35s cubic-bezier(.4,0,.2,1);
+  background:var(--surface);border-radius:24px;
+  width:min(440px,100%);
+  overflow:hidden;
+  box-shadow:var(--shadow-xl);
+  animation:obIn .4s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+}
+@media(max-width:600px){
+  #onboarding-card{border-radius:24px 24px 0 0;animation:obSlideUp .35s cubic-bezier(.4,0,.2,1)}
+  @keyframes obSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+}
+@keyframes obIn{from{opacity:0;transform:scale(.95) translateY(12px)}to{opacity:1;transform:scale(1) translateY(0)}}
+
+.ob-steps{
+  display:flex;justify-content:center;gap:6px;
+  padding:18px 0 0;
+}
+.ob-step{
+  width:24px;height:4px;border-radius:2px;
+  background:var(--border);transition:all var(--t);
+}
+.ob-step.on{background:var(--c);width:32px}
+
+.ob-hero{
+  display:flex;align-items:center;justify-content:center;
+  padding:32px 28px 24px;
+  background:linear-gradient(135deg,#e6f0ff 0%,#f4f5f7 100%);
+  margin:16px 24px 0;border-radius:18px;
+  position:relative;overflow:hidden;
+}
+body.dark .ob-hero{background:linear-gradient(135deg,rgba(59,130,246,.15) 0%,rgba(63,63,70,.4) 100%)}
+.ob-hero::before{
+  content:'';position:absolute;top:-40%;right:-20%;
+  width:200px;height:200px;
+  background:radial-gradient(circle,rgba(0,102,255,.15) 0%,transparent 70%);
+  pointer-events:none;
+}
+#ob-icon{
+  font-size:64px;line-height:1;
+  filter:drop-shadow(0 4px 12px rgba(0,0,0,.15));
+  animation:obIconFloat .6s cubic-bezier(.4,0,.2,1);
+  position:relative;z-index:1;
+}
+@keyframes obIconFloat{from{opacity:0;transform:translateY(8px) scale(.8)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+.ob-content{
+  padding:24px 28px 8px;
   text-align:center;
 }
-.ob-steps{display:flex;justify-content:center;gap:8px;margin-bottom:20px}
-.ob-step{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--border);transition:background .2s;
+#ob-title{
+  font-size:22px;font-weight:800;color:var(--text);
+  margin-bottom:10px;line-height:1.25;letter-spacing:-.5px;
 }
-.ob-step.on{background:var(--c)}
-.ob-icon{font-size:36px;margin-bottom:12px}
-.ob-title{font-size:17px;font-weight:800;color:var(--text);margin-bottom:6px}
-.ob-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px}
-.ob-btn{
-  width:100%;padding:12px;border-radius:10px;border:none;
-  background:var(--c);color:#fff;font-size:14px;font-weight:700;
-  cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .15s;
+#ob-desc{
+  font-size:14.5px;color:var(--text2);line-height:1.55;
+  font-weight:400;
 }
-.ob-btn:hover{opacity:.88}
-.ob-skip{
-  display:block;margin-top:10px;font-size:12px;color:var(--muted);
-  cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;
+
+.ob-actions{
+  padding:20px 28px 28px;
+  display:flex;flex-direction:column;gap:10px;
 }
-.ob-skip:hover{color:var(--text2)}
+#ob-next{
+  width:100%;padding:14px 20px;border-radius:12px;border:none;
+  background:var(--text);color:var(--surface);
+  font-size:15px;font-weight:700;cursor:pointer;
+  font-family:'Inter',sans-serif;transition:all var(--t-fast);
+  letter-spacing:-.2px;
+  box-shadow:var(--shadow-sm);
+}
+#ob-next:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+#ob-next:active{transform:translateY(0)}
+
+#ob-skip{
+  background:none;border:none;
+  font-size:13px;color:var(--muted);
+  cursor:pointer;font-family:'Inter',sans-serif;
+  padding:8px;font-weight:500;
+  transition:color var(--t-fast);
+}
+#ob-skip:hover{color:var(--text2)}
 
 /* ── LOADING ANIMATION (pins dropping) ── */
 #loading-anim{
@@ -1363,45 +1478,28 @@ body.dark .price-vs-avg.above{background:rgba(239,68,68,.1);color:#f87171;border
 <!-- FILTER BAR -->
 <div id="filter-bar">
   <button id="btn-loc-bar">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
     <span id="fb-loc-label">Buscar lugar…</span>
   </button>
-  <div class="fb-sep"></div>
-  <div id="fuel-chips-bar" style="display:flex;align-items:center;gap:10px;flex-shrink:0">
-    <!-- Gasolina -->
-    <div class="fuel-group">
-      <span class="fuel-group-label">Gasolina</span>
-      <div style="display:flex;gap:5px">
-        <span class="fb-chip gas on" data-fuel="G95">95 E5</span>
-        <span class="fb-chip gas on" data-fuel="G98">98 E5</span>
-      </div>
-    </div>
-    <div class="fuel-group-sep"></div>
-    <!-- Gasóleo / Diésel -->
-    <div class="fuel-group">
-      <span class="fuel-group-label">Diésel</span>
-      <div style="display:flex;gap:5px">
-        <span class="fb-chip diesel on" data-fuel="GOA">Diésel</span>
-        <span class="fb-chip diesel on" data-fuel="GOP">Diésel+</span>
-      </div>
-    </div>
-    <div class="fuel-group-sep"></div>
-    <!-- Gas -->
-    <div class="fuel-group">
-      <span class="fuel-group-label">Gas</span>
-      <div style="display:flex;gap:5px">
-        <span class="fb-chip glp on" data-fuel="GLP">GLP</span>
-      </div>
-    </div>
+  <div id="fuel-chips-bar">
+    <button class="fuel-chip on" data-fuel="G95"><span class="fc-dot" style="background:#f59e0b"></span>95</button>
+    <button class="fuel-chip on" data-fuel="G98"><span class="fc-dot" style="background:#f97316"></span>98</button>
+    <button class="fuel-chip on" data-fuel="GOA"><span class="fc-dot" style="background:#3b82f6"></span>Diésel</button>
+    <button class="fuel-chip on" data-fuel="GOP"><span class="fc-dot" style="background:#8b5cf6"></span>Diésel+</button>
+    <button class="fuel-chip on" data-fuel="GLP"><span class="fc-dot" style="background:#10b981"></span>GLP</button>
   </div>
-  <div class="fb-sep"></div>
   <div id="active-filters-bar"></div>
-  <span class="fb-chip open-chip" id="chip-open" data-active="0">🕐 Abiertas</span>
-  <span class="fb-chip fav-chip" id="chip-favs" data-active="0">❤️ Favoritas</span>
-  <div class="fb-sep"></div>
+  <button class="quick-chip" id="chip-open" data-active="0">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Abiertas
+  </button>
+  <button class="quick-chip" id="chip-favs" data-active="0">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" fill="none"/></svg>
+    Favoritas
+  </button>
   <button id="btn-open-filters">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
-    Filtros <span id="filter-count-badge">0</span>
+    Más filtros <span id="filter-count-badge">0</span>
   </button>
 </div>
 
@@ -1606,18 +1704,24 @@ body.dark .price-vs-avg.above{background:rgba(239,68,68,.1);color:#f87171;border
 </div>
 
 <!-- ONBOARDING -->
-<div id="onboarding" style="position:fixed;inset:0;z-index:800;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;padding-bottom:20px">
-  <div id="onboarding-card" style="background:var(--surface);border-radius:20px;width:min(400px,calc(100vw - 32px));padding:24px 24px 28px;text-align:center">
-    <div class="ob-steps" style="display:flex;justify-content:center;gap:8px;margin-bottom:20px">
-      <div class="ob-step on" id="ob-s0" style="width:8px;height:8px;border-radius:50%;background:var(--c)"></div>
-      <div class="ob-step" id="ob-s1" style="width:8px;height:8px;border-radius:50%;background:var(--border)"></div>
-      <div class="ob-step" id="ob-s2" style="width:8px;height:8px;border-radius:50%;background:var(--border)"></div>
+<div id="onboarding">
+  <div id="onboarding-card">
+    <div class="ob-steps">
+      <div class="ob-step on" id="ob-s0"></div>
+      <div class="ob-step" id="ob-s1"></div>
+      <div class="ob-step" id="ob-s2"></div>
     </div>
-    <div id="ob-icon" style="font-size:36px;margin-bottom:12px">📍</div>
-    <div id="ob-title" style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:6px">Activa tu ubicación</div>
-    <div id="ob-desc" style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:20px">Pulsa el botón azul ⊕ del mapa para ver las gasolineras más cercanas.</div>
-    <button id="ob-next" style="width:100%;padding:12px;border-radius:10px;border:none;background:var(--c);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif">Siguiente →</button>
-    <button id="ob-skip" style="display:block;margin-top:10px;font-size:12px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:'Inter',sans-serif;width:100%">Saltar introducción</button>
+    <div class="ob-hero">
+      <div id="ob-icon">💰</div>
+    </div>
+    <div class="ob-content">
+      <h2 id="ob-title">Hasta 500€/año en tu bolsillo</h2>
+      <p id="ob-desc">La diferencia entre la gasolinera más cara y la más barata de tu ciudad puede ser de 18 céntimos por litro.</p>
+    </div>
+    <div class="ob-actions">
+      <button id="ob-next">Ver cómo funciona →</button>
+      <button id="ob-skip">Saltar introducción</button>
+    </div>
   </div>
 </div>
 
@@ -2125,15 +2229,20 @@ function renderAll(){
     const schBadge=sc.s==='h24'?`<span class="badge badge-h24">24h</span>`:sc.s==='open'?`<span class="badge badge-open">● ${sc.l||'Abierta'}</span>`:sc.s==='closed'?`<span class="badge badge-closed">● ${sc.l||'Cerrada'}</span>`:'';
     const isFav=favs.has(s.id);
 
-    // Price cells with vs-avg badge on main fuel
+    // Calculate savings for active fuel vs national average (estimated for 50L tank)
     const refF=[...aF].find(f=>s.prices[f]>0);
-    let avgBadge='';
+    let savingsTag='';
     if(refF && todayStats?.[refF]?.avg){
-      const diff=((s.prices[refF]-todayStats[refF].avg)/todayStats[refF].avg*100);
-      if(Math.abs(diff)>=0.5){
-        const cls=diff<0?'below':'above';
-        const sign=diff<0?'▼':'▲';
-        avgBadge=`<span class="price-vs-avg ${cls}">${sign}${Math.abs(diff).toFixed(1)}% media</span>`;
+      const stationPrice=s.prices[refF];
+      const avgPrice=todayStats[refF].avg;
+      const diffPerLiter=avgPrice-stationPrice;
+      const savings50L=diffPerLiter*50;
+      if(savings50L>=1){
+        // Cheaper than average — highlight savings
+        savingsTag=`<div class="scard-savings"><span class="scard-savings-icon">💰</span><span>Ahorras <strong>${savings50L.toFixed(1)}€</strong> en un depósito de 50L</span></div>`;
+      } else if(savings50L<=-2){
+        // More expensive — discreet warning
+        savingsTag=`<div class="scard-savings expensive"><span class="scard-savings-icon">⚠️</span><span>${Math.abs(savings50L).toFixed(1)}€ más cara que la media</span></div>`;
       }
     }
 
@@ -2146,13 +2255,14 @@ function renderAll(){
       <div style="display:flex;justify-content:space-between;align-items:flex-start">
         <div style="flex:1;min-width:0">
           <div class="scard-name">${s.name}</div>
-          <div class="scard-meta">${distStr}${s.isLC?'<span class="badge badge-lc">LOW COST</span>':''}${schBadge}${avgBadge}<span class="scard-loc">${s.locality}</span></div>
+          <div class="scard-meta">${distStr}${s.isLC?'<span class="badge badge-lc">LOW COST</span>':''}${schBadge}<span class="scard-loc">${s.locality}</span></div>
         </div>
         <button class="fav-btn${isFav?' on':''}" data-id="${s.id}" title="${isFav?'Quitar de favoritos':'Guardar como favorita'}">
           ${isFav?'❤️':'🤍'}
         </button>
       </div>
       <div class="price-grid">${pTags}</div>
+      ${savingsTag}
       <a class="scard-nav" href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
         Cómo llegar
@@ -2682,7 +2792,7 @@ document.getElementById('station-list').addEventListener('input', e => {
 
 // ── FUEL CHIPS ────────────────────────────────────────────────────────────────
 document.getElementById('fuel-chips-bar').addEventListener('click',e=>{
-  const chip=e.target.closest('.fb-chip[data-fuel]');if(!chip) return;
+  const chip=e.target.closest('.fuel-chip[data-fuel]');if(!chip) return;
   const f=chip.dataset.fuel;
   if(aF.has(f)){if(aF.size===1) return;aF.delete(f);chip.classList.remove('on');}
   else{aF.add(f);chip.classList.add('on');}
@@ -2709,7 +2819,7 @@ function applyFilterPanel(){
   onlyOpen=document.getElementById('fp-open').checked;
   radius=parseInt(document.getElementById('fp-radius').value)||10;
   tank=parseFloat(document.getElementById('fp-tank').value)||0;
-  document.querySelectorAll('#fuel-chips-bar .fb-chip[data-fuel]').forEach(c=>c.classList.toggle('on',aF.has(c.dataset.fuel)));
+  document.querySelectorAll('#fuel-chips-bar .fuel-chip[data-fuel]').forEach(c=>c.classList.toggle('on',aF.has(c.dataset.fuel)));
   closeFilterPanel();updateActivePills();renderAll();
 }
 function resetFilterPanel(){
@@ -2718,7 +2828,7 @@ function resetFilterPanel(){
   document.getElementById('chip-favs').dataset.active='0';
   clearLoc();
   document.querySelectorAll('.fp-fuel-btn').forEach(b=>b.classList.add('on'));
-  document.querySelectorAll('#fuel-chips-bar .fb-chip').forEach(c=>c.classList.add('on'));
+  document.querySelectorAll('#fuel-chips-bar .fuel-chip').forEach(c=>c.classList.add('on'));
   document.getElementById('fp-lc').checked=false;document.getElementById('fp-open').checked=false;
   document.getElementById('fp-radius').value=10;document.getElementById('fp-radius-val').textContent='10 km';
   document.getElementById('fp-tank').value='';
@@ -3019,9 +3129,24 @@ function timeAgo(dateStr){
 
 // ── ONBOARDING ────────────────────────────────────────────────────────────────
 const OB_STEPS=[
-  {icon:'📍',title:'Activa tu ubicación',desc:'Pulsa el botón azul ⊕ del mapa o busca tu ciudad para ver las gasolineras más cercanas.'},
-  {icon:'⛽',title:'Elige tu carburante',desc:'Usa los chips de la barra superior para filtrar por Gasolina 95, Diésel, GLP y más.'},
-  {icon:'🍀',title:'Encuentra la mejor opción',desc:'Pulsa "Voy a tener suerte" para que te encontremos la gasolinera con mejor precio y distancia en 10 km.'},
+  {
+    icon:'💰',
+    title:'Hasta 500€/año en tu bolsillo',
+    desc:'La diferencia entre la gasolinera más cara y la más barata de tu ciudad puede ser de 18 céntimos por litro. Con Llenoporfavor encuentras siempre la más barata.',
+    cta:'Ver cómo funciona →'
+  },
+  {
+    icon:'📍',
+    title:'Te localizamos automáticamente',
+    desc:'Acepta el permiso de ubicación y verás en segundos las gasolineras más baratas a tu alrededor, ordenadas por precio o distancia.',
+    cta:'Siguiente →'
+  },
+  {
+    icon:'🍀',
+    title:'¿Tienes prisa? "Voy a tener suerte"',
+    desc:'Un solo toque y te recomendamos la mejor opción combinando precio y distancia en 10 km. Como Google "I\'m Feeling Lucky" pero para tu depósito.',
+    cta:'¡Empezar!'
+  },
 ];
 let obStep=0;
 function showOnboarding(){
@@ -3032,10 +3157,15 @@ function showOnboarding(){
 function renderObStep(i){
   obStep=i;
   const s=OB_STEPS[i];
-  document.getElementById('ob-icon').textContent=s.icon;
+  // Re-trigger icon animation
+  const iconEl=document.getElementById('ob-icon');
+  iconEl.style.animation='none';
+  void iconEl.offsetWidth; // force reflow
+  iconEl.style.animation='';
+  iconEl.textContent=s.icon;
   document.getElementById('ob-title').textContent=s.title;
   document.getElementById('ob-desc').textContent=s.desc;
-  document.getElementById('ob-next').textContent=i<OB_STEPS.length-1?'Siguiente →':'¡Empezar!';
+  document.getElementById('ob-next').textContent=s.cta||(i<OB_STEPS.length-1?'Siguiente →':'¡Empezar!');
   document.querySelectorAll('.ob-step').forEach((el,j)=>el.classList.toggle('on',j===i));
 }
 document.getElementById('ob-next').addEventListener('click',()=>{
