@@ -1263,17 +1263,20 @@ body.dark .alert-permission-info.denied{color:#fca5a5;background:rgba(239,68,68,
 
 /* Compare bottom bar */
 #compare-bar{
-  position:fixed;bottom:34px;left:50%;transform:translateX(-50%) translateY(120%);
-  z-index:96;
+  position:fixed;
+  bottom:calc(var(--drawer-h) + 40px);
+  left:50%;transform:translateX(-50%) translateY(calc(100% + 20px));
+  z-index:200;
   display:flex;align-items:center;gap:12px;
   background:var(--text);color:var(--surface);
   padding:10px 12px 10px 18px;border-radius:14px;
   box-shadow:var(--shadow-lg);
   font-family:'Inter',sans-serif;
-  transition:transform .35s cubic-bezier(.4,0,.2,1);
+  transition:transform .35s cubic-bezier(.4,0,.2,1), bottom .35s cubic-bezier(.4,0,.2,1);
   max-width:calc(100vw - 32px);
+  pointer-events:none;
 }
-#compare-bar.visible{transform:translateX(-50%) translateY(0)}
+#compare-bar.visible{transform:translateX(-50%) translateY(0);pointer-events:auto}
 #compare-bar.shake{animation:cbShake .4s}
 @keyframes cbShake{0%,100%{transform:translateX(-50%) translateY(0)}25%{transform:translateX(calc(-50% - 8px)) translateY(0)}75%{transform:translateX(calc(-50% + 8px)) translateY(0)}}
 .cb-info{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;white-space:nowrap}
@@ -1296,9 +1299,16 @@ body.dark .cb-label{color:var(--text2)}
 .cb-go:hover:not(:disabled){background:var(--c-hover);transform:translateY(-1px)}
 .cb-go:disabled{opacity:.4;cursor:not-allowed}
 @media(max-width:480px){
-  #compare-bar{bottom:38px;font-size:12px;padding:8px 10px 8px 14px}
+  #compare-bar{font-size:12px;padding:8px 10px 8px 14px}
   .cb-label{display:none}
   .cb-go{padding:7px 12px;font-size:12px}
+}
+/* Desktop: place it centered in map area, above legal footer */
+@media(min-width:900px){
+  #compare-bar{
+    left:calc(420px + (100vw - 420px) / 2);
+    bottom:70px;
+  }
 }
 
 /* Compare modal */
