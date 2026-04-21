@@ -271,7 +271,7 @@ window.addEventListener('load', () => {
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 /* ── DESIGN TOKENS — Linear / Stripe / Apple style ── */
 :root {
@@ -313,7 +313,8 @@ body.dark {
   --shadow-xl:0 24px 64px rgba(0,0,0,.7);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+html,body{height:100%;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.logo-title,#ob-title,.compare-modal-title,.alerts-modal-title,.savings-hero-amount,.modal-titulo,.news-title,.stats-title{font-family:'Inter Tight','Inter',sans-serif;letter-spacing:-.02em;font-feature-settings:'ss01' on}
 
 /* ── MAP ── */
 #map{position:fixed;top:0;left:0;right:0;bottom:0;z-index:0;width:100%;height:100%}
@@ -1146,6 +1147,302 @@ canvas.sc-spark{width:100%;height:44px;display:block}
 body.dark .price-vs-avg.below{background:rgba(34,197,94,.1);color:#4ade80;border-color:rgba(34,197,94,.25)}
 body.dark .price-vs-avg.above{background:rgba(239,68,68,.1);color:#f87171;border-color:rgba(239,68,68,.25)}
 
+/* ── 🔔 PRICE ALERTS ── */
+#alerts-modal{
+  position:fixed;inset:0;z-index:700;
+  background:rgba(10,10,10,.65);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+@media(max-width:600px){#alerts-modal{align-items:flex-end;padding:0}}
+#alerts-modal.open{display:flex}
+.alerts-card{
+  background:var(--surface);border-radius:20px;
+  width:min(480px,100%);max-height:88vh;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:var(--shadow-xl);
+  animation:obIn .35s cubic-bezier(.4,0,.2,1);
+}
+@media(max-width:600px){
+  .alerts-card{border-radius:20px 20px 0 0;animation:obSlideUp .35s cubic-bezier(.4,0,.2,1)}
+}
+.alerts-modal-header{
+  padding:20px 24px 18px;border-bottom:1px solid var(--border-soft);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:14px;
+  flex-shrink:0;
+}
+.alerts-modal-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:4px;letter-spacing:-.3px}
+.alerts-modal-sub{font-size:12.5px;color:var(--muted);font-weight:500;line-height:1.4}
+.alerts-content{padding:20px 24px 24px;overflow-y:auto}
+
+.alerts-section-title{
+  font-size:11px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.7px;color:var(--muted);margin-bottom:12px;
+}
+.alerts-divider{height:1px;background:var(--border-soft);margin:24px 0 20px}
+
+.alert-item{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;border-radius:12px;
+  background:var(--surface2);border:1px solid var(--border-soft);
+  margin-bottom:8px;transition:all var(--t-fast);
+}
+.alert-item.triggered{
+  background:linear-gradient(135deg,rgba(21,128,61,.08),rgba(34,197,94,.04));
+  border-color:rgba(21,128,61,.3);
+}
+.alert-info{flex:1;min-width:0}
+.alert-fuel{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.alert-detail{font-size:12px;color:var(--text2);line-height:1.5}
+.alert-detail strong{color:var(--text);font-weight:700;font-family:'JetBrains Mono',monospace}
+.alert-current{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.alert-item.triggered .alert-current{color:#15803d;font-weight:700}
+body.dark .alert-item.triggered .alert-current{color:#4ade80}
+.alert-remove{
+  width:30px;height:30px;border-radius:8px;
+  border:1px solid var(--border);background:var(--surface);
+  color:var(--muted);cursor:pointer;font-size:13px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:all var(--t-fast);
+}
+.alert-remove:hover{border-color:var(--danger);color:var(--danger);background:rgba(239,68,68,.05)}
+
+.alerts-empty{text-align:center;padding:24px 12px}
+.alerts-empty-icon{font-size:36px;margin-bottom:10px;opacity:.6}
+.alerts-empty-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.alerts-empty-desc{font-size:12.5px;color:var(--muted);line-height:1.5}
+
+.alert-form-row{margin-bottom:14px}
+.alert-form-label{
+  display:block;font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.5px;
+  color:var(--text2);margin-bottom:6px;
+}
+.alert-form-input{
+  width:100%;padding:12px 14px;border-radius:10px;
+  border:1.5px solid var(--border);background:var(--surface);
+  color:var(--text);font-size:14px;font-weight:600;
+  font-family:'Inter',sans-serif;outline:none;
+  transition:border-color var(--t-fast);
+}
+.alert-form-input:focus{border-color:var(--c)}
+
+.alert-create-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:13px 18px;border-radius:12px;
+  background:var(--c);color:#fff;border:none;
+  font-size:14px;font-weight:700;cursor:pointer;
+  font-family:'Inter',sans-serif;transition:all var(--t-fast);
+  box-shadow:0 2px 8px rgba(0,102,255,.25);margin-top:4px;
+}
+.alert-create-btn:hover{background:var(--c-hover);transform:translateY(-1px)}
+
+.alert-permission-info{
+  display:flex;align-items:center;gap:6px;
+  font-size:11.5px;color:var(--muted);
+  margin-top:10px;padding:8px 10px;
+  background:var(--surface2);border-radius:8px;
+}
+.alert-permission-info.ok{color:#15803d;background:rgba(34,197,94,.08)}
+body.dark .alert-permission-info.ok{color:#86efac;background:rgba(34,197,94,.15)}
+.alert-permission-info.denied{color:#b91c1c;background:rgba(239,68,68,.06)}
+body.dark .alert-permission-info.denied{color:#fca5a5;background:rgba(239,68,68,.12)}
+
+/* ── 📊 STATION COMPARISON ── */
+.compare-btn{
+  background:transparent;border:1.5px solid var(--border);
+  width:30px;height:30px;border-radius:8px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:var(--muted);transition:all var(--t-fast);
+  flex-shrink:0;
+}
+.compare-btn:hover{border-color:var(--c);color:var(--c);background:var(--c-soft)}
+.compare-btn.on{background:var(--c);border-color:var(--c);color:#fff}
+.compare-btn.on:hover{background:var(--c-hover)}
+.scard.comparing{box-shadow:0 0 0 2px var(--c) inset,var(--shadow-sm)}
+
+/* Compare bottom bar */
+#compare-bar{
+  position:fixed;bottom:34px;left:50%;transform:translateX(-50%) translateY(120%);
+  z-index:96;
+  display:flex;align-items:center;gap:12px;
+  background:var(--text);color:var(--surface);
+  padding:10px 12px 10px 18px;border-radius:14px;
+  box-shadow:var(--shadow-lg);
+  font-family:'Inter',sans-serif;
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+  max-width:calc(100vw - 32px);
+}
+#compare-bar.visible{transform:translateX(-50%) translateY(0)}
+#compare-bar.shake{animation:cbShake .4s}
+@keyframes cbShake{0%,100%{transform:translateX(-50%) translateY(0)}25%{transform:translateX(calc(-50% - 8px)) translateY(0)}75%{transform:translateX(calc(-50% + 8px)) translateY(0)}}
+.cb-info{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;white-space:nowrap}
+.cb-count{background:var(--c);color:#fff;border-radius:50%;width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;font-family:'JetBrains Mono',monospace}
+.cb-label{color:var(--muted)}
+body.dark .cb-label{color:var(--text2)}
+.cb-clear{
+  background:transparent;border:none;color:var(--muted);
+  font-size:12px;font-weight:600;cursor:pointer;padding:6px 10px;
+  font-family:'Inter',sans-serif;border-radius:8px;transition:all var(--t-fast);
+}
+.cb-clear:hover{background:rgba(255,255,255,.1);color:var(--surface)}
+.cb-go{
+  display:flex;align-items:center;gap:6px;
+  background:var(--c);color:#fff;border:none;
+  padding:8px 14px;border-radius:10px;
+  font-size:13px;font-weight:700;cursor:pointer;
+  font-family:'Inter',sans-serif;transition:all var(--t-fast);
+}
+.cb-go:hover:not(:disabled){background:var(--c-hover);transform:translateY(-1px)}
+.cb-go:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:480px){
+  #compare-bar{bottom:38px;font-size:12px;padding:8px 10px 8px 14px}
+  .cb-label{display:none}
+  .cb-go{padding:7px 12px;font-size:12px}
+}
+
+/* Compare modal */
+#compare-modal{
+  position:fixed;inset:0;z-index:700;
+  background:rgba(10,10,10,.65);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+@media(max-width:600px){#compare-modal{align-items:flex-end;padding:0}}
+#compare-modal.open{display:flex}
+.compare-card{
+  background:var(--surface);border-radius:20px;
+  width:min(900px,100%);max-height:90vh;overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:var(--shadow-xl);
+  animation:obIn .35s cubic-bezier(.4,0,.2,1);
+}
+@media(max-width:600px){
+  .compare-card{border-radius:20px 20px 0 0;max-height:92vh;animation:obSlideUp .35s cubic-bezier(.4,0,.2,1)}
+}
+.compare-modal-header{
+  padding:20px 24px;border-bottom:1px solid var(--border-soft);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:14px;
+  flex-shrink:0;
+}
+.compare-modal-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:4px;letter-spacing:-.3px}
+.compare-modal-sub{font-size:13px;color:var(--muted);font-weight:500}
+.compare-modal-close{
+  width:34px;height:34px;border-radius:10px;
+  border:1px solid var(--border);background:var(--surface2);
+  color:var(--text2);cursor:pointer;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+  transition:all var(--t-fast);flex-shrink:0;
+}
+.compare-modal-close:hover{border-color:var(--danger);color:var(--danger)}
+#compare-content{padding:20px 24px 24px;overflow-y:auto;flex:1}
+
+.compare-grid{
+  display:grid;grid-template-columns:140px repeat(var(--cols),1fr);
+  gap:1px;background:var(--border-soft);
+  border-radius:12px;overflow:hidden;border:1px solid var(--border-soft);
+}
+@media(max-width:600px){
+  .compare-grid{grid-template-columns:100px repeat(var(--cols),1fr)}
+}
+.compare-row{display:contents}
+.compare-cell{
+  background:var(--surface);padding:12px 10px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.compare-label-cell{
+  background:var(--surface2);font-weight:600;
+  font-size:12px;color:var(--text2);
+}
+.compare-fuel-name{font-size:12.5px;font-weight:700;color:var(--text);margin-bottom:2px}
+.compare-fuel-avg{font-size:10px;color:var(--muted);font-weight:500;font-family:'JetBrains Mono',monospace}
+
+/* Header row (stations) */
+.compare-header .compare-cell.compare-station{
+  padding:14px 10px;
+  text-align:center;align-items:center;
+  position:relative;
+}
+.compare-station.winner{background:linear-gradient(135deg,rgba(21,128,61,.06),rgba(34,197,94,.04))}
+.compare-badge-best{
+  position:absolute;top:-1px;left:50%;transform:translateX(-50%) translateY(-50%);
+  background:#15803d;color:#fff;
+  font-size:10px;font-weight:800;padding:3px 10px;border-radius:12px;
+  white-space:nowrap;letter-spacing:.3px;
+  box-shadow:0 2px 6px rgba(21,128,61,.4);
+}
+.compare-station-name{
+  font-size:13px;font-weight:800;color:var(--text);
+  margin-top:4px;line-height:1.25;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  text-align:center;
+}
+.compare-station-meta{
+  font-size:10.5px;color:var(--muted);margin-top:4px;
+  line-height:1.4;font-weight:500;
+}
+.compare-lc-badge{
+  display:inline-block;background:rgba(16,185,129,.15);color:#065f46;
+  font-size:9px;font-weight:800;padding:1px 6px;border-radius:8px;
+  margin-top:4px;letter-spacing:.3px;
+}
+body.dark .compare-lc-badge{background:rgba(16,185,129,.25);color:#6ee7b7}
+
+/* Price cells */
+.compare-price{text-align:center;align-items:center}
+.compare-price-value{
+  font-size:18px;font-weight:800;color:var(--text);
+  font-family:'JetBrains Mono',monospace;letter-spacing:-.5px;
+}
+.compare-price-tank{
+  font-size:10px;color:var(--muted);font-weight:600;
+  margin-top:2px;font-family:'JetBrains Mono',monospace;
+}
+.compare-price.cheapest{background:rgba(34,197,94,.08)}
+.compare-price.cheapest .compare-price-value{color:#15803d}
+body.dark .compare-price.cheapest{background:rgba(34,197,94,.15)}
+body.dark .compare-price.cheapest .compare-price-value{color:#4ade80}
+.compare-price.priciest{background:rgba(239,68,68,.05)}
+.compare-price.priciest .compare-price-value{color:#b91c1c}
+body.dark .compare-price.priciest{background:rgba(239,68,68,.1)}
+body.dark .compare-price.priciest .compare-price-value{color:#fca5a5}
+.compare-noprice{text-align:center;color:var(--muted);font-size:18px;font-weight:600}
+.compare-vs-avg{
+  font-size:10px;font-weight:700;margin-top:3px;
+  font-family:'JetBrains Mono',monospace;
+}
+.compare-vs-avg.below{color:#15803d}
+body.dark .compare-vs-avg.below{color:#4ade80}
+.compare-vs-avg.above{color:#b91c1c}
+body.dark .compare-vs-avg.above{color:#fca5a5}
+
+/* Savings row */
+.compare-savings-row .compare-cell{background:linear-gradient(135deg,rgba(21,128,61,.04),rgba(34,197,94,.02))}
+body.dark .compare-savings-row .compare-cell{background:linear-gradient(135deg,rgba(34,197,94,.08),rgba(34,197,94,.04))}
+.compare-savings-value{
+  text-align:center;font-size:16px;font-weight:800;
+  color:#15803d;font-family:'JetBrains Mono',monospace;
+  letter-spacing:-.3px;
+}
+body.dark .compare-savings-value{color:#4ade80}
+
+/* Action buttons */
+.compare-actions{
+  display:grid;grid-template-columns:repeat(var(--cols,3),1fr);gap:8px;margin-top:16px;
+  padding-top:16px;border-top:1px solid var(--border-soft);
+}
+@media(max-width:600px){.compare-actions{grid-template-columns:1fr}}
+.compare-action-btn{
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  padding:11px 14px;border-radius:10px;
+  background:var(--c);color:#fff !important;
+  font-size:13px;font-weight:700;text-decoration:none !important;
+  font-family:'Inter',sans-serif;transition:all var(--t-fast);
+  box-shadow:0 2px 8px rgba(0,102,255,.2);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.compare-action-btn:hover{background:var(--c-hover);transform:translateY(-1px)}
+
 /* ── 💰 SAVINGS ON CARD ── */
 .scard-savings{
   display:flex;align-items:center;gap:8px;
@@ -1457,6 +1754,11 @@ body.dark .ob-hero{background:linear-gradient(135deg,rgba(59,130,246,.15) 0%,rgb
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg>
       </button>
       <div id="header-menu">
+        <button class="menu-item" onclick="document.getElementById('header-menu').classList.remove('open');openAlertsModal();renderAlertForm()">
+          <span class="menu-icon">🔔</span><span>Alertas de precio</span>
+          <span id="alerts-count-badge" style="margin-left:auto;background:var(--c);color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:800;display:none;font-family:'JetBrains Mono',monospace">0</span>
+        </button>
+        <div class="menu-divider"></div>
         <button class="menu-item" onclick="document.getElementById('header-menu').classList.remove('open');document.getElementById('news-modal').classList.add('open');loadNews()">
           <span class="menu-icon">📰</span><span>Noticias del mercado</span>
         </button>
@@ -1672,6 +1974,58 @@ body.dark .ob-hero{background:linear-gradient(135deg,rgba(59,130,246,.15) 0%,rgb
 <button id="fab-locate-map" title="Localizarme">
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="9"/></svg>
 </button>
+
+<!-- 🔔 ALERTS MODAL -->
+<div id="alerts-modal" onclick="if(event.target===this)closeAlertsModal()">
+  <div class="alerts-card">
+    <div class="alerts-modal-header">
+      <div>
+        <h2 class="alerts-modal-title">🔔 Alertas de precio</h2>
+        <div class="alerts-modal-sub">Te avisamos cuando un combustible baje del precio que elijas</div>
+      </div>
+      <button class="compare-modal-close" onclick="closeAlertsModal()">✕</button>
+    </div>
+    <div class="alerts-content">
+      <div class="alerts-section-title">Mis alertas</div>
+      <div id="alerts-list"></div>
+      <div id="alerts-empty" class="alerts-empty">
+        <div class="alerts-empty-icon">🔕</div>
+        <div class="alerts-empty-title">No tienes alertas configuradas</div>
+        <div class="alerts-empty-desc">Crea una alerta para que te avisemos cuando los precios bajen</div>
+      </div>
+      <div class="alerts-divider"></div>
+      <div class="alerts-section-title">Crear nueva alerta</div>
+      <div id="alert-form"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 📊 COMPARE BAR (sticky) -->
+<div id="compare-bar">
+  <div class="cb-info">
+    <span class="cb-count">0</span>
+    <span class="cb-label">gasolineras seleccionadas</span>
+  </div>
+  <button class="cb-clear" onclick="clearCompare()">Cancelar</button>
+  <button class="cb-go" onclick="openCompareModal()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    Comparar
+  </button>
+</div>
+
+<!-- 📊 COMPARE MODAL -->
+<div id="compare-modal" onclick="if(event.target===this)closeCompareModal()">
+  <div class="compare-card">
+    <div class="compare-modal-header">
+      <div>
+        <h2 class="compare-modal-title">Comparativa de gasolineras</h2>
+        <div class="compare-modal-sub">Precios para depósito de 50 litros</div>
+      </div>
+      <button class="compare-modal-close" onclick="closeCompareModal()">✕</button>
+    </div>
+    <div id="compare-content"></div>
+  </div>
+</div>
 
 <!-- LUCKY OVERLAY + CARD -->
 <div id="lucky-overlay">
@@ -1954,6 +2308,8 @@ function dayOk(ds,jd){const M={L:1,M:2,X:3,J:4,V:5,S:6,D:0};for(const p of ds.sp
 let all=[],uLL=null,aF=new Set(['G95','G98','GOA','GOP','GLP']);
 let onlyLC=false,onlyOpen=false,onlyFavs=false,sortMode='dist',radius=10,brand='',tank=0;
 let favs=(()=>{try{return new Set(JSON.parse(localStorage.getItem('gasolineras_favs')||'[]'));}catch{return new Set();}})();
+let compareSet=new Set(); // station ids selected for comparison
+let compareMode=false;
 function saveFavs(){try{localStorage.setItem('gasolineras_favs',JSON.stringify([...favs]));}catch{}}
 function toggleFav(id){
   if(favs.has(id)){favs.delete(id);}else{favs.add(id);}
@@ -2249,17 +2605,22 @@ function renderAll(){
     const pTags=[...aF].map(f=>{const p=s.prices[f];if(!p) return'';const cl=mm[f]?.min===p?'cheapest':mm[f]?.max===p?'priciest':'';return`<div class="price-cell ${cl}"><span class="pc-label">${FL[f]}</span><span class="pc-price">${p.toFixed(3)}</span></div>`;}).join('');
     const distStr=s.dist!=null?`<span class="scard-dist">${s.dist.toFixed(1)} km</span>`:'';
     const card=document.createElement('div');
-    card.className='scard'+(s.id===selId?' selected':'')+(isFav?' fav-card':'');
+    card.className='scard'+(s.id===selId?' selected':'')+(isFav?' fav-card':'')+(compareSet.has(s.id)?' comparing':'');
     card.dataset.id=s.id;
     card.innerHTML=`
-      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
         <div style="flex:1;min-width:0">
           <div class="scard-name">${s.name}</div>
           <div class="scard-meta">${distStr}${s.isLC?'<span class="badge badge-lc">LOW COST</span>':''}${schBadge}<span class="scard-loc">${s.locality}</span></div>
         </div>
-        <button class="fav-btn${isFav?' on':''}" data-id="${s.id}" title="${isFav?'Quitar de favoritos':'Guardar como favorita'}">
-          ${isFav?'❤️':'🤍'}
-        </button>
+        <div style="display:flex;gap:4px;flex-shrink:0">
+          <button class="compare-btn${compareSet.has(s.id)?' on':''}" data-id="${s.id}" title="${compareSet.has(s.id)?'Quitar de comparación':'Añadir a comparación'}">
+            ${compareSet.has(s.id)?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>':'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>'}
+          </button>
+          <button class="fav-btn${isFav?' on':''}" data-id="${s.id}" title="${isFav?'Quitar de favoritos':'Guardar como favorita'}">
+            ${isFav?'❤️':'🤍'}
+          </button>
+        </div>
       </div>
       <div class="price-grid">${pTags}</div>
       ${savingsTag}
@@ -2268,6 +2629,7 @@ function renderAll(){
         Cómo llegar
       </a>`;
     card.querySelector('.fav-btn').addEventListener('click',e=>{e.stopPropagation();toggleFav(s.id);});
+    card.querySelector('.compare-btn').addEventListener('click',e=>{e.stopPropagation();toggleCompare(s.id);});
     card.addEventListener('click',()=>select(s));
     // Hover: highlight pin on map (only works if marker is visible, not clustered)
     card.addEventListener('mouseenter',()=>{
@@ -3295,9 +3657,355 @@ window.shareSavings=function(){
   }
 };
 
+// ── 🔔 PRICE ALERTS ──────────────────────────────────────────────────────────
+const ALERTS_KEY='gasolineras_alerts';
+
+function getAlerts(){
+  try{return JSON.parse(localStorage.getItem(ALERTS_KEY)||'[]');}catch{return [];}
+}
+function saveAlerts(arr){
+  try{localStorage.setItem(ALERTS_KEY,JSON.stringify(arr));}catch{}
+}
+
+async function setupAlert(fuel, threshold){
+  const alerts=getAlerts().filter(a=>a.fuel!==fuel);
+  alerts.push({fuel,threshold,createdAt:Date.now(),lastNotified:0});
+  saveAlerts(alerts);
+  // Request notification permission
+  if('Notification' in window && Notification.permission==='default'){
+    await Notification.requestPermission();
+  }
+  renderAlertsBadge();
+  return true;
+}
+
+function removeAlert(fuel){
+  saveAlerts(getAlerts().filter(a=>a.fuel!==fuel));
+  renderAlertsBadge();
+  renderAlertsList();
+}
+
+function checkAlerts(){
+  const alerts=getAlerts();
+  if(!alerts.length) return;
+  const hist=getHist();
+  const today=hist.length?hist[hist.length-1]?.fuels:null;
+  if(!today) return;
+  const now=Date.now();
+  const ONE_DAY=24*60*60*1000;
+  let updated=false;
+  alerts.forEach(a=>{
+    const avg=today[a.fuel]?.avg;
+    if(!avg) return;
+    if(avg<=a.threshold && (now-a.lastNotified)>ONE_DAY){
+      // Trigger notification
+      if('Notification' in window && Notification.permission==='granted'){
+        try{
+          new Notification(`🎉 ${FL[a.fuel]} a buen precio`,{
+            body:`La media nacional ha bajado a ${avg.toFixed(3)}€/L (umbral: ${a.threshold.toFixed(3)}€)`,
+            icon:'/favicon.svg',
+            tag:`alert-${a.fuel}`,
+          });
+          a.lastNotified=now;
+          updated=true;
+        }catch{}
+      }
+    }
+  });
+  if(updated) saveAlerts(alerts);
+}
+
+function renderAlertsBadge(){
+  const alerts=getAlerts();
+  const badge=document.getElementById('alerts-count-badge');
+  if(!badge) return;
+  if(alerts.length===0){
+    badge.style.display='none';
+  } else {
+    badge.style.display='inline-flex';
+    badge.textContent=alerts.length;
+  }
+}
+
+function openAlertsModal(){
+  document.getElementById('alerts-modal').classList.add('open');
+  renderAlertsList();
+}
+
+function closeAlertsModal(){
+  document.getElementById('alerts-modal').classList.remove('open');
+}
+
+function renderAlertsList(){
+  const alerts=getAlerts();
+  const hist=getHist();
+  const today=hist.length?hist[hist.length-1]?.fuels:null;
+  const list=document.getElementById('alerts-list');
+  const empty=document.getElementById('alerts-empty');
+  if(!list||!empty) return;
+
+  if(alerts.length===0){
+    list.style.display='none';
+    empty.style.display='block';
+    return;
+  }
+  list.style.display='block';
+  empty.style.display='none';
+  list.innerHTML=alerts.map(a=>{
+    const avg=today?.[a.fuel]?.avg;
+    const triggered=avg && avg<=a.threshold;
+    return `<div class="alert-item${triggered?' triggered':''}">
+      <div class="alert-info">
+        <div class="alert-fuel">${FL[a.fuel]}</div>
+        <div class="alert-detail">
+          Avísame cuando baje de <strong>${a.threshold.toFixed(3)}€/L</strong>
+          ${avg?`<br><span class="alert-current">Actual: ${avg.toFixed(3)}€${triggered?' ✓':''}</span>`:''}
+        </div>
+      </div>
+      <button class="alert-remove" onclick="removeAlert('${a.fuel}')" title="Eliminar alerta">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function renderAlertForm(){
+  const hist=getHist();
+  const today=hist.length?hist[hist.length-1]?.fuels:null;
+  const form=document.getElementById('alert-form');
+  if(!form) return;
+  const fuels=['G95','G98','GOA','GOP','GLP'].filter(f=>today?.[f]?.avg);
+  form.innerHTML=`
+    <div class="alert-form-row">
+      <label class="alert-form-label">Carburante</label>
+      <select id="alert-fuel" class="alert-form-input">
+        ${fuels.map(f=>`<option value="${f}">${FL[f]} (media ${today[f].avg.toFixed(3)}€)</option>`).join('')}
+      </select>
+    </div>
+    <div class="alert-form-row">
+      <label class="alert-form-label">Umbral de precio (€/L)</label>
+      <input type="number" id="alert-threshold" class="alert-form-input" step="0.01" min="0.5" max="3" placeholder="ej: 1.400">
+    </div>
+    <button class="alert-create-btn" onclick="createAlertFromForm()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      Crear alerta
+    </button>
+    <div class="alert-permission-info" id="alert-perm-info"></div>
+  `;
+  // Update permission info
+  const info=document.getElementById('alert-perm-info');
+  if('Notification' in window){
+    if(Notification.permission==='granted'){
+      info.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Notificaciones activas';
+      info.className='alert-permission-info ok';
+    } else if(Notification.permission==='denied'){
+      info.innerHTML='⚠️ Notificaciones bloqueadas. Actívalas en los ajustes del navegador.';
+      info.className='alert-permission-info denied';
+    } else {
+      info.innerHTML='ℹ️ Te pediremos permiso para enviarte notificaciones';
+      info.className='alert-permission-info';
+    }
+  } else {
+    info.innerHTML='⚠️ Tu navegador no soporta notificaciones';
+    info.className='alert-permission-info denied';
+  }
+}
+
+async function createAlertFromForm(){
+  const fuel=document.getElementById('alert-fuel').value;
+  const threshold=parseFloat(document.getElementById('alert-threshold').value);
+  if(!fuel||!threshold||threshold<=0){
+    alert('Introduce un umbral válido');
+    return;
+  }
+  await setupAlert(fuel,threshold);
+  renderAlertsList();
+  renderAlertForm();
+  document.getElementById('alert-threshold').value='';
+}
+
+window.openAlertsModal=openAlertsModal;
+window.closeAlertsModal=closeAlertsModal;
+window.removeAlert=removeAlert;
+window.createAlertFromForm=createAlertFromForm;
+
+// ── 📊 STATION COMPARISON ────────────────────────────────────────────────────
+function toggleCompare(id){
+  if(compareSet.has(id)){
+    compareSet.delete(id);
+  } else {
+    if(compareSet.size>=3){
+      // Notify user limit reached
+      const bar=document.getElementById('compare-bar');
+      if(bar){
+        bar.classList.add('shake');
+        setTimeout(()=>bar.classList.remove('shake'),500);
+      }
+      return;
+    }
+    compareSet.add(id);
+  }
+  renderCompareBar();
+  renderAll(); // update card visual state
+}
+
+function clearCompare(){
+  compareSet.clear();
+  compareMode=false;
+  renderCompareBar();
+  renderAll();
+}
+
+function renderCompareBar(){
+  const bar=document.getElementById('compare-bar');
+  if(!bar) return;
+  if(compareSet.size===0){
+    bar.classList.remove('visible');
+    return;
+  }
+  bar.classList.add('visible');
+  const count=compareSet.size;
+  bar.querySelector('.cb-count').textContent=count;
+  bar.querySelector('.cb-label').textContent=count===1?'gasolinera seleccionada':'gasolineras seleccionadas';
+  const compareBtn=bar.querySelector('.cb-go');
+  compareBtn.disabled=count<2;
+}
+
+function openCompareModal(){
+  const stations=[...compareSet].map(id=>all.find(s=>s.id===id)).filter(Boolean);
+  if(stations.length<2) return;
+
+  const hist=getHist();
+  const todayStats=hist.length?hist[hist.length-1]?.fuels:null;
+  const fuelLabels={G95:'Gasolina 95',G98:'Gasolina 98',GOA:'Diésel',GOP:'Diésel+',GLP:'GLP'};
+  const allFuels=['G95','G98','GOA','GOP','GLP'];
+
+  // Find min/max per fuel for comparison highlights
+  const mm={};
+  for(const f of allFuels){
+    const vals=stations.map(s=>s.prices[f]).filter(p=>p>0);
+    if(vals.length>=2) mm[f]={min:Math.min(...vals),max:Math.max(...vals)};
+  }
+
+  // Calculate winner
+  let bestStation=null,bestScore=Infinity;
+  stations.forEach(s=>{
+    let score=0,count=0;
+    for(const f of allFuels){
+      if(s.prices[f]>0&&mm[f]){
+        score+=(s.prices[f]-mm[f].min)/(mm[f].max-mm[f].min||1);
+        count++;
+      }
+    }
+    if(count>0){
+      const avgScore=score/count;
+      if(avgScore<bestScore){bestScore=avgScore;bestStation=s;}
+    }
+  });
+
+  const tankSize=50;
+
+  let html=`<div class="compare-grid" style="--cols:${stations.length}">
+    <div class="compare-row compare-header">
+      <div class="compare-cell compare-label-cell"></div>
+      ${stations.map(s=>`
+        <div class="compare-cell compare-station${s.id===bestStation?.id?' winner':''}">
+          ${s.id===bestStation?.id?'<div class="compare-badge-best">🏆 Mejor opción</div>':''}
+          <div class="compare-station-name">${s.name}</div>
+          <div class="compare-station-meta">
+            ${s.dist!=null?`📍 ${s.dist.toFixed(1)} km · `:''}${s.locality}
+            ${s.isLC?'<span class="compare-lc-badge">LOW COST</span>':''}
+          </div>
+        </div>
+      `).join('')}
+    </div>`;
+
+  // Fuel rows
+  for(const f of allFuels){
+    const hasAny=stations.some(s=>s.prices[f]>0);
+    if(!hasAny) continue;
+    const avg=todayStats?.[f]?.avg;
+    html+=`<div class="compare-row">
+      <div class="compare-cell compare-label-cell">
+        <div class="compare-fuel-name">${fuelLabels[f]}</div>
+        ${avg?`<div class="compare-fuel-avg">Media: ${avg.toFixed(3)}€</div>`:''}
+      </div>
+      ${stations.map(s=>{
+        const p=s.prices[f];
+        if(!p) return `<div class="compare-cell compare-noprice">—</div>`;
+        const isCheapest=mm[f]?.min===p;
+        const isPriciest=mm[f]?.max===p&&mm[f].min!==mm[f].max;
+        const cls=isCheapest?'cheapest':isPriciest?'priciest':'';
+        // diff vs avg
+        let avgDiff='';
+        if(avg){
+          const d=((p-avg)/avg*100);
+          if(Math.abs(d)>=0.5){
+            const sign=d<0?'▼':'▲';
+            const cl=d<0?'below':'above';
+            avgDiff=`<div class="compare-vs-avg ${cl}">${sign}${Math.abs(d).toFixed(1)}%</div>`;
+          }
+        }
+        return `<div class="compare-cell compare-price ${cls}">
+          <div class="compare-price-value">${p.toFixed(3)}</div>
+          <div class="compare-price-tank">≈ ${(p*tankSize).toFixed(2)}€/depósito</div>
+          ${avgDiff}
+        </div>`;
+      }).join('')}
+    </div>`;
+  }
+
+  // Savings row (vs most expensive)
+  const totalSavings={};
+  stations.forEach(s=>{
+    let totalSav=0;
+    for(const f of allFuels){
+      if(s.prices[f]>0&&mm[f]){
+        totalSav+=(mm[f].max-s.prices[f])*tankSize;
+      }
+    }
+    totalSavings[s.id]=totalSav;
+  });
+  html+=`<div class="compare-row compare-savings-row">
+    <div class="compare-cell compare-label-cell">
+      <div class="compare-fuel-name" style="color:#15803d">Ahorro total</div>
+      <div class="compare-fuel-avg">vs la más cara</div>
+    </div>
+    ${stations.map(s=>{
+      const sav=totalSavings[s.id];
+      return `<div class="compare-cell">
+        <div class="compare-savings-value">${sav>0?`+${sav.toFixed(2)}€`:'—'}</div>
+      </div>`;
+    }).join('')}
+  </div>`;
+
+  html+=`</div>`;
+
+  // Action buttons per station
+  html+=`<div class="compare-actions">
+    ${stations.map(s=>`
+      <a class="compare-action-btn" href="https://www.google.com/maps/dir/?api=1&destination=${s.lat},${s.lng}" target="_blank" rel="noopener noreferrer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        ${s.name.length>20?s.name.slice(0,20)+'…':s.name}
+      </a>
+    `).join('')}
+  </div>`;
+
+  document.getElementById('compare-content').innerHTML=html;
+  document.getElementById('compare-modal').classList.add('open');
+}
+
+function closeCompareModal(){
+  document.getElementById('compare-modal').classList.remove('open');
+}
+
+window.toggleCompare=toggleCompare;
+window.openCompareModal=openCompareModal;
+window.closeCompareModal=closeCompareModal;
+window.clearCompare=clearCompare;
+
 // ── INIT ──────────────────────────────────────────────────────────────────────
 setDrawer('peek');
 renderSavingsBadge(); // show savings badge if any from previous sessions
+renderAlertsBadge(); // show alerts count in menu
 const _st=document.getElementById('sidebar-toggle-desktop');
 if(_st&&isDesktop()){_st.style.left='420px';_st.textContent='‹';}
 load().then(()=>{
@@ -3306,6 +4014,8 @@ load().then(()=>{
     if(cached) loadedDate=JSON.parse(cached)?.date||null;
   }catch{}
   renderSavingsBadge(); // re-render after data loads (in case month changed)
+  // Check price alerts after data is loaded
+  setTimeout(checkAlerts, 1500);
 });
 </script>
 
