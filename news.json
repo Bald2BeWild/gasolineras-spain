@@ -1,12 +1,90 @@
 {
-  "updated": "2026-05-14T08:30:06.710114+00:00",
+  "updated": "2026-05-14T13:51:44.470527+00:00",
   "count": 20,
   "items": [
     {
-      "title": "El IPC confirma la caída hasta el 3,2% en abril gracias a la bajada del precio de la luz, pero la gasolina sigue al alza",
+      "title": "Precio del petróleo venezolano superó los 90 dólares por primera vez en más de una década",
+      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOM1hNU0gzbC1QMDg4MF9YOWNmVDkxNzRRQ0dGcF9IMlFQVWVfUVJmdkpfeXFpOXA5eWt6VTBmLUZ0bXIzVWREUEJLbURjZlFjOHJsazlFQUZVRnVTRVNnWXhTQ2hrSjVKUE9vZm5YOVQxVTZKM2JjTm5Ka1Z2NmVCdGY3RGFzbFZBLWpyVjJaTGVFaTJhMGpVNnAyVjNCazJJbk55OWtPdE9aVUtCUzl1UGdnQVc5Ym0zeVBIT2hpdjZRcHc?oc=5",
+      "source": "El Nacional",
+      "pubDate": "Thu, 14 May 2026 13:47:50 GMT"
+    },
+    {
+      "title": "El petróleo de Texas cae un 0,61 %: precios se sitúan en 100,4 dólares por barril",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQYlNlc1p0eXV5OGpCMFU5dXhINFV2R0dScEFCSTFWZDBZT1Qyb1BRYUpyNE5NMG5rMER6NVJWcm5rMXNadXNja21PN0VycUdYZFdTUHMtQWRYenVadUplVVNvRVFpal9CY2xacUVuUHJqNEVxSE5yTDZSY2d4c3A5X3BRT0VSQlpxa3dObV9uZUdOSlVRZVdyRVVXOE80cmp6MkHSAacBQVVfeXFMTk9JU3NvVnhrQUo2UG5VVTNjOGdiVm04M3ctRmd3Qnd4a0c4TzA5T0Joc1lLejdwdngtVzdzMlA2R2pBU2s2ZFFzRGZtTVd0ZVlOcHJteS00bjZTamhPYWdkbW5XZ0g2MzNGV0dBRHNQNFdlZW5md25reWpkbXhIMzgyZ1pKSDRRVzIwNmdQVEJORkhNZnVVQW16N0JJR3g2aVQ1alNiXzA?oc=5",
+      "source": "Hoy Digital",
+      "pubDate": "Thu, 14 May 2026 13:32:27 GMT"
+    },
+    {
+      "title": "Las gasolineras 'low cost' denuncian a Repsol ante la CNMC por \"posible abuso dominante\" con sus descuentos",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQYW40RUFHUlNmcVhURWd4OVo1Y0wxZEEzVlg5WS0yM2lrUUFBWjZhY3o2cW9iMjdNM1J5cnRTTUhSVjVFSWlac3RRc0VBRl9Ud3RRcjFNbVZockVUNmtuN3o0LW5MQlZKNWtpZlBwNFBDczk3aUNIY1BxdlFtUVE4UnFZaEFHSENnVVdLb2lMbm9tdkx5MHZxVEFMVGc2cF9QZGxzWWdWblhIV0dC0gGyAUFVX3lxTFBkUEJKa0hfb3dSNnRndGNjYXJZTkNqcmpKQVNibnFaOFNIcERIMWVvNnAyNDRtYjBBU3JmYzhHUWticDNwVGc3ZkZkdXBNVzZiOEsxeGt6dlpLek5lLUVPX3RXcWc4S3M5RXNoVnU5blZ3Tm81Xzc0VUI3ZkdmOGhncGE4VEJzaGZ4ei0xcjRsTlJBOHNET1A3RVlucnFhbVVOZjBUTFhIOXVSdEZDaE1aZFE?oc=5",
+      "source": "El Periódico de Aragón",
+      "pubDate": "Thu, 14 May 2026 13:29:55 GMT"
+    },
+    {
+      "title": "España frena su inflación al 3,2% pero el Gobierno retira las ayudas a la luz",
+      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9xSUVmVGU4WmpRQmJ4WmEtZVZnRDFySHkzUnJRZ1dKYVRPbXhfSktYOTA0QWpwRVhMQjB6eHUtWDdmb1NJYjZrTnUzTGl3dHhjSVJhMmxZcHlFREZqSm85bmo3dVJuckxLd3JhRmVRUHl1c1k2NEE?oc=5",
+      "source": "Ahora León",
+      "pubDate": "Thu, 14 May 2026 12:39:31 GMT"
+    },
+    {
+      "title": "El precio del petróleo WTI titubea tras las conversaciones entre Trump y Xi Jinping, la AIE advierte de un persistente déficit de suministro",
+      "link": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxQTlRZbmZmUXA5cDNOUkx6NzlSU3F2NUF2YlhZZ2RpZ0N6SXVfb1JGMHQyR04yYVBSaEVHUHI5OUhTOUtUQ0JVUTFaeVFRYXhKcVFKY3BhWXpJS0hOb0UzV0dwOGtoeWhBYTlLNWJkSW5PcVh1WHBFMF9Oc0p0QmZnZURMUlA5TTFXLXVMTWdHWWxBck5nWDZSRER0UmVqemEzV1ZrVTNyQ0c4LUwtT2R6MXVSNjBJemVJTl9fVTB2ak9VdTktYnFXRmxpU2FtR1U3NXFKSGFtaXFNNS02THQwc0RFZTVrYlhnSjloQVB4T1JlbmZjV1dN0gH8AUFVX3lxTE9wWWFlZGxNcnFqUjY2TTZiRkgybDdsY2N2VnFxcmNCWDhFN3cxTE83Y2xRVGhtUWozQktEMmdjdmItTDVHZW5BRHZkOHd1V2hUZEtUMXk0TnJUdXNrUEdoYUJfU0JpbkdOTW9PVjFhT3V1bURCdjhmZDJfVkNEbU9BMC1jbU9KVnkxZmlaTFJycGRCaEdQTXNEa1ZPbnBKOEY2MVgwemN1NVQzNktMazZVLXA3aGFKRW5MTWROYk9hanB4R09tWjZMdEdPYzlRcS0tQi12cnZldFJMSlpxT21ia3lkTU1ycjlPMk41VkN2bEp5QUQ5QUlJQlZCRw?oc=5",
+      "source": "FXStreet",
+      "pubDate": "Thu, 14 May 2026 10:59:20 GMT"
+    },
+    {
+      "title": "PRECIO del petróleo HOY: así cotiza el barril de crudo este 14 de mayo de 2026",
+      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOcGN2V2ZOaHh0Y0JUV1pKVlNaWWhXcFlJa0loaXJaZ0pzbTdrUmU1U0E4ZS1LZUswUlFDUDVDYWJiTkMydkdlQjJLYnFzV203emlRcnh5c1ZxSnZWZDZJZ0JGTVhyQW0tVGtCMDhUYW9nZ09XMmNhS0xFVDduZGU4bk5SM1JCZXVXNGdtYTdwOUhNMmRfY0NhNlB4ZEtuSlBqbkpwcGxaY1dvSWVuTEFUcHFvRmRiZnhFdkljNnM0cFdEbndrcHRFbWhMVlpQN0lTNVlrTElR0gHbAUFVX3lxTE1kdWFDQVlaY19OVFh6dThYQTVJeTJ0MFdESm5sckVNNzlKZVJxeFhmV2haVVl6NHNJRWtUTmVGaFBhNG5RTDNFVXlwR2NyVmhMcTdZVUpFdmMzRDBvbEhfVXRSOEFpanhDT2sxMWpFTkxxNFdTVUJKNng0UktoVk04MVp6ZFFwLUNNeHlRRFpiUGVCX3FPLXFuZWhYbUFyVUFGZUNWVzZzSFdHYkVSNmRDamFDaG1PT0U1TVY3ZkNFdjF4aVo5Y0JzTVk3MENUYWQ4ZXk2eXh5MGFxTQ?oc=5",
+      "source": "El Heraldo de México",
+      "pubDate": "Thu, 14 May 2026 10:57:00 GMT"
+    },
+    {
+      "title": "Teletrabajo, cupos de venta de gasolina y compensaciones, así viven distintos países el actual alza de precios del diésel y la gasolina, ¿y Ecuador?",
+      "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxNbGszQ0pNM1FUbVdlbldqSDUtVkl4dzRkMEZTa3lmaGNYUlAtRXlKM3pGaE9PY0pLTDF6dk9UWlV1eTJVXzc1VW5oVUtCaVZRYXVYRFI5NE5RdWRFME1ScC10NF9rTjVnQTlOX25hcXpJVklGaGtNNEY3OWpHaXNRbnl6b2dOcElObGhuaHVPLXE2dW9uQTlMVlBwUlVBdlhLMTgwYmlKbHo4emZzZGU1Q0haQlZjOU1LMlRISG1rd1YtQ0VyX0IweS05QzdXQVpqZ1BsNExXalFGSll0Q0hYUDEyS19KMklKMTEzaVZpd3BqUQ?oc=5",
+      "source": "Primicias",
+      "pubDate": "Thu, 14 May 2026 10:55:00 GMT"
+    },
+    {
+      "title": "El precio del diésel desciende un 1% esta semana y sitúa su media en mínimos desde marzo",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQOEVEcTkwWVhJR1J3ZEpBd0M2XzQteVN6b0pROWdpdU1MQndyejQwTTRFMlpmWmxTRmxHVlFQQ2lRWUhERXFVNTRfTElqaXpwSEhBVlJCVTB5OXV2Y1ZaZy1uakpac3hKVERSakJ1N2tJemZjTnA1RXBEVGNVQ3ZCU0Z6YktvcGE4WC1VYUVmLXhHSktpQ09EbUlubzVTeTRIeUs4ZUlUdlpDRFBJNzVBbVhiTV9oWVFVSjIxTHZiT0htQXlqZkVCcg?oc=5",
+      "source": "Líder Actual",
+      "pubDate": "Thu, 14 May 2026 10:15:00 GMT"
+    },
+    {
+      "title": "El Dólar canadiense se mantiene en rango mientras la cumbre Trump-Xi Jinping y los precios del petróleo equilibran las perspectivas del USD",
+      "link": "https://news.google.com/rss/articles/CBMijAJBVV95cUxNTFZSOGlSbUVwbUZPNjNOY05YdjljblN0MTNPUlVmS1F3UTU3aXN3OHpqOWV2MWxQZVZadEo5a1Byd28yWkRtN2lSUHdiTzgzbGFleGdlazVKSjkxYVVkdDlpUWUtZXBLTWJIc2VHTkRlbDRqa0ptUEllMVFWSlBuT0l6Y05lMU1UR1FiRWc3aEZ3ZUNqaVlzZ1h6c2FnTVgwMWtSeW1DTU53WVVBXzktei1fZWVVR3lsNnZQQ3JLTDNEeVh5b0toeE5QN3BLeDBlVEFqV1gxaXJBN1RBX2g2MGN1TWRzSHJ4cXljQnU5dVpXYlNYUXlteU9RX244OTFxVUIzZzdTTTFWNE9E0gGSAkFVX3lxTE5zdHBieDBQUHV4UDJ4REdZbWgzUEgtTUtUWjlaWkZyZS1BemJ2MTU5cVl6a2hza05HZW1lMmtBT2xrVU4tSUtqQjJMNWpwekNsSWttQ2VrWldRdWNsSlQyUFd5cG1jWnB1ODg3aWQxcVVnYmhVLXMwTndUUzVfNTFIMmJGYUcwMVlTYVFwUW1PMzEyYlVWNV9oNFgzQ094MVZ0ZWFGc01NR2p5QmdQbUw2TDd1Z1FSd2xLREZRR2NpT2VUM3BlQUdocFFYbHRrdFR1eDJXSUtGQlY5NUYzX1ZFZlRIaWFsSy1JWWUxaU5GWHdIZ0MwOXBjdU9FUmtZZ2d5TXBSN3U4aHV4UHdEZkh0VVE?oc=5",
+      "source": "FXStreet",
+      "pubDate": "Thu, 14 May 2026 09:30:47 GMT"
+    },
+    {
+      "title": "Las gasolineras ‘low cost’ denuncian a la CNMC los descuentos de Repsol",
+      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQTmY5cERkVU81N1otc1lXc2owZlZDNFd3TjlZNDJ5ZDJpbGpPaWNEWHlmRGNkTG9OZWhycFl2dDg1ZWFWQ0VvaVdNR2E2SkJadHlzdDlUWVdfNXBkZnlrX1JGbDZQaFNidHo0aHVxS1hHbTZmblAyX0lpUHpQclAxckFKaVZMZ2R3b1U1ZU44MkhCZUVJc0ptdkhkYldLQUdPRmlNdmdUdGNsZHFERk5VUTBQYW5EckxtSkZGbmlBeGlDMFZXQmfSAcsBQVVfeXFMT1JzUk8zcDFHbDZwcEI3WHpJaHFINk1RQWlvckFXQmJWT3JOWVJDQndHQy1RQ3BCWGMyX0g0YkRrUUp5TFlwTWxIdm5qeTJXTmk4MVdTSlluUnNkQ25PTXBpV2tNaE1WV2ZtVy01bWltenlIMVVkZHZjUHZRSFgxNnFCQlNPbnA1YXJRNnA2d0xQOTg3Z19UdFppXzktb2JHRUtJenQzcmtSS2U2TW5rWGlsZWpSMUlYNjVVWERMZmN6NndtemJ2cGxHU3c?oc=5",
+      "source": "Radio Intereconomía",
+      "pubDate": "Thu, 14 May 2026 09:28:13 GMT"
+    },
+    {
+      "title": "La rebaja del IVA de la luz y el gas natural decae el 1 de junio por la moderación de los precios",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQM20yTnJUX2hrNGtqQkRkLTdoMzZ0SllZbGY1U0tNZVgzN0pzU01hVGNYSy1QMVdTWDdtVHJSVmVpNUdCQVdudFpEQkFxRTd5YzZIVTB0M0RVQTdNQ2pab3duWGVlRXV6YzB6VFpFSTNsRVZTMjZuNFZyakxueGtCY3JYQmZEbmJiVmo4Q1BNOVVpOXpsMDRDQ3dCakRMZkVULXZ1bdIBpAFBVV95cUxQM20yTnJUX2hrNGtqQkRkLTdoMzZ0SllZbGY1U0tNZVgzN0pzU01hVGNYSy1QMVdTWDdtVHJSVmVpNUdCQVdudFpEQkFxRTd5YzZIVTB0M0RVQTdNQ2pab3duWGVlRXV6YzB6VFpFSTNsRVZTMjZuNFZyakxueGtCY3JYQmZEbmJiVmo4Q1BNOVVpOXpsMDRDQ3dCakRMZkVULXZ1bQ?oc=5",
+      "source": "RTVE.es",
+      "pubDate": "Thu, 14 May 2026 09:18:26 GMT"
+    },
+    {
+      "title": "El precio del diésel vuelve a descender casi un 1% y toca su nivel más bajo desde marzo",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPaVhIVF90ZGdLakRpbnJHc2l0ZzZ2NDRkRnpzODBIeUJFLU04cVdkRGpGOTJ0YlcwNzlqbHJHb0ctWkwydEtldzhBMXMwRzdZQk92c0JuNVhZTW5xZ0NYOWlka0JocEppX2xsTWRmRXFXbzhhcVlzOVEtQzVWeXQzTGlCVUQ2bWRpRy1uNW92UktzaFRBVTFIRV9yNmNqbzU1R0xwZXVrMFQ5bEhneTJuRXVPYU1RTGZiYzlocDA1RWhkRWRCcmppNDJubnkwQVMxLXBv0gHYAUFVX3lxTE43WUpMZHVsTW4xMmpNT1g2MzI5S1JUZmhqYWY1Z243VUQxWEtVVlRKWnlHeEdTS0lpWFNMWkM3V0hDNFhGd0Z5Uy00TVFpVXVYd1FxNFh4N0RMSVR0YnBYQ1ZyTUw3di1BV291R0pBRnlXbmZlX0tNQy1tOGlkQWlPaWV1ZTZLRVRxZ2dBMUo2cWU5cmlpNk91clVMRVNHTGFHMGowa3pJNGZoRWdpQm12dE9ENjVoSGJXMWF5TnB4UkJLdXh5UWRmV1ozQW9sV2RPYVJnSlBHMg?oc=5",
+      "source": "Andalucía Información",
+      "pubDate": "Thu, 14 May 2026 08:55:40 GMT"
+    },
+    {
+      "title": "El precio de la gasolina vuelve a subir esta semana mientras el diésel baja ligeramente: llenar el depósito ronda los 95 euros",
+      "link": "https://news.google.com/rss/articles/CBMikwJBVV95cUxQTWhHSURXbHRmRFBzbWJNOXRSQ2g1WHd6b1k1RTJZX0o5RnNrNXJCWmZSb1BId1p5dmltbG1peTdZOFBxRmg2SVhFV1VDSVpZcEdMSHFPbG8zUzhXYzVkbjZDTzBvQnFlSHRnRkhDNnU0VFd2ZjR4VGtocmVNaHlsR3dabFRWRUEzRVo1ZzF2aW9DRTFiQzNyZ05ZWjJUNERYNkE0ZDl5V3ktbU1UT2J5Vm9qUlN2OGZhaGVralo4UlFBbUx5ZVVsbjQtWWdNYjVfNlNJZTFEUG1BN2RrRTVlYmJ3cFZUczVXamZRM0NORU1rQXg5LW1FNEUwZHhKSzF0NDF3RldWUFFsZlkzRzJEdU96UdIBmAJBVV95cUxOb012bXh5WkF5SzUzLUozNi1iQmN3Z19DbG1CVW5DbmlfaEs2aUVLUEJwMGRjQjhHU0k1YmNhcVdYNHNtTUEzRGVianI2LUFIdkFncFRoMFBDbUdZQ1JKdHpCVVk3RjBRRDduMURCRGdTZVlKODhFRWI3cmxtLTVLaWZYenJIN2R6dHNEVmhrZ2RBVng2Y01QLWNpSmJubEY1UzlRYnBka0JSd0p1WDFjQUJrbDRoS2ZzSDNiaXlBSG9JQTJnc0R6WTBpODVjZ1JydzU1Rk5xeU9yUm5mOENHQjJqR0YyWnNDSC0wS0dVM1lNNlhOZGhZYnIwd28zM0JsOGJVaXlkU0VBaWYtTzdtTlZwNy1ISlJ0?oc=5",
+      "source": "Noticiastrabajo",
+      "pubDate": "Thu, 14 May 2026 08:28:04 GMT"
+    },
+    {
+      "title": "El IVA de la luz y el gas vuelve al 21% en junio tras confirmar la caída del IPC al 3,2%",
       "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxPTzJqb3JDc3VRemcxNjRjd3pBVndBTTA2akg0czA5VFdodjBrSEdZbVZSVF9lcWlEQ3I1U09QbTA0VjE0Y3FTNUozZ0dLQ2puQ0pjc1RUQjB4QVRHbmQxRGRGeXR1Z1FEYUdid3V5OVRkMG1pSGFINDlyNGEyZi1YdDltamh6SzhKeGFSNjdWdHpEbjNTWGhRWk9BV0x2Z2JUMXIxbU8yY2tFb2YyZ181T2w4dEh6RGprbnZLNjhCTFJ3MjlyZzBoOENDOXBZT3ZZOTQwbFBwdUJqN3lxYjhNcVpESHlXSlJLMm04Ukc2c3kwUdIBjAJBVV95cUxNWm5qUGozbVp6bWZ5ZTVTeFMzV3JVTEwxY2hzdHJiVlI3dXRreUtaZHhqZ0drYUdkdzFzM01NWmdldnludk04RWdZWFZxREkxV21nOVZ5R1hvNUp4alVWRjZGNENFNnVEelRONngzMnNkWUowRnNwb0htLWtWRXVpVFlkV3NDZlg5TmdPaU04WTA3TW9QbkRkb0xkRWlyS3lXTF9wYkRiTXV2LUpRck9lWVhJOUxhdHBXNFB2aE9JSmgtVEJhenNTWngzRUlQWVRfRmVSU2pNMjdnR3NaVnJDOGJyY2RyT1hWLVljYXBYWGN2ZXQ2eUU4ZlNYcFVWckM0SlZjYjM4enJQMzZw?oc=5",
       "source": "Infobae",
-      "pubDate": "Thu, 14 May 2026 07:11:44 GMT"
+      "pubDate": "Thu, 14 May 2026 08:07:00 GMT"
     },
     {
       "title": "¿Aumenta o baja el combustible? Este es el precio del litro de gasolina y el del gasóleo este jueves 14 de mayo",
@@ -43,84 +121,6 @@
       "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxPcnk1OC1oNmlvLU1tNXFHc1FkOHdGcEJHZzZma2JxOUpOMFVOdFNoRVBCMmJWQ1NMZWFkLTczd2xmZmVPUUF4elpaZlJ2dVFSVV9fQ1lPelhoZW1pSFJ4b254Y1FZNVZkSklqOTY2V0pNa0Y4UGJySFpsTTJWMXprVHBVbEwwaEVKbHJuZXV0MGNNdlZucjFjcFpRN2kyc1luSXZqQ3pKdEtxcGVkZjNqREJrX1BZRzcwZkYwRWRNTW9UbUtEeFdlMUdweEJ5RDVBQzAxLVNTYlZqOUF2OUZRVmM2NA?oc=5",
       "source": "Investing.com España",
       "pubDate": "Thu, 14 May 2026 00:39:00 GMT"
-    },
-    {
-      "title": "Precios del petróleo caen ante expectativas que la cumbre entre Trump y Xi levante el bloqueo de Ormuz",
-      "link": "https://news.google.com/rss/articles/CBMikwJBVV95cUxOOTEtVjlpcDRUUkp4cUZOb1VTOFRCNGd3Q3REWTdiZVVMVmpVR0UzaEhZUWIydWViYW5IeS1CZVM5VlNjQW9SdTIwVFBWR1hvT0lPazgtYXp6djJJQlF4dkN5YW5xUWNTbE1KOWxQdjhQMFdYc3dXV2pCVXZnbXdKSVp3V1d2QTZzeFh0OTE3c2MzNTdCd2tkX1BzbnpZSHVTdDNodVc1Q0JTeGc5R0IzbUg4VkFldkJvWXQ3eS1GZzRtc09ldnhyQ1ptR0wwZWtlZDhhenFpQzJiSnZsWENKYW9aN192UTVQRXpmOGZKWHJDVEtxaUlTV0FYMUc4Rkg5NEJfREZEVGZnZGJXbjlWQ2xyUQ?oc=5",
-      "source": "BioBioChile",
-      "pubDate": "Wed, 13 May 2026 23:42:20 GMT"
-    },
-    {
-      "title": "Precios del petróleo hoy 13 de mayo de 2026",
-      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9FQzZrMXJBVnFwVG0wQ3A5MGZaMHBHOXplb2szRDBvNlZENEo3UTlzakNrSXNGWDNoMDh1UDFUR3N6M0xkWEg4cG11ai10bjhmb0U2UGhLb0tBVEl0WlFJNFUtWTJnVUY1WFFjZ08xdGhTTnRJeG9KaDNmRQ?oc=5",
-      "source": "EL CEO",
-      "pubDate": "Wed, 13 May 2026 22:52:56 GMT"
-    },
-    {
-      "title": "El precio del petróleo cayó en medio de la incertidumbre global",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQVS0xejRpNDM3cmgwZ09Mak1BUGJKc01fVlMwUFpTTlpXa0U0cXhoVm4tOGNSb1RZTGwyVnJaZHNBTXlYS0ZFQ3FaN2tycF8wQ3RZNEZvbWhBTS1BWlEwSG9JY1E4R0xsejVWdjhOU3JrS25ZWHdnX09BM2M1X3NjVE1wXzQtOU4tbjhXTTcxa1BWQXBWX2hGZktRR2RDdHkwTDNUMzB5UmRrbms0OUZlVkNfUdIBzgFBVV95cUxNeTNIYXBVM0xPeVhUV2otM25UYUlaN19CQ1gxQks0N1k5TUlEeXlVMTRjd3VZa3lJaWNUZml0Nld5dW1hZENvcXYyclZ3UEFfQ3NEOVpBbGhrV2VWSlFSekxMOWk2UEZ2U0pBcGxKMnFleGEwcTNDYzRETzBOWEx4dk9sRVpKUDhsdHFpakpOeU1kalFwUWtCRW5KNU1BbmpXWmdaS3lvSFh0NmFqWVlFbjlhRmVzbFBpOXlOellUeWE2NmdIdXF2ckhhZG9XUQ?oc=5",
-      "source": "Infobae",
-      "pubDate": "Wed, 13 May 2026 20:52:00 GMT"
-    },
-    {
-      "title": "¡Se desmorona! Precio del petróleo baja ante visita de Donald Trump a China",
-      "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNa3JtMFF6em9KWXd6cDVzbk43RnBXVUM2YTlkU1RZelV5UFpsZThEa3Z3TWlDWUpzcUlweUtsbV9fUXVsRlR1TXJXc2dUOEFJZU5zVXhuT3pESmU4ZUp0bmRSNVo5YkhBRkIxTEExam9mYXBueDNQNWplY2x0SHNMeEN5MS1BLVN5OGM4N1FrV1UyZTdN?oc=5",
-      "source": "Soy502",
-      "pubDate": "Wed, 13 May 2026 20:40:53 GMT"
-    },
-    {
-      "title": "Mercados mixtos: Wall Street busca recuperarse mientras precios del petróleo se estabilizan",
-      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQYW5ueDBGQzBrZmh4S0JmVEloWS01dEV0QmpfUnJRYVUwQXVwWkw2cXlGWG1tRGd6dmREcUNUQ09rRWJBYjBTY0lma0JvWHRxeGJYMlhEVEJUWkpnLTZ2YzYtUU5TYUdTNWthLXN3T0d3MGJYWGpCNzRXNUtseGJ2NEpIdk5ra09feENucjBxTXY3dTg3XzVxS0dmWkZtUl9KQThSOHM5VWhwSHRCejFKOHB0SFRxUdIBuwFBVV95cUxPTnVwLXU2LVN2N1FDLU1RX1BxWndTQmc0dDNwaDJvWi1RLUM0MkE3SER1OU0zTUNEbk0wZFZuRThjTE1STlpQbG5QZC1ZNmF1cXRtYVZibnctRHFrQ0xqS1ZVeGVnLWs4NlNjVGU5YUVfM1lZNjF2N3NJdU9tVnhEVkF1b3RCaE5RYl9aYnM0eURNTUxEUWljWGtDNXRMOXdVMlRsZTdfSFlBRWlHSm9JNlM2VmdHWGlBYlF3?oc=5",
-      "source": "Hoy Digital",
-      "pubDate": "Wed, 13 May 2026 20:19:17 GMT"
-    },
-    {
-      "title": "Petróleo: reservas en picada, precios volátiles y LATAM cobra protagonismo",
-      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxORUppM2xJdWF1amZnOTczU2pjRHRjVVJMeWtoRWR1MXdrOWRKcXFMV0F0cEFqbmg3d0ZwN3hweGFTTEdhQ0dIaE1LdDNGaGxxYkF6RV9VWVFTRzU2SDlQV0ZLN1BqMFBzb0JndDVzLWRldE9Cck1Ub2VXZ1Z5SmUzOEJSQlp4ZjFqc2ZVUnhqUHg3Q1lLTDhwRFdUbWNtb3p6SDQwRmNmSzBSR1VGdjk4MmJLYkVhdUhmTjl3a29rNUxKS1lNME1HWVd3?oc=5",
-      "source": "www.revistaeyn.com",
-      "pubDate": "Wed, 13 May 2026 19:51:00 GMT"
-    },
-    {
-      "title": "El diésel se paga a 1,696 euros en España, su precio más bajo en más de dos meses",
-      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5ZTlRxODFxUURsUlp2X0lXVTZLS0VwZzRMTENxb19MQ0tCTzBiaWpQRkZQVjdQaHlFMWZxWThETXZoMzZmSzFqRGhLQXFGQ1A3Vm5HX25IWGp2aVlfWWpSQjBmWXN2Y1N2NU1yYnJndmhwcXlrVGpKUExKb9IBgAFBVV95cUxOS2YzaEJhbmxtcHlGanpCNExuVWxGbW84ZXdzazRjNGpqa3MzLUVnUmhvOE1QOWZ0Y0ZjaEFOaWM3d3VNbW52aldCTW1UWmJ6bDlacVphVUdrdm1QRlEzOXp0SEJOOFh6cDNWT3lyRFNmUUgwbi1JYUZsSVAwLVZYbQ?oc=5",
-      "source": "El Conciso",
-      "pubDate": "Wed, 13 May 2026 17:46:52 GMT"
-    },
-    {
-      "title": "Precios del diésel y gasolina en España: últimos datos y comparativas - El Imparcial",
-      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPLU1ITWFSRnlMdGpGX1dhT2VfSFRXMHJ5b0NWRHNtWkh1amJzQUhuTjFmZGhrb1JuY0VtWjFVb3pPd3AwS1BtQ1dDeFlVWGVIdGg5ZmJSMGVzRTlialhQWXFBdDJEb2doMldfNU1PNzZYM3NEMzRKQ1pTTHZYZ3pNTENJNEI5MFh5cXk1ckRYcWg0Vm9oY2wyVEpoOGJxUGdLZDAzZDN6bDFIaWJVSUpWbkRfeFNXb0NuZXVtRUVJelh5SE5y?oc=5",
-      "source": "El Imparcial - Diario liberal e independiente",
-      "pubDate": "Wed, 13 May 2026 17:34:00 GMT"
-    },
-    {
-      "title": "La mayoría de las bolsas europeas sube más del 0,5 % con el precio del petróleo contenido Por EFE",
-      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQOGk3dW11ZDhxWklnUG9rT0Y4NV9mRGM2SU9FdXVNTDZDWnpGVGlWNG0yOU9WbF9PMTh0aHlXb1BPSWhqTnRvT0NzTVozS1ZyTGx6XzlKSkF1X3A0VFdYal9GR1VyMnlaZ1YzNEJndUdMNmpWelpJZU9MNndhU3AyNU1oR0VhU05aTnhBUjNmVWIxaFBZUmdiVDNmYVh6RDV6UG5rTVUxT1d4WGdXdGRpaURHSjVfSy1BLU1qRE94bGxMbUIwdS1yS3pVMTFMbk1Wd1ZTX0pNblRFTFE?oc=5",
-      "source": "Investing.com España",
-      "pubDate": "Wed, 13 May 2026 16:56:00 GMT"
-    },
-    {
-      "title": "Petróleo opera con escasos cambios mientras Trump se dirige a China",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOZnppLVV3X2hUR1NrVE1JWDdKa0RPWERoWThlb2VTQ3J3MW5xY1BYMVhKVUM1ODJKeDNmWWdHOEtVUzFBY0xZLTEyMlk5UEVUczJhbHk4bFhVQVpoTGZKaUVtM3VRcmU3Q3V0ZW9wNEQxMVlpbnk3SnNpLUg0WTNVcFNVLU9WVUtqWU9DUDhBa0QxQjVrQUdSY3Z0SC10UGVM0gGgAUFVX3lxTE44anVwLVBIVTYzeDVzRDJuSVl2TWpGSGJvV3JXS0hja09BdlVPOEhOZFpGZVRmSVVPTWJhZVVfTXNLQmNKQVhKNC02WTQxbTVGUUtnRGtzdnRYQzVLOEZxTTdLWWJ2VVNXRWFwdXVxb3d5WW96dGVRbXBMLUwyZEFTbE13bEZqdW9mVGZidUV2Sm1IaTR1NTZBenJPckVUZHk?oc=5",
-      "source": "Milenio",
-      "pubDate": "Wed, 13 May 2026 15:26:00 GMT"
-    },
-    {
-      "title": "Análisis del precio del crudo – El petróleo continúa su subida ante la ausencia de avances reales",
-      "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOUEhaVGg4SDhtdy1wdVk5a3BxTDNQV1VNQmI4Ynd0UE9LOHlZZVBDd2NKVGN0T0xiN1lEY3dialhidUN0cVYxbmJkV19ySHBkTDZTUHZDWXhPZHZrbFNjcFMxTFJIb1F3V25pYi1tMjdNSFRjd2xCcXRlQUEyNktvRDRaRW9tQ1lJTHc2UEFhM29zY0pJU21IWUh0dnpsR0tHMnJjVVhaRmwxNGwtdkxjNF9iV2JaanBtYm9GNmVuNFFJLTNOREhJXzQxOVI5ZVJOWUZfdjg2cVNEZHk4?oc=5",
-      "source": "FXEmpire",
-      "pubDate": "Wed, 13 May 2026 15:10:00 GMT"
-    },
-    {
-      "title": "Cinco razones explican por qué el petróleo no se ha disparado pese a la guerra con Irán",
-      "link": "https://news.google.com/rss/articles/CBMi-wFBVV95cUxQbm9nVmRCNmp6amI3WU1WY0JfWHc1MHItMlRHaFpWSjF2c2tOVENrcWZkLUZMdGVVelF2emZ6V0ZyTy1wNy1wZ0tCLXh4RHZhV3loQnFSaEVlaG5XYURQSmxUZUh6cU9RZGFOSk1tVFlyT2lLVXIxYjczX3QzX2U0eWN5dk1fbnFlUEt3NFVELVB3V09HaXFjQ1hoMUdsWms5TW9jcENJOVIyQ1liem04bEhrTVdTa2JzSVg3UGg3V1MzcWZVYTJqU0tuM3V4NlVyNVBHZ3llUnhvem9JbmRuMjVPM0pzalUzZmhWMFVmTzkyVVVKQzJFT0lOc9IBgAJBVV95cUxOaHZFWXAteHIxVFpOT3hra3BGY0hqbE5XTlB3TExnYVJMRE1pdEhHT2lmdUZpTnp5TktfMzBSRWZ1dXZuWWNIYUpnOHVrVXJ1TVZlSFFySjI4SEpiMTVmb2JfX0xPcVJtS05qdm93VzN1QlprYkR6V3BSRlJKN1lUMjlkSzI3VXllV2c2WnZDNHJza21fQktva0tUQUowT05wWWtlR3Nmb3F1UEQ5amowR1BVM3lEOWZydEdoYUpRRDk4b2YzMVZ4RU5VblNKNGVEXy1GZF9jSUM1Q3NsUUlNTllzNDI4MGRQWW5LVjZUdE81ODQ2Y0RNcVhyaF9ZVXV0?oc=5",
-      "source": "Bolsamania",
-      "pubDate": "Wed, 13 May 2026 14:52:12 GMT"
-    },
-    {
-      "title": "Las reservas mundiales de petróleo se están \"reduciendo rápidamente\" y amenazan con nuevas alzas de precios, advierte la AIE",
-      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE8wVHpUZTdXeFR2dXpmV0dtaG1qcmVQWVB2ckhQcEZzZ19mUlQ3UHlWSi0xSllGb0ZYRkczVUdaSzNiOFhNYmxEZGlJcENrMmpabmdtZU4tMXljQXF0LW5DRHo0aTFGR01rSncwQ2hmUFU5UklSdDItUHczMnh0bEE?oc=5",
-      "source": "CNN en Español",
-      "pubDate": "Wed, 13 May 2026 14:46:00 GMT"
     }
   ]
 }
