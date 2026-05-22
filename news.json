@@ -1,36 +1,96 @@
 {
-  "updated": "2026-05-21T19:45:18.648179+00:00",
+  "updated": "2026-05-22T02:40:33.399986+00:00",
   "count": 20,
   "items": [
     {
-      "title": "Economía.- El petróleo cae hasta los 102 dólares tras una jornada marcada por la subida del precio del crudo",
-      "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQTDQzS2lKMUZGOXRiMnliNVRkVUsybXN6elZQZ250Tno5V1pxQTd1T2ZoMmtuLTl5NGZYYlY2RlFPS3BXRkNHSC1nb2xnVlNVQ21sQTd4LXpxaGZzalNNYkt2WC1hOTNRMUlrOUZaQmZsSm1pbXlTVVdHRTNwMnBQeDV0RGRhQXY0X3lWNnNDenltYmNEMVB6S0p3UzQ3VEdxdGZVRVpyNUJFSWxNc3ZvRm5tWDBNSTlNd3hQcFE0V0g0bzcwX3VpaVFqZjBPU010ZFoxcG1yMjU2UWxVMVZBVW9XNTlOTG53SEFmTEJzYmJ3cVlmbUhqQzNR0gH_AUFVX3lxTE5jSXJWMXk3MlFDYzBObVpQelpUUkZPVTdaekRXTEtxbjNLRlVhTE1WOHRQc2FSN1dfOFlrRzdkdUphNFRhNjJLZjlVdW1vZlFNeTF4cndTZEZPeThyVW1lTGpnbW5EUWhTX0psWTFQT01hMjdHem9PcC1jNU8tbWdhbWtXNEZublgxR2FkY1YyR2RhY1IyTGNvRVkxNU1VSGtRN1BfQVl2NTdYVDR5a09mcW5IczA1aElKOGdweXJiSFVMZGZqYXRhVVRlU2N4RFpicld6ak5VUHZJOEJPYXN1YklyXzhucUFQQ0E3dFdrTjRCWEJSMWxfY0dJaFlJcw?oc=5",
-      "source": "Bolsamania",
-      "pubDate": "Thu, 21 May 2026 18:42:58 GMT"
-    },
-    {
-      "title": "Ventas de vehículos eléctricos en Europa suben por gasolina",
-      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1wRDlGOURKM2xfZmx6MkJwM1o0Zm9hNDR5VGlFMkdNdmJtVml1Tmo2WGxzWm5WOEliY21jcGtJSkdrREszZ1AyWlZGOTdFYk4wSzVIT2x3dFhlQzhGemplZ1p3UllmRmF2MW9Wdlp2QVdSNjNVZEE?oc=5",
-      "source": "Inspenet",
-      "pubDate": "Thu, 21 May 2026 17:24:52 GMT"
-    },
-    {
-      "title": "Mercados: el petróleo vuelve a subir y empuja al alza de las acciones argentinas",
-      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNbXpKdWY1VE5aRHNRaEFjX0ZoM3ByWDZqeDVuV1pFeVBFQnNlUkJVeENpeWN0Z2lBeHdWZGY2YUdCMklHV1lVeWF2YkhUY0ZEcURUeFloQjNnUkF6SGQxUDVfX2dRVFZTaFB1TXFyQ2lZVDZHdE0yVWJoWmZZTjJ1TVBSYVhhQ19qUHVscUxVVm9lNWZ6aGlkOTNNbkZpaTJkd1RYTVU5NHlXdTRDMlFKdU83NHRuUjJEaUlhSHVwVjIxd9IB3AFBVV95cUxQbURkZEtLZ0hhUTUyakUzaUh5Zm04M3N2Ny1xVU9ZV0NnOEMxcXZsaWJRYVdseGF6UVdRdDNUbUNVNDdjbjBjV3drb0t0NEphYTktT2I2UjdlYUN3WDhfSDQtUjVTbW1YYk43M2FESEp0WnFZXzZqNGhhbG5tVmxGRW9maE1ldEk1WkN5Zjd5VktEMzM1T0p3Xy1uYnFYam9nZzVCNFhUdzJqTkQtbTJ4cWZ5c1JmOUYwenJBcVZGcG5LWjhJNXlhTWY2UldxaXlYbzhUQkZOUVczLTBl?oc=5",
+      "title": "Precio de la mezcla mexicana de petróleo de este jueves 21 de mayo",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOM0VFdDVBSnZLWXk1VkVrZGxzWlUwZGVzazFvVUhEY0x1bXRjTlhQcHRwUm5PR19qQThXckc4U3p6d1IwY0FES0VkbW8yWlpoQmxQVVFwQ21GQ21iYW5GZ2FBeGY3cnVHWmQ5RXVnOGh4UUkwazBmVU5aTTRKRGxmUTJTLXFZTVlJLVQzeTZFN25NbGxvMHJ1RVlhSGpHbnZfTDdlbEhrLTZZTGZLT0HSAcgBQVVfeXFMUFloZUxkZHhHa3duSXBESU5wdHU0MlAzR2thRWFnRXJDUEJXelRUVDZ1TzFtbDdxbGh3TElFRXB6VTVmakdJNXBMSkNlRWhkNE4tOHNyV1hBbUZfM2QzejNMLUt0Z3puTTJFcVJ3MWxtWXJGMnkzZzhydEZQZUtwS2g3X1hDN2llNGpCVUVNWDVFQVNkOV9WUlBqMjBYSXBGRlRGSFpxVnlFM2ZvUUpQQ3NMX1RYM3ZJYXVkY2xtUWk3RDJUQ2txY3c?oc=5",
       "source": "Infobae",
-      "pubDate": "Thu, 21 May 2026 16:01:00 GMT"
+      "pubDate": "Fri, 22 May 2026 01:45:00 GMT"
+    },
+    {
+      "title": "El Dólar canadiense desciende mientras los precios del petróleo bajan por las crecientes esperanzas de paz entre EE.UU. e Irán",
+      "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxNRUc5a1NMZUdndkFsTHlCM0NoWWZzSkxFOURfM0lZWkhuUXcwdU9GSWNuMjYzdkZncEtTN1hfVEN2NWdORGI2RktYeGJWalBka3JFQ253UWh1YnJJbmVockZJN2t6NlI2djkyUFl2VTA1UWVwQVRIQXowdXlvQnpCT21UTWQxLUYtVVkzNDFvWVpSM1l4Z3pwdEF4TmFHdXVhV1ZBUDBSSi1lbWh4RjBXV05LajBmSW5QamlFcEJpSUtpZ2ppYlg0M0dZX1VPekFDTUJaR1JDU0FncXEtTkw1M0NnZnltM3d6REFFWElWN1BtUnI3UURHRnRn0gH_AUFVX3lxTE4zNDNNeVQ0Y19LTFRneTZWSWNIa0o2VmlVc0l3azRxR1VQMDg1b2ZYSGNBM2NaMDZjQTR1dUtYeVNmZUE1TDlabkJvWktXa0dMRGFrMFdjakR6di1oWG1maGI1Nmlza3lPX0ltMkc5Z3BQS0dSQzk2bGxwbzhaOFNYN29kY1QtdGV6QXdQcVluRlFwa2UtSTdyQUg4aUdhUGlUc2hRSE5HTnkyM2JSbU9Pb1dZd08xT1dmSlZXaE9nYUtGTV9GeXJlbVNmYjdBSGpvSkxvZjdLeUhRNjhUVUExdXkxRG1fRmQ3aWE2NkJxcE1pT0dabWZpZ3ZZdmFOWQ?oc=5",
+      "source": "FXStreet",
+      "pubDate": "Fri, 22 May 2026 01:11:25 GMT"
+    },
+    {
+      "title": "Precios del petróleo rebotan con avances en paz EE.UU.-Irán - Investing.com México",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQZ045ZDhKWVFzRHV6RzBkaEdzSWU4WlFyY0NUZDNuUUFUMzhaa0RGTDg0QWkycWJrQ19CSmpvU0Rrcm1GbWp6S2d4M013aHdDUzlQUEs4R0kxak1zNl9OdmxXLV9jTTkwdnA4djYxd3pWMWtOa2tWUW5QcjE5YnZ1dW5aRkpOOFBjNlJkd2p0WmppOU9SUlh3UkkxcTJ4UTF6b1JIenpKVnEzc3pQUnJzTA?oc=5",
+      "source": "Investing.com México - Finanzas, Bolsa y Forex",
+      "pubDate": "Fri, 22 May 2026 00:22:30 GMT"
+    },
+    {
+      "title": "Los precios del petróleo rebotan con la atención puesta en el avance del acuerdo entre EE.UU. e Irán",
+      "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxPbFg1b2EtN2NwMUFnNXUyQmJBcGpZREhJZFlIOVhjU0JuQXNhUlNZNTJCREtyLWdsVVFNWnV5dWIwMkg5Qm9KcVpaQ3ctdGJoU3kxX3pHSVB2Mm5IU1BmZU5fdWY3NUoxM0RweDNfWUN3am40dlJHZkFfMmh4ZERjYi1BT3dUR1pCZlRQanI5Xy1CcEp5a1NDbnVjZEI3NG16c0M4Vnd4clpzaFVKX0h6WE5mYl9odU5UM3ZwVmsyNU1sUWVRbUpyalJNZWpNQUhWS0hPS0wxeWJ1NTVnekVmVjNjWnU3UE5a?oc=5",
+      "source": "Investing.com España",
+      "pubDate": "Fri, 22 May 2026 00:01:00 GMT"
+    },
+    {
+      "title": "Precio del petróleo vuelve a bajar ante posible acuerdo en Oriente Medio",
+      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQcDFMNWVuOUlmNUs5ZUZJckppYkpldGVVTTRCdTl2RkQwcnZPUnM0NFB3Tm5CUDhUVXBZVG1TR0t5RnRONnJxRDdGNVNwN3dFdXIzSXBZb0FyaGk0bHpJcC1pQ2N3bU1ub21iLUxESGhnUzU3d0ZHUmRxaGFPTUo4aTdvMHg3S0h6bUN6WURXN3RXNWJaaVJPbF9uUQ?oc=5",
+      "source": "Soy502",
+      "pubDate": "Thu, 21 May 2026 23:33:58 GMT"
+    },
+    {
+      "title": "Mercados financieros aprovechan la caída del precio del petróleo, esperan la apertura de Ormuz",
+      "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxORkFSV1Q2MnRpRnY1cmY5ak1KOS10bTJFeUtTZ2dFWmJ4bExxQmowY2NMckpPVHE0eWhNU09ONUJxR3F0b2ZySGI4aGlEbWpwM3lySDZJM3F1Yklkb1pCeFV5SGVPaWxRQUowOEVJWTJfSVFzMTV1Qi1hRFdUOUxpdXhYSnZQQ2JoaVFXdl9JaFZDaWlqTlNLOUFPVENUMmc5OXZxcGtxMHgwQlpqYk1McWVNUVpodmpxSFpUbVhQcWhWQkdseS0xZXc4RWRpS0gwRjBvajc5aklaSGxwR0hWSzJB?oc=5",
+      "source": "La Jornada",
+      "pubDate": "Thu, 21 May 2026 23:00:00 GMT"
+    },
+    {
+      "title": "Petróleo da un respiro a Wall Street: mercados revierten pérdidas previas tras caída del crudo",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOa1BjdG5TUjRDTFp2SG1ZdnV1WUFlTlRhRVByVEU1QWxNMDRHR2tVTlZmc25INlZtRF9iSnlRTDk1cXFSTVNWeXl3RXVqRXZZOXJWQV83aFUyTzFxam9CeFR3QUswWndmV0E4OW0wLTJaVENwbVNBa3Vod2JtZTdSb2NhRDN6RGNJdTJpWjRyaHFieGtaR2UwSnphNjd5N2F0cGJFemRsYnMxeEx2VkJ2YllUWkZNcWVLdzB6clNPa0RtNXhp0gHKAUFVX3lxTFB5dzc5V0piV2tIbFdSTFNuWXpMWEJWNzlQYVZudmFqOXh5bkYybnZsVGxHbHdLMUI0MFlwYXJYZVQ2SjFhX3dUQ1ZTRVBpV2hEVTE2RGMzU2FpRmZPVE1uSUZOd1dxT2FXYXBLV3hFRUdsUjVjV2tUOEhjRXNQXzZyamtxbzkwZzRFc0NmQWg5dHFSZExfenJvX1Z2MnpvU0Uzd1RNNG9vT2cxT0RyZUVlQU5sVGtrMFVvaHFvbXVRcUx4MWpWVWlGMWc?oc=5",
+      "source": "El Nacional — La voz de todos",
+      "pubDate": "Thu, 21 May 2026 22:40:05 GMT"
+    },
+    {
+      "title": "Pronóstico del precio del petróleo: Compresión del triángulo cerca de la zona de rotura alcista",
+      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxNRnBuSk9DU0dyc2NhTktId25BWFlKWTBkSXRpMkN1YWc1d2hvSHZPUlktZmNtOXVrd2NSeXVOVnA5cFRPMmZYalhnYl9XNFlWMGVGb2Q5XzV1RURUbXFYdTlaNmNidm5OQzBMaklWUHlHVVRYcWVQWXBWX09ObG1TRU02NTQ2V01lVmdQNDdhNm1vWVo2Q181QTNQRnNMbGVMbFhnVG53RDZlQmdGbWx6cVRoalNFTElNdzJxTThGb21fSmZFaldRR3NiRE1QcXA1dXVvQlNOeG9EU0k?oc=5",
+      "source": "FXEmpire",
+      "pubDate": "Thu, 21 May 2026 20:59:00 GMT"
+    },
+    {
+      "title": "Sube más de 1% el precio del petróleo",
+      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5XUFJtV1BQb2taejhqQVNHRkVfbjRxYWFpb2pvWFd5T3dCVHVxR0s1cjJnM2ZOcmlOLUFsWTZsWTVEVTFXTndyaEdQQXN6NXhzb2NUQ0FwS1hBYVdlNXllU0xMd3EyTGx3M0NZT0NRczRRelFZOG8w?oc=5",
+      "source": "gamavision.com",
+      "pubDate": "Thu, 21 May 2026 20:40:26 GMT"
+    },
+    {
+      "title": "El precio del petróleo cae hasta los 102 dólares",
+      "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTFA4bElRY1lCT0tvY0VNYU9WUURmVWQ2QlZ1dGRLdEs1blRQdGlkMm5XM0R3NGVwY1c3NVQ2Z2UwYzVnbXA2NDRmNllfamRpcU5kVEVxdEw2TEN3Q05Pc0YyVEZYeVRfLTFLYlhwSHhtaEU0YVhT?oc=5",
+      "source": "Revista Caretas",
+      "pubDate": "Thu, 21 May 2026 19:51:17 GMT"
+    },
+    {
+      "title": "El Dólar canadiense lucha mientras el optimismo en las negociaciones entre EE.UU. e Irán presiona los precios del petróleo",
+      "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxNSUNoUmxsc1NHYm5uRGhCemdzOVBHY0IwcDdxZ2JSanB4ZjBRT2N3czduUWZja3p0NE1Ecy1IRTkydTlNTHBrR0dxUUZ5ZlAxVkFUazFaN1lTWkhRc0RiWlA5TGd2YkNpaXk5MmZKTWhXWmtqMGxjemREWVlOdFB1YU9wQl90Y1BPOUlNYXpDRlExa0M1SFpIWWpyUHJXWlVaNV9qaUVsLTdVckJoTjRpa01CS2kzcEJ6ZktFX1VCeHFnaS1tTGhJaFB1bkZvUGpTOFRPVWhwdEtvLVFuSkwyS0xmS2M1blRUeVpzVHpxeDh2VG5P0gH6AUFVX3lxTE5UeGR6ZzdUUEtmMUl3eENxVUZoUk8yczJCVWZ0TGtCWTFHNi12NE9fU1FiVV83Wkd1S1Q3YS0zdDRNRkR3OTdHaGUyd3U5YW45WUtuV0JtdXZBOHRSLTQ0VFp0cnRsbHJsQl9TNW9RUVNOMlpxY0pya1hKMHVPWnhpOUFFMTdiNVBETVQyRDRqVUY4ODlIN0tNOVFad3pRZW90TlRkczhENXRNb2FhNFhUY2t1dFc0VThENFh3RXBWdkZPWm53QXRIZEVQWWE1MURhSWtfeGZmdjFYZ0FWM1V4UkNWeWRKNDBXWEZuTDhjZUsxVDNZRVptcVE?oc=5",
+      "source": "FXStreet",
+      "pubDate": "Thu, 21 May 2026 18:10:38 GMT"
+    },
+    {
+      "title": "Inflación de mayo: el salto del petróleo presiona sobre los precios minoristas",
+      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNQTR3NzlYUjhWQkdaRUhUNUN0dkJvckx6a20zNEdlZXhQLVU5UXZoZGVPMklzN0huZnM1X2dQUk51OUJ6M0d5SGZTXzNiaFc4VGNfQ1JZVFNBR3VaWUg4RmVDUGF1ZGVudktKU3dtYkh0UFZuTnBzWWR4YVBTUDZKT3N6eEdxSV93U0ZwVkJtUTRCZkhMVTNCdUh1NUFtWGpMdEUzQW9PMmdTX2ZJcnlDWHV4blRic0NxbEFZNzBocWJGaWxKdWsycFBIZjHSAdIBQVVfeXFMTW1LWkdITDlhNlFEdDBvM1RaUVdhdjF0ZHc2bjlyMTh6V24tUUpzLXFmcEIxYnZJUHRROTNKVkM4eHdPczVTdVlNNUdPUFVuTVpCTUtrOTRBSDkyX3ZTd1NCNnRBSnJHWm41Zk03SXY1UU03eEJOU1dIQ0F1NjFTSDJnR0VxSW5RUTBpTS1NekxiLWU0LVhPaWhsU3lVSnZMV3czb0ctQlhidUprM0xrMFM2NzVqN2NRdzZUS19jZF80ei12MVpFNjdMa25ESmYwckZB?oc=5",
+      "source": "Perfil",
+      "pubDate": "Thu, 21 May 2026 16:45:00 GMT"
+    },
+    {
+      "title": "Petróleo cae casi 2% pese a tensión con Irán y dudas sobre acuerdo con Estados Unidos",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPcWFwd0R5el9xRXI5UnI5SW5PTXZHQmdWX2FPdFNUWkpRZkdpNm5nWXZiRExDclJ2V1ZyM0FQN2pwX2Y3cnNHWXJ3ZkxfTVhDZFFxNXBmVHF4S3ROU0tJNi11c0lGNTg4MHItaWJOMFNUUkJXaW9VbVI1QXRidHVHSF9rdDdkZXlzQ2ZDOHRiZnVBa0dWUnFHakcyVWVNbmZVb2FNNlFMRVpGcGFXR2NMX3BJeDJaRmdDMW45bGQ1WU80dw?oc=5",
+      "source": "DiarioBitcoin",
+      "pubDate": "Thu, 21 May 2026 16:24:17 GMT"
+    },
+    {
+      "title": "Wall Street se desploma por el aumento de precios del petróleo y datos económicos",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPOXRjUTFlSlZPbEV3b1c0blY1TUNnb3YzUllrTXFXUVExRGM1dnNDeUZnR1lPN3NLcHJjd2lkUGFzeDFBdFVNVTBQRkVQd0JyRno5djBMdUJCTXhaV1B1akcxQUxzazBWX2tQQ0pvUmF6Y2R2T2tmOG5hWF9yWTUwbVlOVkU3c0N2MUFoeEo0dXlqak9FVlFfM01RaHp5T1AtQnUzU09WN1JxSFF4RktJaVYwU0M0amNQRk9lRWM1S3dRZUpi0gHKAUFVX3lxTE5NVUVpY081WVpicnVWR2trdUVjb3RPQXZIZl9zcERDM0dCWFJsMkpXZW5wWWxaYWIzX1VwVkpWLWlBamJuQkxXZDY4WVQ5d3o1Q3lFUEIxYUJqdUw3R05pLUpOY2VNOW1jS3JNbFYySDh0RU1DOEItMkdqM2Z4ZDEyb3BNV0k0RkdZY3ZIaUpmeXFVZnpsaHllc1Q5LUtkV0U0Y29ZZExfQUNqeUw2bThncHVCZGxHMXNrTzF6RGFJYXo0Snl4RmNIcGc?oc=5",
+      "source": "Cadena 3 Argentina",
+      "pubDate": "Thu, 21 May 2026 15:47:05 GMT"
     },
     {
       "title": "El precio de la gasolina y el diésel desde hoy 21 de mayo: el coste de llenar el depósito este fin de semana",
       "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNdGpWMFZyYkhycV9CRWRtc2Z6cFY4LURSS001THNRejg1WXJHbDZKaURVbTljUlBYRkQzSGJjbUNYTVZwaDd6UWw2dlU5VXF3N21KNXdmTjBYeTZOVjhDcmZ1UE0zSVdhX1NRS2hoVVY1RVdfTDkyVDVlOWRpa2lvZC05d3lHbmRFbENVQUhuZXBmRThnY3liTmloaWVGd045ZTVyOGNaZEfSAa4BQVVfeXFMTlB1N0Nyd0NrMUVUdU5oSG50Z3lFcS1qQmdLLU05eUd3Q0d0ZUw5S0tNU0R1SW1LVkIzU2liUnF0c25UWG5Vc09FOUpiX1lQc0lNZ19IeGlRVjBXdy11bTNCZzNucWJOUTh4QzNHNlpYTnhWVXB6RnRpdklDX3Z6b3RCbjJCRVNZZEdXR1NkRkd1d0E1Ml9Nazk0LS0wdEw5XzNJTW1LS1FZNlJmejRB?oc=5",
       "source": "Las Provincias",
       "pubDate": "Thu, 21 May 2026 15:16:42 GMT"
-    },
-    {
-      "title": "Inflación de mayo: el salto del petróleo presiona sobre los precios minoristas",
-      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNQTR3NzlYUjhWQkdaRUhUNUN0dkJvckx6a20zNEdlZXhQLVU5UXZoZGVPMklzN0huZnM1X2dQUk51OUJ6M0d5SGZTXzNiaFc4VGNfQ1JZVFNBR3VaWUg4RmVDUGF1ZGVudktKU3dtYkh0UFZuTnBzWWR4YVBTUDZKT3N6eEdxSV93U0ZwVkJtUTRCZkhMVTNCdUh1NUFtWGpMdEUzQW9PMmdTX2ZJcnlDWHV4blRic0NxbEFZNzBocWJGaWxKdWsycFBIZjHSAdIBQVVfeXFMTW1LWkdITDlhNlFEdDBvM1RaUVdhdjF0ZHc2bjlyMTh6V24tUUpzLXFmcEIxYnZJUHRROTNKVkM4eHdPczVTdVlNNUdPUFVuTVpCTUtrOTRBSDkyX3ZTd1NCNnRBSnJHWm41Zk03SXY1UU03eEJOU1dIQ0F1NjFTSDJnR0VxSW5RUTBpTS1NekxiLWU0LVhPaWhsU3lVSnZMV3czb0ctQlhidUprM0xrMFM2NzVqN2NRdzZUS19jZF80ei12MVpFNjdMa25ESmYwckZB?oc=5",
-      "source": "Perfil",
-      "pubDate": "Thu, 21 May 2026 15:15:49 GMT"
     },
     {
       "title": "Wall Street baja tras un repunte de los precios del petróleo",
@@ -61,66 +121,6 @@
       "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOQmNYb0YycTU3ZXFHOXMwMmJ4V0lheHd6MGtVbDdMTXZlWnl6VTAxQmFfbUlaSkJ2WmpQWTBkaFNKeUhOYWZsbWdQU0lfQlg3R29wbk82djF6SGpxV0ZDaWh0ektnOHc4U1BuTnJ3SENYMy0wdTlwNVZ2eEt4cG9nUHJrUE1Kc3VqVEFDUVBsRDJVYUFHVHRLLVRFZnZXdVRHMWpGdGhlTTh1WG1Wai1rdm5kbGNKbU9reDJpTUl5YnNDWEdfOEQzQ0VuX1d4M1BrY25vVXZn0gHbAUFVX3lxTE1fWU4xQ2NFSjdyY3lvZkNOcEZmeW12VU1Uak44TEJUajRBSUJWa0ZXbDV4dWR0TFlnczFlNWNqN3FZY0o3S2N0ZndPUEFWbHZwOTNXbnJOc2JMXzZHMUxZUWNkbzZ1TkhjcmtwNGZpei15akh3cWNrVTFaRjZZSGlrNXlUcXVNeFZKX1ctRnBXZGx0OElGdjdBcHp2TFdKR0xkZGlrQzBTUVhfX3A4dUFkbGc0dTdxZklhV3Mxb1lRazdhOEh3NEdnQ2lkVWt1T0czejdMbWZYdEc1SQ?oc=5",
       "source": "El Heraldo de México",
       "pubDate": "Thu, 21 May 2026 10:56:00 GMT"
-    },
-    {
-      "title": "Los precios del petróleo repuntan por incertidumbre sobre acuerdo con Irán y caída de inventarios",
-      "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxPS3RiTlA3U1dMLU1KNUQtbDVYZ1FoMVg2V19JdUR0bXRVbTBrbURZckh4UW83ZGFVTm9seUszVTZ2eU91bElCU2NBWmRuUGZvTXVkVXNyYTZGWk5NRy1WbnpKLUd2aWRZVVR5aEJWN0FjblF3MG9vQWZDbXNaRlF1cHF2WDREb2tEUTJFYXJ0MkU5YVlHcXUyXzhrTU5RNF9NQ3BvR3ZSR2tKUVRZVVlfMEV1YUpEREZhcl9fZXJ6MWFPOFhqdXRiSS14MGxRY0VKUGJ5eXhqejE4R2dfc2pBY2hvM19kZw?oc=5",
-      "source": "mx.advfn.com",
-      "pubDate": "Thu, 21 May 2026 10:01:55 GMT"
-    },
-    {
-      "title": "Petróleo: Los precios caen por las esperanzas de acuerdo con Irán – MUFG",
-      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNR2NMYlVNQTRYZlN0VkltWk5ydnhidXBrcHBFdDJTc2dFNUJ5Rm9DVHdSU2JyNURrZ1ozemxUSXRFU3Y3cHdCVVNUUGEzdWQ4SUtmbURkWUxIZEQyMlE5YnVaQWRoUlQwMWhVdkFmbktOWFNUQWUtY2ozSzJlMkNyTm9VdW4zWHpybjN1anFZZzM0MmdYbElmM2FIcmNvNklZUEl4UXBB0gGrAUFVX3lxTE9ZaWxDS08zLVB5d3QzTXlqVzlvckdZNzlGMWNaWHBvblBDNlBTWWhfWElYdTFIUnZEb003RE9HcS0wY29NTWl5QmpVOGRTZkdLc19WYVBXc0h2MG1mOFVwSElwNGJVTjhwTEV0UElBUml2RHE5MW44MGVrbmU0Mnl1S1JoTTdzVnYtRVhpMUVFTWlWa3dYdVR2VUNzZzFVb3JxSHhKaE45c2wyUQ?oc=5",
-      "source": "FXStreet",
-      "pubDate": "Thu, 21 May 2026 09:52:16 GMT"
-    },
-    {
-      "title": "El precio de la gasolina sube de nuevo y el diésel se coloca por debajo de 1,7 esta semana: llenar el depósito cuesta menos de 93 euros",
-      "link": "https://news.google.com/rss/articles/CBMingJBVV95cUxORHlSUGFWYmU3TW1JanQxVnpiVk41WTEzZUxLQ0VLZnVEZkJzZHdmSG9HcHlCM1YxRnpmcVk1NmstMVVOcTdvcVYtd1FPeDdKN3U4RU9XTkNkeTI3ZVVIbGVSY0VuLVJXZk9VNFNJekt0NnYxQWdpVEZSQU1yS093UFFIQlNlNS1Mc2hyWHlTMGJqbWY3UVNTeEd0SnlCci1OZGdsOUx4aENUTjg2TDFPYjh6SHJXOVRRU2JOWFM3QU44ZHNqX0dwbGs4dG9QZWtYajh3ZkFHRVZXbWQ4WnJkeTFpRUJaeU9fUnRoOXEwZjZBNWh4NnVXNnU0em9SZFFray11VUdIQ3VaNTgxLXJtVUlEeGpSNzFvYjNpWnBB0gGjAkFVX3lxTE5ISk1kWWo2alFlREkwU05lTU1uZnpVaFV5b2g0Unl5TmM2b19VZmJ3bm42cEVaRmo3QzBSRUZtMkFBQjNfV0ZEZy1vc3VNUDNCMWJQdmhNTTUxUHc2RTlwSDhTTTJGNXRWOUY1U2Z2SWRWWmd5SUhkTFd2OFV6SEs2Q3FjTjg2amhvSXpQa2NBa3M2ZUJDbVhES3c5T0h0M1JaRE14ZHVKWEFQcWd1TDZBUTR3RVRVaTZteTJWeElrUUtTc29GWHk1U2xGdmZRbDRNRlhwX0czcUhjLU9VM2ZUY0hKOEVfN21ISkk1b1hNS2ZjdjdMV0ExREQyWHFzU3BHUnNnbER6U1hPMHBWRWdiYTNvbTNPWFpZVGxFZmp2d0Y0UQ?oc=5",
-      "source": "Noticiastrabajo",
-      "pubDate": "Thu, 21 May 2026 09:02:06 GMT"
-    },
-    {
-      "title": "Petróleo: La fragmentación del orden energético conlleva el riesgo de nuevos bloques de precios – Rabobank",
-      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQbjJ3THFnaFlqOTNia25veXdsVl9OVUF4a0c3cFYxdkl6djF4NG5BVkdNU2JVbHY0dVJ0Q3ZnZ0VQb3pWQ0pBa2Vqa1I4c1JTdkFXUHJTdGNSV3g1bk9SQ0VoMGRkRndVWGJMWGx4aG5CVGlfQkYtT2k2RzRLVzhMNGE5Qy1YVjRiTFZlLV9rZjVIVHg5ZDFiSmd3eVdCdGRCTzg4c1hRWEZRek5RdzZlZUl2Y0F0R01oY0g0MTFfdHd2ZUQz0gHKAUFVX3lxTE9mMHc4NjZXbkZlcFU0NkNSaHdqT0xFSVZJVjhRS3F6YVZJNTd1RmtjS0NmSnh3N05LRVk2cmhodFh1SkNWX2tuUTJDQWs2Z3F2d2J0TWp2V3hjYnRNOVJOMm41VktqN2JYMTh6bnI2dEViUFpQVkxNc1kxZUhuenhrcUl3aW5mSVJQZ05lRmVZREhPV0tWeE5mcnM5ZVp1NHJMWENMX1c0b2hGZzNOSkF6RUZlZExZUWc0MWE3Q1l1U0hkc0gzSGhWd1E?oc=5",
-      "source": "FXStreet",
-      "pubDate": "Thu, 21 May 2026 08:43:43 GMT"
-    },
-    {
-      "title": "Precio Gasolina hoy, 21 de mayo: Consulte los precios en las principales ciudades",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPOURaaG4xMlVjNlA0TzFoMHdtZk9QUHVLdXRjV2p5T0NmRzY0SlljOWViRzZrNl9jbFFWTTN1eHhiZ0JLa2Q5UF9FUms5ekNTZGFXa0E5czF6YnNEYkh5MmVPRVRKVlVvMkhkTllDM3h0UTJ1cHhHSFFISjVnZVdvUVVxQlZDdVV6MWJJTDZtSGdxS1N6dHU5dDJxWExKV0RK0gGgAUFVX3lxTE9ja3VzbXcxcm9FYjN1NlpWbDlHYm9jRkM0bkdDcXNvc2pkODhNdXNubkVDUkJkdWRYYlRYc2pEYzBQanhxcGswTlV0Q3hJNWNGWEJvUnd0TVdvSWUwMWtpNzkyejRQNVBBME4xb0xrX1R0TkpYT2lSSmFpMTZNSC1tM1pUSWFELXVpZ29Cczh5QUZ5aUtzYk5Rbl9ldC1ZWlU?oc=5",
-      "source": "Expansión",
-      "pubDate": "Thu, 21 May 2026 07:30:13 GMT"
-    },
-    {
-      "title": "Precio del petróleo hoy, 21 de mayo por la Guerra en Irán: consulta el precio del barril de Brent",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNc1RQLTM0Z2JDWmZBelE5QXlEeDlGWllEMktIenNaOG9LZjV3WklyRFZ3NFBxWjVhZmE5WThjRVdiX0ZOLXZHdm1LZG92RFZoX3V3OHo1RlZNRGZqMGNuUngtdUtvTTRHQnE1MzBZSkg0dV91X1JkV1Nsamo0MmgzTkxpeW1jUUdZY3ljYWQzMlJpN2vSAZMBQVVfeXFMTl92eXJaOXJfTXdlNWZEQkItUGRrSF9uVEFGSG85eWNfZEI4WjZoLTNCNjhZYUxGUF9NVnlpMTVxSkU1VzV6bTROOEp5U0phVmkxZGYxajBHQXA1dVFHQVNiaE9DcnlGQTA3eTJUcVVybEtwT3NQNTJfaEpjN1N2T0NaQWt5RVFjcUp2RHFXQUljb2VR?oc=5",
-      "source": "El Periódico",
-      "pubDate": "Thu, 21 May 2026 07:11:06 GMT"
-    },
-    {
-      "title": "¿Cuánto cuesta cargar el coche? Este es el precio del litro de gasolina y el del gasóleo este jueves 21 de mayo",
-      "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxObU9KNFZzTHZHRDVBZkNNZHJCRGlseThJUkxLc2xjY0NaRllwRmVvakt1bzJNOGpmeG5fQkJBbXZDQ2RZdDc2bHhidktIbjItRkNrNVoxR0dFbmpMVHNIZjdYYUdmWHJ2VUVXbWJXcDlCZkZST2R1ZVN1NVFBZlByaHdud0l3QS0xbW9uTWx3emIzYXFMTG15c0p1NFJWVUptU3ZsYm44NE95R0V5YndNc2tEeFhlcVprejliNTdobGJYaGZlMl91ZzRLREpPT21ETVFYMTU3eTdlSlJLaXU0ZXhPWVdEWmlFZ2dGOXZSUmRYUdIBjAJBVV95cUxPS20xMFg5WWNsZzdjc0hwYXVPel8xVFpoWnNGQ2s5bFk3M0NnWmxhYW9wZFk0R3BIUXF1Vk8xeXZjOGNaYlN6TWVlTFFxZ3kwX1h0VnZ6SzM5eUgzUVFKYVEzLV93eUlEMjZtN29NSWNxRWhnTnhielFwNzVhSzlyYlRZRVN2bmhjeFJIRjZ4cjhaU01jZkgzOE1FWHJkUkJOcHJ2VF9Cc3ZJNzRackUzSUE2aS1MTTZwSkJpcmxLMzFJcFlsN3VqZEFGUlZva20yWEJVZ2FuTEtuempDTFhDZFYyZDBiRFNMWi1qRXBfWUxaYTRiMndselZaaERZeTlSV09VRlNWbnU2cGtU?oc=5",
-      "source": "El Cronista",
-      "pubDate": "Thu, 21 May 2026 07:00:54 GMT"
-    },
-    {
-      "title": "El precio de la gasolina y el diésel hoy, 21 de mayo, en España: hasta 25 céntimos de diferencia según la gasolinera",
-      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPUXB1aWhXU3RIT2Q2cVc1LUxQS3ByVy1lSVdnV0piZU9ZdldlWXBtSjNkYV9rYWU3bEd1QzNOVm9CaFcxRVZvQnU4NFJ2SGRVZno4dldUUi01N0p6Vl9FWkNKc1RIYzhVcWRkeGVmQTMwWXp1bS02S0w1aEFFS0QxTEwwV0J0OTllaVB5VGpRTkREZ2diZUV1RnVDTWlMUkFMUDhFTF96M0kwV0FGSERvU3dGRjdBU1djRDluYXdjdjI4N3d50gHKAUFVX3lxTE04dzRxRTBrTEJZYjFmYnFkNkIzUlJXdmU4eDVrVDNESVlnNnkzSXJjR2hDVS1DMEYwVzhyOXVQYlpJZ1VodXdGMVIxQ3V5NjByQ1RDd1h6UGlWYUt0TExURXJJQjVydl9ZbHBFYzdyaE9LVFI2MXgzalNmM1dfa1FTZ0lOTUtmdHpMQWp0dDdfUUxWM3QzeXgzelpKdzFrVmx3WnllS29jLWFtOHE2QTFrRXJCQWVGeXBaRnZweUNMSXhrR1lEQ0U5b1E?oc=5",
-      "source": "Noticiastrabajo",
-      "pubDate": "Thu, 21 May 2026 06:13:37 GMT"
-    },
-    {
-      "title": "Precio de la gasolina y diésel hoy, 21 de mayo: estas son las gasolineras más baratas en España",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNV0xZNXd6a2RnMVhoc285MnJESHNja3ZPU20yWG5aWWRaTGpXck1FQXY4aDVBcXZycnFWekl3aUd2dWVwNkR6R1dZN0IyWlA5a0wzaGhEXzI1UmhreUh2VUx5Z193amkwOUxnM2NhVnRFYkNRVy1ubzJCRVdURzNleVA5MVZFY0xBY3pIQXNLcHc3Q1F5U0I3VFc3QS01Mm41NjZUN1d1Sl85YzFWNjQxdTYwY9IBswFBVV95cUxOUmFOaFh0YmRvZ3VaM2RzOUVtUEQwVTk0WlNkOHdtSUo0S3c1a3NyOFkxMzllSEtFYmlfZWZvZ3lOX2VTQVliMjZpbi1Gd0dKMU1Nbld6c1FWV2szTV9sQTRId3owS2p5dTNYbnd1YmpzQWpRcmJtY2tOWVZxVGh1a1pCTnNqeDl3dkFoNW9GUjNhblFuOXVvaVNwYXIyWUxpSURhcmpTamhNc21ZVno3RUxyaw?oc=5",
-      "source": "SPORT",
-      "pubDate": "Thu, 21 May 2026 05:07:36 GMT"
-    },
-    {
-      "title": "Pronóstico del precio del petróleo: WTI y Brent se preparan para la próxima rotura alcista",
-      "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNVjMzSVJzWVZZbDFUczRZUE5OUVdnNDlLcTNOcVRUaHpzNm5QQ2tuNjl4QTZ0S3NfY0p2VUhzQUtLUWtJeTNHT0dsMzVQM0FTZEVjZzVvUk5JTTBzX091aU5wcDRQRTdoUFFkUzByZzZzWkczcl9ZMzRFbnUtNllYUFFsQzJVUjlFR2JjY3lwOG9JWmZPMUNzeFN1MWF1UTZNZEZFYzI3U05WM1E0aFdKcnZ0QmFhTHRWS3htMUpUcUNVbzFsQldCWC10QkwxazNSMGwzRQ?oc=5",
-      "source": "FXEmpire",
-      "pubDate": "Thu, 21 May 2026 04:57:00 GMT"
     }
   ]
 }
