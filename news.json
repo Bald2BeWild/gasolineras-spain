@@ -1,42 +1,84 @@
 {
-  "updated": "2026-07-15T13:19:25.330582+00:00",
+  "updated": "2026-07-15T18:59:01.501765+00:00",
   "count": 20,
   "items": [
     {
+      "title": "La UE mantiene el tope al petróleo ruso en 44,10 dólares hasta el próximo 23 de julio",
+      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOd2FpSnNtNEhSVXNOOWdyM2ZORnotQm51NU1PaGJxS3ZQZTUxbkdKaFJINlZwNmhVMk03N3NxcXN5Mm9xbm1TeDU0Si1RamJWNFZfWTNySGtpRU00a25UaU9jWU5CVmNhWGQwMFNkcGNoMzdvTGZsaVZwdkMzQXZJTFMxNHhUcHQ4cWdFMlg0SG9RX3FZSkpJR3dXcjRyZGpVU0c2LVJDUGliZXAzOU9NRHZYVFNxMW53YU03eXI2S3J6V1JSRmc?oc=5",
+      "source": "diarioestrategia.cl",
+      "pubDate": "Wed, 15 Jul 2026 17:36:23 GMT"
+    },
+    {
+      "title": "Avanzan precios del crudo cerca de 1%",
+      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5ydXpYV202V3VQRkhFdzdqZUd5S01NQ0R5WGl1elpydHNORVcwTnpVWjVLUGlnSWwyQmpYaDVJWGVaOG05S0NqZndqZHd4MmNlWG9FWGNLaWNwMmNQWnZlYXkxTllJbHJUMG12ay1aTEUxY00?oc=5",
+      "source": "Plaza de Armas | Querétaro",
+      "pubDate": "Wed, 15 Jul 2026 17:23:04 GMT"
+    },
+    {
+      "title": "UE mantiene tope al precio del crudo ruso hasta el 23 de julio",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQOVFXQ1BMSmNIX19zQ2VzWkE0YTlNUTc5VUZFSGpobHF5akxtaVpaWTd3MUszR3Q1TlpEdFJpZXVudDJSUU95WHRERFpVNUczajVZYlpac2JZMUR2RXVLb1NfQU1GVmw1NU1sOElpRGV4SzIzcWt0eXZhRlY2WnRLeWJhTnhkbmRHdmRITkxRME9neXZCdGFn?oc=5",
+      "source": "El Nuevo Diario",
+      "pubDate": "Wed, 15 Jul 2026 16:52:04 GMT"
+    },
+    {
+      "title": "La UE acuerda mantener tope actual al precio del crudo ruso hasta el próximo 23 de julio - EFE",
+      "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBaSGhZLWZyeTZobG8tNThPemduYkdSNnA2TUFVOVVfcVJFNTRGN1lTMnV1ZnFGOEYybGNaTHkxYzhmYTZRa2lYaFMzWm5PSXUwREpFVTZjb0VMMEp1VVFiT0pPQmprTGlMbC1Scw?oc=5",
+      "source": "EFE - Agencia de noticias",
+      "pubDate": "Wed, 15 Jul 2026 16:19:01 GMT"
+    },
+    {
+      "title": "Precio del petróleo alcanza máximo mensual por tensión en Ormuz",
+      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9pNUYtQ0ZnamR4NUotN0c4bHE4THphWndFM3lkTUVDU1VhaWZZcU9oUkRTWHJuRTFOMUU4eU95NHg1Sm5xcmVqYXFGa2VnbHFKeVZDcU9KS0pvSlVjMGR2Q2xmcGhrNmQtem5LQkJmSzkwSGdhelJaTzdwdmVKdw?oc=5",
+      "source": "Inspenet",
+      "pubDate": "Wed, 15 Jul 2026 15:46:11 GMT"
+    },
+    {
+      "title": "Pronóstico del precio del oro (XAUUSD): IPP de junio flojo impulsa al oro, pero el petróleo frena el repunte",
+      "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNSFphbWphLXVqdWJHTHJEUDZFM0xMM190QmhSWUZBdUxBVGhYOGpCZGlXMTNPdm5kd3JFV1VUNWNYMGtMekxBaUVQXzdQMDZmbGpDbkJqTHJ3b201QndYT2MzMXJZa3lQZUxUakp6S084c09MTnowSXhleFNhLWNtWHprbnJpYUNrbjdnNFM3Q0czVjlWYmIyWGZ4Q2JuSDR1cGl2S18wcklUQno0THJsNkNEbkk5akpLSmprSmhVVm5PdWFjZzM0bTdDUndJcG5IajdpYg?oc=5",
+      "source": "FXEmpire",
+      "pubDate": "Wed, 15 Jul 2026 15:20:00 GMT"
+    },
+    {
+      "title": "Sube precio del petróleo 1% a medida que se recrudecen las hostilidades en Medio Oriente",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNMHBaT2p3WWR4RmhFT2Fta2ZlQ0ZlWHVHdTlodlhYZ013RjNtRUZoM2Zlc2d3dmgxc2pRVlg3MTZ6cnNndVo1UlJkV1VJTzl2bFZqX2ZjakZyd19HN0xqSmwyclNrOUdaQktJdmV1ZlowU0x4SVBjQmx2cElqZXVEMXJkdzhPZkFONEJMOVE1WExTVHZXbk85ZFNuS1BqWl9KOXJqV9IBpAFBVV95cUxPRGhYS1pwWEFnOS16eFNLT19pLTkyX0stTXQwREQxcVI3b3JSWV8xdms4UEdjeWYyZWNDaEJ2TTV2dXNVVWZTbnBUU2dEUmk1QzhNWUpNaUpOVlFvSC1jLUQ5QjI5dXpwMDZQZzFhdk1zOVdfR2I0alNuZDRCR1NKWjJiWF9IRGpYRnJTeGhjNVNYVnltLUxkX2tQbWJMcXhfbHppaw?oc=5",
+      "source": "MILENIO",
+      "pubDate": "Wed, 15 Jul 2026 14:12:00 GMT"
+    },
+    {
+      "title": "Alza en precios del petróleo no cambia visión alcista de HSBC",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPRUpQby1EbE1wYTFUTDcyLVRJMHV6TFdzeFpLbVVodlhTcUxYVVpKTDBlcDFvc2JSY2d2LXFWOExHdWdRYW56NWRaRkV4YXc1cmtLaVN2bXFta2lXTVBxcEhiemw5VDRTRDFEbDcyeWRKeUhGb2xvakpIbEJnUEkxM3ZkVU15akFabGtSd2xRM0Z0MUFWUHdNQ3djVmN0ckU1eWtLQ2NkUXBHMDVseW52ZXc5RjRSQkNY?oc=5",
+      "source": "Investing.com México",
+      "pubDate": "Wed, 15 Jul 2026 14:04:50 GMT"
+    },
+    {
+      "title": "Los ataques estadounidenses transportan al petróleo de Texas al umbral de los 80 dólares",
+      "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQYUFOd1dvVUhzQXd6LWN4QzdiekQzc2o3SjcxWnQ2Ui1CRVpDQ1dPT3BUcjBELU45Y1JFdmNHNnRyNF8wUGJORUNzVDRmTGZGWUZRcVJtRi1qNFpaMzNSS2l1bDFYU0VqNkpzTE9xc2N6cVAyeWFwSjQxOXhoTHNoU0h6QWp0Vl9WOU9ScWJfSUt4eHplX0lvTVZja0JZMmx4U0FMSlB0bjJxNXVaX1lraWxRUXREdHhJQnZEMHhKWjN4V0lqZ0dsMENvYUhRSG5IbFNmRQ?oc=5",
+      "source": "Ultima Hora",
+      "pubDate": "Wed, 15 Jul 2026 13:54:00 GMT"
+    },
+    {
+      "title": "Desde España, Zairon es la 'Zara' de las motos: llega con una estrategia muy agresiva, primero precios bajos (y gasolina) y después, opciones eléctricas",
+      "link": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxPVm9ma1pmaFdiSmNXbWkyWUZodnNTbXZiV0RpZGlHdzBnNEk0czgwWGdXbWVZUXJjSkZpRDVRZnlPalFlSnphdXp5SU5QbGVaQjdSXzU5dktXMEt4anBmVFhBWTJRUmVSWWRvLV92ejlHeVFFcHYwSVF2TmQ5N0RDdXdtQTdOZHRqelJ6ZzdRSDdQSlc1Xzd3OVBtYVJZaml0T3p1WlpkQ2UzSFFLQTZiUDR6V0pvYzk3SUZ2ZWszLUdsZGtJeGotZ0ZlZ1NzNjJGMi0yR0YybUJrYUYwY2dlVmd6YWVEOUtQdTE0Y0ctazZqU3F2WXZHSFZjVzhWZHJxY2pkQlBMYmY0clU?oc=5",
+      "source": "Híbridos y Eléctricos",
+      "pubDate": "Wed, 15 Jul 2026 12:30:00 GMT"
+    },
+    {
       "title": "La gasolina se encarece en España hasta 1,55 euros el litro, su precio más alto desde mayo",
-      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQTXQ0Z1BkR1AzbUREajZTRGprZXo0Qm81UEJqbldITXAzZFc3VkY4TWdjeHBYU2Z1bmEyS2xpcVhZZFU5cldCV0tlV0JsdHVEcTVaTmliYU9OcjhyR1NPcFk3a0RSZ0Q1RXNGSFU4a3dEZktnNG9wVjNkNXczREFuTl8xNENxYUNiUUlGbGxCYkRWdEFGTHk1M1h6dThGelVMbkNZNnNwM3FILUw2M3FJTzJaNXpiN3dHRDdjU2NnQkpsQQ?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxONV9IU0x3ZmdfdWtiakZReGM3ckFBV1lDZG5LeUtfUGVadGpEa3lXeFFZZ1pkRmFxOHdWcTc1N1FQeFlvZkE5WEprMk9BWmhnQjJkeV8tWmM2TXd2Um5XOWVzTkpiX25hczY3LXdpVmdWWmNYU0dUVS1VODQ5aGFJQWh4b19PVmFSY09teTctSnBSRjZZX1kxWl81eTRGSlFEMFBhWllXSS01QUZiTFhLOUVrNVEtTEpHSzJMVEJ4RF9JREE?oc=5",
       "source": "El Periódico de la Energía",
-      "pubDate": "Wed, 15 Jul 2026 12:23:48 GMT"
+      "pubDate": "Wed, 15 Jul 2026 12:23:42 GMT"
     },
     {
-      "title": "El precio del petróleo escala nuevamente en el mercado mundial",
-      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPQ2xsVUZ4NUM3dWtjWG9vZjc4SXRrNGVGY0FET3RSREktdkNWY0RmVmlNWUFXQ05sQzdpXzZ4M3JDUkVadUxBTXJqLXU1U3JkQXBDMU1GaFdpczVLUmVCVmdyaVVTckhOMVcxbXFPSFdVdzd0dUFTRVNIQ1FtN1RtbVRRVVd3X2ZzT2lkQUR6d05aS1BOeTlmRWtzRTdSckc5c2tUT2pwdk55T2lPQV9VM1JCLUFOaFVpcnJOUWJTVG1jRmvSAcgBQVVfeXFMTzdnYmVJajN2M3JJUVl2b0JyeWZIQ3FldnFHVmpkWnVFV1RTYklsNk1CQmdfMlhtSnJYdnFJVE5NLVJFZjJBN2ZRdERBMlYzRTJmUGpIRkppRWUteFlxWThMNnFGQ3F0bmU3Mi1NZDBBaGZEV2p0bzEtV3NxOEMxYmJkSmVIOFJPeEVhMy1nekM0Nko0WjFQWFM4aTQ4VUxVcUtDU1ZsbzRvaHNQUTA4OXg3bjc3YjhtSUc4RVVFVW9PUkRBY2c5M3U?oc=5",
-      "source": "Listín Diario",
-      "pubDate": "Wed, 15 Jul 2026 12:09:42 GMT"
-    },
-    {
-      "title": "Precio del oro bajó mientras el repunte del petróleo avivó inflación de EE.UU.",
-      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPYWN4X1BGMGNWcVNPc2dXTDZvUVlBNnR6eFI2anRHV0h2LUN5SzQ3RkVnMHNrTHVBOVRLMW9jdHI5X0lPMU5Uckx2clFFc0I4RFEwU3pLODZQSmFYSXprUUtBR3g2YlNMSWp4Yms2VVJSZUUzNTVGclpqMkoyYnc2M21VQVZ3cG42ZklVQ3JXUTBGdVlVWVo2TlR4dGdKUdIBngFBVV95cUxQcHdEZlFyV0tybGw4dFJ4MVdENXdxc2dVQjhDa21uSl9NTGQ3TG03QjJqYXFuUUN3OFM1LXEyYWIzYV93S0Q4UXJxdHZYMFNBaERrNk95LW14U19Jam9zSnZ2YkQwMWZYbjVVS1FxbVlpN2RQZnVFN3ZraFc4eGh3TGhjOHc3U1FYZm54Q2RMd0E5UHlOamtNOW5KVUl0dw?oc=5",
-      "source": "LaRepublica.co",
-      "pubDate": "Wed, 15 Jul 2026 11:28:36 GMT"
-    },
-    {
-      "title": "El FMI advierte de que los amortiguadores que mantienen el petróleo contenido se están agotando",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNRmpPdFFHUkdxdlFELVptQjFjUm1TLUN1RGxHOHlqMU5BLWpBRHE5VWFzVXVsNENrSUxMaURCTmxwZk40QTQ5bHJoOTliZFU0Q3BGRmNPVzF4c1BCWHZ4MGV2S2E2R3BxOFVxc0s2NDFBdzZCdDc4SXh3VU5QVkNPYmdVZW9YcEpZeEJsQ2tYNUFtalBwaHBqNUpZZGlvWG9nRUswdG13Z0dkU3ZDS2tRT1luUm_SAboBQVVfeXFMTnVIVDl6SHRxTjNCNjY2YUlMQkFWVnFRejBlcGp2aEs2dHFWT0tfdGc4REZXWnNGUVVNamtfTTV0eVNhQ2Z5ZXppbDZ6ZzFPSHdVNEZCR01iSnlid2VTdml2N0xhazEwdjhXdEUzM3o3NEM5MjdybnZFak8xc1QxeU5oYWFFSUxEUGcyTjV2R3B5SDd5dVJacmtleHVZR3pJZjhGYWhPcmxwX1FZQVBuNjVId00zeGdUcDRR?oc=5",
-      "source": "La Opinión de Murcia",
-      "pubDate": "Wed, 15 Jul 2026 11:08:57 GMT"
+      "title": "Pronóstico del precio del petróleo: El WTI apunta a una rotura alcista hacia $100 mientras las tensiones en Hormuz aumentan el riesgo de suministro",
+      "link": "https://news.google.com/rss/articles/CBMipAJBVV95cUxPSVBkRVhleGQ5cmczN2t6TzhOWXI5T3JLSy1HWTRMVFJYdy1FRnEzMUl4T2RMeU91ZklPSHNycVF1RVJVQnRHSWNoZmVtU1FwYTFMdkJsRHdtdjRGNlBTT2V1RlBMckpjOEFNek95MHhkZGZPTDhxRG9Xdi1FOFRlSlc4UlBsWHhRbGQ3clNzV2k3c1hxVXYwVTEzM3pvcm81aEFwdW42TXN4c2pGbVNrOEJ5bVU2MG1VMUtBeUxVaXhOOGp1bGwwa3Qzd2lSM0xINk1OSExjRktrWjRSSmk4dFFxbWxxZnpuX2NpeV9QdU5HalhEbmVuZFEzMU1PQi0tc1dTemhrbEdNbVdMNmZHOTk5TmRUUVNNSUtSdUZfbjMtclQ3?oc=5",
+      "source": "FXEmpire",
+      "pubDate": "Wed, 15 Jul 2026 11:13:00 GMT"
     },
     {
       "title": "PRECIO del petróleo HOY: así cotiza el barril de crudo este 15 de julio de 2026",
       "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNcmYyQjVTV3VuSzRQdWNjc1ZBMm90TEswZlNTWW11eEFtWktkSkR1cDcyb3Uta3ltbDNiVHNiR2c2LXNuQ1EyWURYTVBtdjN2dnpMWWNQUndhOVdJVGZLRGxxNHJUYWN0WEl4cm1scGowWm9LZHNrUHNYSU9EdlBoMEtSbVk1d0dmNGxZbHVsUWYwSnZRM1VqWE5RTWVRWl9DSkVXdmptZ2MzNlhhVUZWUXVtTnozVkZIRjFGT3RWSWsxQ1FzTkw3bjNNUWt4X2w1UVNIeTNNNA?oc=5",
       "source": "El Heraldo de México",
       "pubDate": "Wed, 15 Jul 2026 10:56:00 GMT"
-    },
-    {
-      "title": "El FMI advierte que se agotan los factores que contuvieron el precio del petróleo y crece la incertidumbre para Vaca Muerta",
-      "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPWDN1Qm9JWURHV1F3VWNJU2YwU3JhV1hva0d2X0RCc3U4dEUxckFMaWtra3F1MEthdHJlYUJlWGRkd0dMb2lYLTREVTFHdV9BaEtRRWh3bXAxVjg5M2FvaEM4cm1raEd2OG04eTJXUnU2Ymo5N1lyMGRkNXMzaTcxT1NCMms0bnpUbVVnRVJubnpyUE94Q2M5anV6SXNFblpvVml5eTdRNGRxWmV4RjVmR1RhbXNHQ3dQY1NybEVfR1ZpYUVUblp5THhGMDNlbmt0dXo5dnljUmpENmYya01wb29SZnNjaVMtZUE?oc=5",
-      "source": "Diario Neuquino",
-      "pubDate": "Wed, 15 Jul 2026 10:10:55 GMT"
     },
     {
       "title": "Precio del petróleo se dispara tras conflicto de EEUU e Irán - El Diario",
@@ -49,18 +91,6 @@
       "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNaUtaemxXS3JhTzMwbmt1NE9zb29VN1ZyYnU4Z21sQ1N0VUxlRUdITnRIVE1pblNQY0M3Z0VueGhnd2tDWEx1VnpXZEFTS0ZJTUZXY0xVSGdBRDBHT21keFNKQUQ1QzA1di1vS0R0UkdEdVFiRnI5RXAzYUZ0U3E1T0lsMkdEc0g3bXdoTGFpeHFvblB3QnQ4NHlpNUdJOFMtdDdBTXJ5UU5jUQ?oc=5",
       "source": "El Diario - Bolivia",
       "pubDate": "Wed, 15 Jul 2026 09:34:44 GMT"
-    },
-    {
-      "title": "Precios del petróleo suben por la inestabilidad en las negociaciones",
-      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxOM3gyUW4zRHZrbjltTEx5SC1NTC1RSVM0QVY1OVA3b2FHeTNpaDBEeGlkYllWT2dtYnR3d0phcl83djU0bGFtV0Nhbks0WlJxbG5idHQtZkppSkFmTmRzZFJJemZsZUVkcndGYzlZWHg1dEJXaWZhWDlTRHRrVm53dGR4c2M0WDA5dVhTaU1lRG9CNXJ6SGNkakpNNnEtMjBrUzVzSFFGaVVxemZDcjA2QndnRG9UTEJnNF9Bd0pBSnpHWE43Y2fSAcsBQVVfeXFMTm1Mam03a0xUWkVIa2NUY1dDNU5UaUxweDFpSkZiT3BycjRwdE91ZVBRRTlEQ005bThlVHl4OVhDVjcxbTJ3a2JOYzA3cDVDR2VjdDNJTllheFkxLVRSSEpXRmVEUTVXTG8yekdDblFYeEFUdFoyX3BZc1oxN2lzYktRR2l4dVpBcGJjZG1vdTNqdE43WjNHZG1udWJzMDlqeGNGZzBJMzUyUUJfYTUzWGdMSXo3WEQ0MGZwQVFCU0Z4ZGtxdUhpTm56cVE?oc=5",
-      "source": "El Territorio",
-      "pubDate": "Wed, 15 Jul 2026 09:02:00 GMT"
-    },
-    {
-      "title": "Pronóstico del precio del petróleo: El WTI busca una rotura alcista hacia $100 mientras las tensiones en Ormuz elevan los riesgos de suministro",
-      "link": "https://news.google.com/rss/articles/CBMipAJBVV95cUxPSVBkRVhleGQ5cmczN2t6TzhOWXI5T3JLSy1HWTRMVFJYdy1FRnEzMUl4T2RMeU91ZklPSHNycVF1RVJVQnRHSWNoZmVtU1FwYTFMdkJsRHdtdjRGNlBTT2V1RlBMckpjOEFNek95MHhkZGZPTDhxRG9Xdi1FOFRlSlc4UlBsWHhRbGQ3clNzV2k3c1hxVXYwVTEzM3pvcm81aEFwdW42TXN4c2pGbVNrOEJ5bVU2MG1VMUtBeUxVaXhOOGp1bGwwa3Qzd2lSM0xINk1OSExjRktrWjRSSmk4dFFxbWxxZnpuX2NpeV9QdU5HalhEbmVuZFEzMU1PQi0tc1dTemhrbEdNbVdMNmZHOTk5TmRUUVNNSUtSdUZfbjMtclQ3?oc=5",
-      "source": "FXEmpire",
-      "pubDate": "Wed, 15 Jul 2026 08:18:00 GMT"
     },
     {
       "title": "Pronóstico del precio del oro y la plata: un IPC más suave impulsa el rebote mientras el petróleo eleva los riesgos de inflación",
@@ -82,7 +112,7 @@
     },
     {
       "title": "Precio Gasolina hoy, 15 de julio, en España: Consulte los precios en las principales ciudades",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNR3VLVmlfQVlWWXlDN0xLUV9tREU2cGJRaEMzVlRPbFA3ZFBCcTdkOGU4XzVNZWhqal9PWXU4azM4OWtIZ1p2N21nVGlhVTNWQWNKMzYtdDhvbW8tN28zOThGRHhjY1Fpc0EzcDFUcXFRWmplWXJjclNyY1JpbUJ2aXZRTUdleGk5X0h3cEowWTVYMlZ1TnVhZFZnV2VXVHJQ0gGgAUFVX3lxTE9ZWWxBU2dqV3phR2lXRktRTWtNX2M3SlVsbThpSGc2MURTSVpMdUhEZWZsYy1uSld2aFFMa3JORjI0QUpQczNfaW42TmJWaUs2YmIydHl2VDAzNGs0bVBNc1FlcnB5MVBWbmtHc1cyRUVsam5GSUlpUkczNlNJU0kzUnc3aWhiTEp1Zm1uNUJ1VmhaMW5Na3pweU96TmI0TFI?oc=5",
+      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPWVlsQVNnald6YUdpV0ZLUU1rTV9jN0pVbG04aUhnNjFEU0laTHVIRGVmbGMtbkpXdmhRTGtyTkYyNEFKUHMzX2luNk5iVmlLNmJiMnR5dlQwMzRrNG1QTXNRZXJweTFQVm5rR3NXMkVFbGpuRklJaVJHMzZTSVNJM1J3N2loYkxKdWZtbjVCdVZoWjFuTWt6cHlPek5iNExS0gGgAUFVX3lxTE9ZWWxBU2dqV3phR2lXRktRTWtNX2M3SlVsbThpSGc2MURTSVpMdUhEZWZsYy1uSld2aFFMa3JORjI0QUpQczNfaW42TmJWaUs2YmIydHl2VDAzNGs0bVBNc1FlcnB5MVBWbmtHc1cyRUVsam5GSUlpUkczNlNJU0kzUnc3aWhiTEp1Zm1uNUJ1VmhaMW5Na3pweU96TmI0TFI?oc=5",
       "source": "Expansión",
       "pubDate": "Wed, 15 Jul 2026 06:48:45 GMT"
     },
@@ -91,36 +121,6 @@
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQd053X3JJeFhfeFhRd19vci1WTGZwVFlnWjBYalBaamZneWJoNVR4M0Zzdl9GSlZWQWU5ZFBZRzdtcklDSUNDekxhLTROOHZhaDdWeUw3U1pBemprZ3B3Tjh1UC0wTXNFSmRxRF8walBsR0VwWFowc1g5RlVISm1DMGFpOTJnOG9iZUZmekl3ejh0R0dHMTVBNXZnMll2ZEdBbXZYYkN6M1ZPLWpKdXpUYjIwaElqYllh0gHTAUFVX3lxTE01cnN4dnlsRHMwWHVBUG9HTEMxY1BZOFllZ01Jcl80Z19Mb25kMkFiZi1wRGM4Rk90RmVhRTVlS1REWE9aSHpLQkNjSk5FZXp5OWw0N3dBODM1YTR0QmxVT0QxUGNTczk5UUV0M0tlVGJWS3I1dVpON3ZvZGZ5SjZMZUNtaGFBU0wxX294QVFhUk1SY1N3dXNfZURBRGNrUjRmUmltOWxZaHc0d3ZvR3paRDJBZW9SQVZhZUw4STBxX2x1dVM2bHhoRDlTSTludXdjMVE?oc=5",
       "source": "Infobae",
       "pubDate": "Wed, 15 Jul 2026 06:36:46 GMT"
-    },
-    {
-      "title": "La subida del combustible acelera la expansión de las gasolineras low cost en Andalucía",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNOEFLUEEzOVFmdEZiTzA4SnI2WWloZXRxeUJhNk1ZS0JteU9zYjhNVmgxWDNacl8xanFrWEFMMlNMTUlBRUZURWlNb1l2ZVJ6LUFSb0xwT1NuS3hVMEk4ZUFRbFVwTHFKT0ZoemFWQ205UWdRNzJ2ekxuVFJxUjlCWUdsOGE5TmJIU0JWN0YyT1RfVFloMXN2djE0MkFjWlM0M09xVnB3ZFF1MUpvNGNjRHpqZ3dkeUhK0gG-AUFVX3lxTE9XUmczZlBNNF9FcV9oclJLa3J5MVZ1Q3QtcEFDWnZaaHVJdjRUZVdvS0ZUV0ZOeUtiN0Izb21OQVJUN1VRbjl4VjdjZDcxQ1ZjWlNkd1V3RElTQU16TFdqMXJ3Yjc1MVBRdC1Kc3ZQRlNkMlUxZGNHYk5xX012d3YtU2I1cDQ2TUNSX1dZbjlPRkdxLWROX2JDZXdoUXd4Y1c3R2FiNGtjTThYZUROWTJqZEpTR2llQXI3cXF6a0E?oc=5",
-      "source": "ABC",
-      "pubDate": "Wed, 15 Jul 2026 05:07:49 GMT"
-    },
-    {
-      "title": "Aker BP duplica ganancias en Q2 por alza en precios del petróleo",
-      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOQURNVjBIVmM4SU5mVUVEbVdwNXZkdGo2Wnk1QXI4YWtiRTV6NXMxNTJld21vRmhwbU1kS3ZpQlNGbzFYdDIyWVMzOUJUNEJCVEdyRnRyeVlCMjBrajBQZExmQVNlUXp0djg2WkQxdFRWeXhEVXM0SElzQnk0aGpTMjlnY2YwV19BNEU4Wko1S3F4MnNqVk0zSjVISW1JdThjN3M5dkxKaVVPNy1sazVqcw?oc=5",
-      "source": "Investing.com México",
-      "pubDate": "Wed, 15 Jul 2026 05:00:52 GMT"
-    },
-    {
-      "title": "El precio del petróleo sube un 1% ante el recrudecimiento de las hostilidades en Oriente Próximo",
-      "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOYndINEw5MmlZbEZlMklQbVUtV0RiU3FxdVB0blljazhiSXZUV2VJX3lHeXJUOUtFbklFSFZtVGoxT04tbnFXZno5VjJMVGF1b2JHRUhndW5RNEtBX1luUFUtWE5LYVdQTGc1N2dvN1hrMjAtbkF1UFpYTEdWS1ZMX3dzOG1UMXJYZXlkcEJsZXhDWlVLcEMxRFhfczR5WEx2LTVUbVFtNTZrTGNmd2c1dkRDRU5PcUZ5T2Jwamc0ZzhhUlprZVdSTXFBMjBQNVRnTHQ2R3h0c01CcXZi?oc=5",
-      "source": "MarketScreener España",
-      "pubDate": "Wed, 15 Jul 2026 04:16:24 GMT"
-    },
-    {
-      "title": "Precio del petróleo WTI avanza tras incertidumbre en Ormuz",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQLUpLWlpuaG5FM3hLTjNxX2pESmZFX3ptajd1TFlFR254dEZ5eFd5UEFoc2RFbzdCZ19rRGsxVkdmNlBrZVlMUHJMc1I1ZmZGTlY4WE1OODdRS210cmsybGlWaXNOazZ3bFlYZW9JaUl0NzNhOW1qNnNGSWhKejlmVllBSndIak1WbzMybkZ1czE4RS1jUlBZOEZ5NHFrMU1DbUF3OTJNdFAxZktRTnQyUmNNbkXSAboBQVVfeXFMTUxrTlRUOW5jWHFheGdiWkJFNnVaaGNMSEdRSW5SSllMbVFHd2prbkFIVU5RVmdSY1hjbHVIeUd6ZGV1Q0t5cVdzaERVVFVKWDFBdjcwSi14QXhKb3ZCNXE3azhFdUlPcFk3UkxDbmZsYlcyTGlTU0NSMzV6VjBOMGlVMm9WY0Yyc2FZWE1fWVd6NXpMUlpJUHAxWmZyWkJQM2pqemtZWUhJSEVUb09ST1FKa2toOXlmNl9B?oc=5",
-      "source": "Reporte Indigo",
-      "pubDate": "Wed, 15 Jul 2026 03:35:00 GMT"
-    },
-    {
-      "title": "El petróleo se dispara por el conflicto entre Washington y Teherán",
-      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNSXVSMGh4UFAxdjdEd1BwOFFsQUkzaUZCTDl4anY5S1pzUzdiVXdlNXg3NnRlQlFlQnhuQjNYaWFKSTVHcTJNR25Pbi1MS0RlbEtiT1JlM2JsZ3VSRDlqTG1kRENkbW9XcnV2SjVveFhtMUF6LUdNVFNzRW5TamFrUTVMRHRLWHhSOE1RVmVvWU0tWFlQUG1V?oc=5",
-      "source": "Fuentes Informadas",
-      "pubDate": "Wed, 15 Jul 2026 03:00:13 GMT"
     }
   ]
 }
