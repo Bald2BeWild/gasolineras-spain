@@ -1,18 +1,48 @@
 {
-  "updated": "2026-08-04T19:21:04.265749+00:00",
+  "updated": "2026-08-05T01:50:39.306390+00:00",
   "count": 20,
   "items": [
     {
-      "title": "El Brent se hunde ante posible reapertura de Ormuz",
-      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNcWVwYjlrMmhkNFhsYjdqRERtdVB6eThERHEyelVYTXl5UnJ2eXRSZ2lqZnQ4cG9fSnNrNTB0bkpIeFoxOXgxQ2xlTTN6My1zUGdtbGdqWERBRXNwcWVfWkV1Z1ZqWUhsSTJtYXRIc05TbHdaZWItYS1tUlhpUGgtT0FKNXZpdXlGRnFDUmVQZzc?oc=5",
-      "source": "Finanzas Digital",
-      "pubDate": "Tue, 04 Aug 2026 18:25:50 GMT"
+      "title": "Grandes petroleras logran ganancias récord mientras el conflicto en Irán eleva precios de la energía",
+      "link": "https://news.google.com/rss/articles/CBMiiwJBVV95cUxOMjdiNkZKSFZ4VVBHM3pVcm5PSENlY3VkMnptdmRpb215V1BSdHVVYS1ieWNFY1BKOXFoakdiNDJMcWgtMWk5dHlkRHczYzhINTNtWWdvSWRzYmdkS1ZoNl9ZSkdTc1Y3TXg1aDBERDZKYlprQjhYVTRmZll4WFFNQnJsQzkteGFidGNqREJmYmJheTlkMUFTMWY5eHFfbFEyTTZ3dTBJVlBJbDIyS2gwMVYtN1UycW5sWGlpRk1RSUJRMjlZZDVqek5HdWRnZDNraWk4eXE5d0ZYS2cwcGI4QUsyQTF0QXMxeWNEUTY3bVY2dkhDZFhYWmJKaHZld0NqNGVPdGxrcmVfU2M?oc=5",
+      "source": "LancasterOnline",
+      "pubDate": "Wed, 05 Aug 2026 00:14:10 GMT"
+    },
+    {
+      "title": "BP dispara sus beneficios trimestrales gracias al repunte del precio del petróleo",
+      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOaTFRblN6eHdCTVZ2TlUtbENGSHBLS1lUWEpEV3BfajVTVXptNTg0bkw0N21XLWliVUdJT0ZnU1V0VjdzZ3oyOW1tTkx0MnpWSDdXVmdWQlh1UklWeWJLaS1MT0EtOE1QdWt6bktNWFY0Z3ZING5WVVVncWU3MnowNmpPYV8tQlhvNXpFbGNUUTdjaXhHSjNxXy1KY050YUFLc3lmMEVORFVYUjlyQWdOc0VOWDBNR0ptX1hxd0lucUs?oc=5",
+      "source": "Industria Química",
+      "pubDate": "Wed, 05 Aug 2026 00:04:56 GMT"
+    },
+    {
+      "title": "Precios del petróleo suman su segunda jornada al hilo con caídas de alrededor del 6%",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQWEhUVXczUTBvemRHUEVSeDJ4WFVsSUJEY2VzM0IyUW9FczBOb0Z4VXhEZU5UbHpMRU5WTzlrLXdBMVN2UmJXeDhRaWN5cGpmS0w2bHpUVFVjb29QaEpxZEpLZEhQZ0dCY3QyVzVXY21CdjBacHQ0LTcwS3c3SjF6b0NERlRQcUJXT1dxQWNYWGxnY2tKSzJQNzdCcjA2SlJCaTR4b1lXc050U1JJSjNyLQ?oc=5",
+      "source": "EL CEO",
+      "pubDate": "Tue, 04 Aug 2026 22:39:38 GMT"
+    },
+    {
+      "title": "Previsión del precio del petróleo: los vendedores apuntan a una corrección más profunda",
+      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNbFQ1WUE5VDJpekVXNUd6Z1o0dl9HWTR0WDhfNXU1TC10TVpOTG1FbnJ3ZUtINEtiMm5pOUFURFhFTjZMOGxqZ0o4bG5qUHQtSGdkbFpMUmxpRUhUSjFrN1ZmZkVRVGcyVDZsZzVfWll1SE5YRVFSQmE5QS1SX1d4NTBwSGNQNU13cWJIQmtPeDlCSktsNG55aWV3VGlNb0VDZTBwZFlpcmRCdVF1SHlObmpSUzdJZDBTcmgzUTY0MS1WSGI0b0EzeUV4T3FPMkxs?oc=5",
+      "source": "FXEmpire",
+      "pubDate": "Tue, 04 Aug 2026 21:33:00 GMT"
+    },
+    {
+      "title": "Cae precio del petróleo de Texas por posible trato con Irán",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOdkNxejFST3J6Ylh1SGkzUDltb1pvU1ZUSG9CZUN1QXJoeWVSUmUyS1MtQ2oybDhKZGVEN1M4ak1KSkx5c2o5U1UxZGFSdDlfYktpbUtFLTZXcmJ1WTdvRFhWVGxTOHRXQWJWR3dIRDQ5Z0ZmX2hRRmplMUYzYjE5WUczNTNfUWthQUtwX09kTkRZS0JMUjF0d3ZEUGprRjM1R1dGUGpxNTlDaHNpb0ZxWWg5VQ?oc=5",
+      "source": "MVS Noticias",
+      "pubDate": "Tue, 04 Aug 2026 20:33:35 GMT"
     },
     {
       "title": "Futuros del trigo europeo caen por baja en precios del petróleo",
       "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPX3ZmbC04X3RMZ3ZZZDdlaGxPMWpRcnA4TG1QSzJRMGNEZkZEaF9NbEdDYjA2UlJmWl93c3Zkbl9vTlpxaHNLd1JmbDVjQ0VHRGVRUURLdkRMLW1MeThLNWFpamlpVm90X1FFNUJqREZWNzVvSFlZVUV5YnlWOUNhcl9KTjVWOXo5RGRZUVI0TmJxTE1ydXNwU0xwaXYwU19GNHBpeU1wRG4tR3NjNXpkVEp4U2lnVko0dzJ5ZW80aUU?oc=5",
       "source": "Investing.com México",
-      "pubDate": "Tue, 04 Aug 2026 18:08:34 GMT"
+      "pubDate": "Tue, 04 Aug 2026 20:16:35 GMT"
+    },
+    {
+      "title": "El Brent se hunde ante posible reapertura de Ormuz",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNcWVwYjlrMmhkNFhsYjdqRERtdVB6eThERHEyelVYTXl5UnJ2eXRSZ2lqZnQ4cG9fSnNrNTB0bkpIeFoxOXgxQ2xlTTN6My1zUGdtbGdqWERBRXNwcWVfWkV1Z1ZqWUhsSTJtYXRIc05TbHdaZWItYS1tUlhpUGgtT0FKNXZpdXlGRnFDUmVQZzc?oc=5",
+      "source": "Finanzas Digital",
+      "pubDate": "Tue, 04 Aug 2026 18:25:50 GMT"
     },
     {
       "title": "Precio del petróleo Brent cae bajo los US$80 tras posible acuerdo entre EE.UU. e Irán sobre el estrecho de Ormuz",
@@ -21,16 +51,22 @@
       "pubDate": "Tue, 04 Aug 2026 16:54:00 GMT"
     },
     {
-      "title": "¿Se normalizaría el estrecho de Ormuz?: Estados Unidos e Irán negocian reabrir este pasaje marítimo y el precio del petróleo cae casi 4%",
-      "link": "https://news.google.com/rss/articles/CBMikgJBVV95cUxPTUtMeWl5UWUyS09uRm92SjN5VzVidjlOMnpiTGU2VnktMmM5ZU51YlNIUFlvNlllTjM3UTVEOG5rZUs1dnBvdGdEdnkyWGNvX2EwUlNQYkljZ2cwT1lLSjNBZzdtZ3BycEc4RUhVOFp4N0RjS2owSEJocGlreUZQc19fZzk4MERUY0NuS2drbno1M1lBaWRnR185b2J2VkFPLXNVdHRoSXIwZmM4N0NUQktkb2tGUFE5NFZDS1VOMDBMVU5qNDRYb0VxcDNMNTUxdk50V3JBOWdobnZOVV9lNWROdHNaNmhYYTVNaDEwVXdKbk5RLWZJR3V3ckVHQXVoZjYycVhCT0oxcXNxdEx5MVZ3?oc=5",
-      "source": "Canal26",
-      "pubDate": "Tue, 04 Aug 2026 16:31:13 GMT"
-    },
-    {
       "title": "El rand sudafricano se fortalece ante la caída del precio del petróleo",
       "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNcW9YbUVubkhvb2ctcFhhUGlYcExub3BucC1NSHFzUjFldHVSNHFjdlBqMXROYUZraGN4WkNrNzhpbjZHWTdvZ05PeGhZcDE2STZrbFAzNXNjM090c3A0RTR5emJHVF9qZTB2QUU0b1g3aFljVXJfNE80b0hGb1F4NnRGLVdLNktjQWxqYi1WM0NwQm1XOFRfZUczY1VPVllRZEcwXzJ3QnF1amxaQ2NZTG9xYmpRRDV1UUVmTnhMbmhSQQ?oc=5",
       "source": "Investing.com México",
-      "pubDate": "Tue, 04 Aug 2026 15:51:55 GMT"
+      "pubDate": "Tue, 04 Aug 2026 16:15:55 GMT"
+    },
+    {
+      "title": "Bajan precios del crudo 4% por la distensión política en Medio Oriente",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQdGxvQkEyZFVWdkRXcFR2QVFJa2w4UkJjak13c1lwRmxXZEFKU2p4THRvSlFvTHpsMlZBZUpLTW1lX0JyOVdzWmJfNEplWEFNeWNfV1FoMm40em1tTXhYQVNGYVJkSldkcTBzZkpISFZFbzVVRVpBMkFpUFg3SGhEVWRobkRyTnIybk0wVS1Ndml6cjA4MFI0?oc=5",
+      "source": "Onexpo Nacional",
+      "pubDate": "Tue, 04 Aug 2026 16:05:59 GMT"
+    },
+    {
+      "title": "​BP gana un 235% más hasta junio ante la subida del precio del petróleo",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNb3RnTkViYkpUNHRkdmE2dG9hcDlyOENtclRtREk0Z3dBN2ZMV3oxUEdpZno5dFRaOHJKb3RGMTVNQ0hYSFJGWUhUUlpsc0ZpWUZDRnVqeU1WWGUta2tqMkpZWTNNN0FDemR4M215a0lIalZOQjJQSzVLQmo4MGVmQVMtcDhNaTNiV3lCcDEzVGNyNURjTUptMmZfcVB2bi11VHFJLVYxNnZRa2pZanVvckh3?oc=5",
+      "source": "diarioestrategia.cl",
+      "pubDate": "Tue, 04 Aug 2026 15:42:20 GMT"
     },
     {
       "title": "Precio del petróleo cae por Irán y mayor oferta OPEP+",
@@ -39,10 +75,10 @@
       "pubDate": "Tue, 04 Aug 2026 15:20:20 GMT"
     },
     {
-      "title": "EU dice que habrá acuerdo ‘hoy o mañana’ para reabrir Estrecho de Ormuz y petróleo se desploma",
-      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxObERkU0JmSDNvVHNTREo0Njh3M0htUzlYcUNXeWs0Mk4wVzFKaWxQZExwbFRydmFXTGlTMFp1bUxEWUt1dno5RWtpelBxNnBYdERhYXFZNzNJMS1kbHU4XzItU3VFQXBrWmxPdjFuRkUtUzNRX0hiMnRoZFprVXNYMGlUbWpGYWZkZklyRWhKbXpZcU03MzBQV2YySjNDQ0JhLWtfXzlqeDFVODhHelI5SExIT0RnY3J0N2luN0g5Yk4?oc=5",
-      "source": "El Financiero",
-      "pubDate": "Tue, 04 Aug 2026 15:00:44 GMT"
+      "title": "El precio del petróleo cae un 6% y se sitúa en $79.73",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPczhzR1cwTEJRVnAwZjd2M1licFhsel9lbl91d21pNS0zaFotMFhMZHN4X0pDNjZicno4dVBtWmlwMDlBU192Yzd2T2ZYQlM5RVdSQ1drMnRsQWRBTmlld1ZhU3dBREdWZjdGZk9qSTFDeEh3NUtlM2F0OHJxMjZVS3FRMFl1T0tGbTdYSg?oc=5",
+      "source": "ElCapitalFinanciero.com",
+      "pubDate": "Tue, 04 Aug 2026 14:56:51 GMT"
     },
     {
       "title": "Análisis de precios del petróleo: El crudo prueba la EMA de 200 días mientras se agitan los titulares sobre Irán",
@@ -55,36 +91,6 @@
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQaWR3Y2wxMzlkS2ZyZzR6eE5DUXJzQ21Ja09QYXhyWW4xbEt6T1R2b2MyZ01oMjNydHdZVFFBSlB1ay1vdXhxcXhJR1h2SmJpOU5jRXhlcFY0QjM4YzEzb01vTHRBb0p1a1FONUxTbi16SmxFc1VLMWozeGpEcFQtVTJsMWlrWjhrSkNRWlQwUGhJQkZxVnFNRUNnaGdya3NLbldoaWJVaTI1Sk9vSHRicWJpM011Y3hO?oc=5",
       "source": "El Periódico de la Energía",
       "pubDate": "Tue, 04 Aug 2026 14:11:28 GMT"
-    },
-    {
-      "title": "El brent cae más del 5 % y baja de los 80 dólares ante el posible pacto para reabrir Ormuz",
-      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxONFB2V1VpZTdOTnZfUjRGM0ROVDZickFhM3pDeVJhVnRLMUpLV3JwaUtZNFpZVW9GTGtyTmRvNlZueFBvUTBfQTJwXzlwTHhoRnB1Wl9QQjNSMk5USjJNa1F5eXU4UGNaLVJTa0JkRjhWaklUWF9LbS1NWTBGQ2RMYzM2bU5hbHlCdEtqNGRHQWxUQ1dNQXpUbkJkX3Y4X3JiUDZfekdoY0QxUXk0bG5ycXpuaGVaTGk1UTdlcDg3THRqV1JsVFZvQ19n?oc=5",
-      "source": "Alicante Plaza",
-      "pubDate": "Tue, 04 Aug 2026 14:00:00 GMT"
-    },
-    {
-      "title": "Precio del petróleo: cae un 7% por la tregua en Oriente Medio y la gasolina se dispara en EE.UU.",
-      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5sSnd4WVVOc1dnOTNKeWV5dURId1VFUE11ekEtZWZXak14dEJhV05WRkIzYzJwMDRaT2gyNzZTMjBTZ3JtbmZlU1NUYlBkbHQxQ05XQ3F3QWU5TE9kallZQUFHcWxhWkV2eTVJaGNQLWRPdG5PMDNoQ1UxZTRJS3M?oc=5",
-      "source": "Merca2.es",
-      "pubDate": "Tue, 04 Aug 2026 11:34:03 GMT"
-    },
-    {
-      "title": "BP gana un 235% más hasta junio ante la subida del precio del petróleo",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNeWF2dFNPem55ckNIVVAySENsQ2pwRVk4LTNoVDRyUjRKQU1HTldERV8zSHlpS3NKbUM5Mkg4UnpfY2NaQlhfY2hVMHlRSHlseGJrWFdkZkctN2VNUllOSmRkYlBQRnlZMTNiUEdnaHljLUYxSVVxUkoxa0x1NmpwNHhTazNGbmJQV3p3TmUyVTZfVGR5ZjJkQzlPaG8tTl9MWnJkaEFIUQ?oc=5",
-      "source": "El Periódico de la Energía",
-      "pubDate": "Tue, 04 Aug 2026 11:16:46 GMT"
-    },
-    {
-      "title": "CEO de Exxon: la gasolina no bajará aunque caiga el petróleo, hay restricción de refinerías",
-      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPZmo5UFpUbkwza3JzS0dQejlaZGpVdFllTTNSTVRRYVZSdzBpWUQtM2VjbnlCWl9UaVp0a3kzYTJiUTNVRlg5di1ReW1yUXgyd2R6aFRuS3VlUUF2U2JYUVpCMjR0MWhUbXVLS2V6M3NLV0pmYmp6MlMtbnh3T3doV1J4QmpZaGFMTC00RHZkOXhjOHB3aWZLMENlYXh0cXZNTFQzX3RQMkVFbGg0Zm9nMGI4U1kwUmVwYzNDUTVLRUhtTWlyMjhPQmhhcWU?oc=5",
-      "source": "DiarioBitcoin",
-      "pubDate": "Tue, 04 Aug 2026 10:57:15 GMT"
-    },
-    {
-      "title": "El petróleo repunta mientras la incertidumbre sobre las conversaciones entre Estados Unidos e Irán respalda los precios",
-      "link": "https://news.google.com/rss/articles/CBMigwJBVV95cUxNN3NKY0JlWGFUTnd3TTJ2VDlmZjYtdjd2TkdtZE1xUjk5V3F0QlFoN3hDNHJzTmVmd1l2QzROZWRxbXdpS3dtellOWnBFdHMySkpkRWhobndJZkpEWkJqaWpIbTh4cU00eEs3Zzg2MFVBRXViMVhaeXBERTJnM2JoZnlLc05ja0hkUmphdUJiSW9TX1RqRXl6LTdzS21hamFQcVdXWHJHT0s2VDZ6MThuWV9XWjBYTlB3bVhvNDF0NTVNQ1JCOXpzTnc0QjZNdS1hanFEd3BHckU1UFZLS2luamlSMENzaGxWRE93QmtDQXNsZ1dFbDNGMjN3RnhKMW5LdVZv?oc=5",
-      "source": "mx.advfn.com",
-      "pubDate": "Tue, 04 Aug 2026 09:40:46 GMT"
     },
     {
       "title": "Precio del petróleo en Europa: el Brent se desploma un 7% a 83 dólares por la distensión con Irán y da un respiro al BCE",
@@ -113,14 +119,8 @@
     {
       "title": "El precio de la gasolina en Madrid, Barcelona y otras ciudades de España para hoy",
       "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNa05zdGFITEprN2dGQmo3YzM5ZGh5c2JCRzduT1pNTkZndmEteGdKdDZvNXRHVEZOVlZPaWNSVzU4NFBFa2ZpUWFfeURSLXp5eEROVGpUNEtkSjJBdmVMM2ZXTE5uSjNzNjVhOE5PWGpaMldxNFZIdHQ3cnh4elhGLUt0QmsxSWtPMmJkMHF1UEd3UkFiLXU3R2kxcnBMUE8xZmtsMHRMVWd0YXQ4X09na2hoYUFSSkdHV1VTY2VkNEXSAdsBQVVfeXFMTmRvVDZVdGdzX0lhdlNhNkgwV25pLTUzbDBpRi1ZLV9uc0dFYXZQTnYzTTF0aEYwcndHNUE0Wkk5TExpcExhdk1Fb3EyYUF6bTVSY0lTT21INmxuQzhBTnN3Y3A4LWcwY1Rxd1ROcnV5RTM4cTlzejNSOHdPbnpiSHJudzVNNDFBRV9OUTJCaTd0Nnl0TzNabVJjbVUwMzl5MTdIeGFzQW1wYWhOYXdWbzBTZzM2WThjSFItVmgtMm5oZkZVV0UtTDFnbENuejVEOEsteWdmdF96U3k0?oc=5",
-      "source": "Infobae",
+      "source": "infobae.com",
       "pubDate": "Tue, 04 Aug 2026 07:45:00 GMT"
-    },
-    {
-      "title": "Precio de la gasolina y diésel hoy, 4 de agosto: estas son las gasolineras más baratas en España",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQVzJnODdleEhKWTlmSzBnTkxXbVhUR1pJbXZ5blJVS3VocExSZ2NzSHBfQVB0c3VrbG1MdnFob3JQbnpRX201Y3hpTmtfNjJMVURnVHZlSExCekcwRmNoSmZONktXcDBjZFI1WDBuR2NmZk4zRTU2Mm14M2NkN3dHRVlVS0FyTGNvQmJYREpIc2l1WnRndl9Wd3FxRnFSS3doR2pubk1NU2o5S1phcThvOHp3RknSAbQBQVVfeXFMUF80OUhDdXYta0t2R2RBVEZmdW5DbkZmN05MbWwtWGdGRlpuR1R6Q2pGRThpTzUzREhOUVk5eU9mZ19sbDFxT0R5OU40X3BnSUtoY1N2M3I0bTVUajk2T19MY0RjQXV0ZXBWVU85S2Vwa0pPaHY0VDdKUEdQN3dLakZVaGFYVFBZeHgwRzFaWU1maEtEcHJhLWtyU1djX1dtekllM0lnUWctZFBKNmVaNEhKOUx2?oc=5",
-      "source": "SPORT",
-      "pubDate": "Tue, 04 Aug 2026 07:28:02 GMT"
     }
   ]
 }
