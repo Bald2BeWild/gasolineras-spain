@@ -1,7 +1,19 @@
 {
-  "updated": "2026-08-22T18:18:05.125429+00:00",
+  "updated": "2026-08-23T00:52:18.868663+00:00",
   "count": 20,
   "items": [
+    {
+      "title": "Precio del Crudo Brent Hoy. Cotización en Tiempo Real",
+      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5IejJ2R0M5aHlXTmtLZzhZZTh6UkRWRkVWRTFFeUVOckhmQUo3dXQ1ZVZXRmxvWlE3YW5WOGJOX0R4cE5HUE8tV01xVG5RZUlFQ01lLUc3Y1ZWbHV0SGZmUGpMYw?oc=5",
+      "source": "Mundo Petróleo",
+      "pubDate": "Sat, 22 Aug 2026 21:12:59 GMT"
+    },
+    {
+      "title": "Precio del petróleo sube por demanda de refinerías en EE.UU.",
+      "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE5GTFczYXY5SHNrdmJEOVZlTzkzT0VEVms5WVJ4bFRqZ0lrRDdwdTM4MkxGb1c3UWRwbGI0VTBHZEhQa1JLeWpTQjhneEI2bWpRSGN4ZTFVVEZ6bmFmN2NzU1JrTEw3bkllSk92QWZEYVBzcnhPcjhuSHRUSDE?oc=5",
+      "source": "Inspenet",
+      "pubDate": "Sat, 22 Aug 2026 19:00:00 GMT"
+    },
     {
       "title": "El cerco económico a Irán que amenaza el precio del petróleo en España",
       "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOaVBqY3huYnc0eVlxblNMV0ctWXZxcmJiSlMyaThqV09SRHQ5dGQ5Q215cGFmT3ZKVnJSRW1xZHVqaVphZG1VUnJWVWhRTWhVYnJPd19pc3gyWDlFN183cFE3QWtOclo5YWtDYURRQ2lrLTlmOW5jQWlLc1pWZkwyUGlkTmMyc28?oc=5",
@@ -19,18 +31,6 @@
       "link": "https://news.google.com/rss/articles/CBMihgJBVV95cUxNYmlLNlFUS09Xd3RSRThRYklVaXl1SkJtYVlwdmxmSnYwWmZ6el91dzA4bXRtVFNfdGlhOHpMUEVWVkhrckM0MWVWcnhhcGFLMDB1MnFPN1N1SG40aWxiTjgwcmdNYjJaTFB0SmI5bDNxdlY1dWVCVkIzTk92STFCOEFoWl92OTU2S003eGJuRFZFT1ZfWUE5dDVQMjh6ZmdMdHNOMXlZTkx3NUNsOTZhbGM5a05FcF8wV2g3by16eC1aYjg5NXpQWjJHUWRoQ182SFFheE5BNktCVGRBRlN2bXhYdjkyaWU3Qm96MkNUZzNXaHgzYi12TWpQRWRMTXZXM052b1RR?oc=5",
       "source": "Libertad Digital",
       "pubDate": "Sat, 22 Aug 2026 03:00:10 GMT"
-    },
-    {
-      "title": "Precio del Crudo Brent Hoy. Cotización en Tiempo Real",
-      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5IejJ2R0M5aHlXTmtLZzhZZTh6UkRWRkVWRTFFeUVOckhmQUo3dXQ1ZVZXRmxvWlE3YW5WOGJOX0R4cE5HUE8tV01xVG5RZUlFQ01lLUc3Y1ZWbHV0SGZmUGpMYw?oc=5",
-      "source": "Mundo Petróleo",
-      "pubDate": "Sat, 22 Aug 2026 02:55:59 GMT"
-    },
-    {
-      "title": "Precios del petróleo suben por las amenazas de Trump de castigar a socios de Irán",
-      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPLTRPSktPVjRSNzBXcWplcGV4UEU3VVE1RlhDWkZDUVpuT2FPeUpldS03VnVaVnFZUVd2VmtRT2VsdzAwNXlmZ2d0a05FRkhVWkw4QXpZVzgwMGVuWENyOHdocDVZT2NqX0Y2VWRxR2ZEM0NvSGhhOUtFSTA3SG1WbXRkQ3BvMmR2SHd4Q0ctR2hzMkxoOFBaajNlMUxoaUp0WDltbHpydGFscHZ5Wmw3MmFwUEdOXzBSSnBnRUhwaHdZVVl5OVcyOXhhZ0hoZ2tlY1E?oc=5",
-      "source": "La Jornada",
-      "pubDate": "Sat, 22 Aug 2026 01:57:00 GMT"
     },
     {
       "title": "Cierre de la mezcla mexicana de petróleo de este viernes 21 de agosto",
@@ -55,12 +55,6 @@
       "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQLTFxYWdvdmF3Zkp1QWlrNUhoZWFtZjVvb1RPSW1nSC1xZmJzRUxLTHRpVkIzN3BGeUNHSTJYQjg0SG81RWFoQk5ISUpXUEp4MVVuRldkQWhZR1R1S3M0Y29tUWQtdEZBSldiYzc1cTZSLVlSWGRYblhVTEJ1Y2NEekZaZF9lUW5JOW0tUkxFWFBGbFItdEtMY1BMUjJpSXZTcWVJZW40cVJ3RDUxV0IxUzdfQXlBcEdQSGhlaHZ4dXUxazBp0gHKAUFVX3lxTE1fUjQycnFOREFPTWpHNWQ1XzZvNDMwTHFtOGwwa0V5RElScENkdGhVQ203Ul92RVpWMXNWa1BfY291OWVldVp3X0xIblFhaFdrbloxZUdlUVBOZG9KWG5JU2VVZFphRFNkcVNQR0Z1NXVOdkxzQzNfT3NxdEZMa3FtS1Q3ZmJQMjlDaUViRGRQdDNleG9WSFZZTFRwNXBELS01eWZ2MkpjZ1BuT2dfTGkxeDJPSUtaZXFUeDlTMVZVNTlqTklmVDdpOEE?oc=5",
       "source": "ABC",
       "pubDate": "Fri, 21 Aug 2026 23:31:44 GMT"
-    },
-    {
-      "title": "El barril de Brent sube un 0,65% y cierra la semana por encima de los 94 dólares",
-      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNZU11XzVlNDFabGEyUFZNTmhZeWpfemsyMjVsZXBCMWFMbS1STURaMnhvQzNIeXV3QXU4VUpBQzZ4QkFBYk5nRU1veUhmWURNeC02akxxOGRpNDNja2dFTU9SN3BHQmhSY1BLMXBqX09oSGs4S0tmVDdqYV9RU2RvTHpOd2ZrdVdwWDZSY3RURVJZY2Y4NDdUM1B3OWFYd2V4OFdYU0Y0N3FPbi1oYThVM3BuNGxCUQ?oc=5",
-      "source": "El Periódico de la Energía",
-      "pubDate": "Fri, 21 Aug 2026 22:13:37 GMT"
     },
     {
       "title": "RDEco: El precio del petróleo vuelve a presionar a la inflación y complica a los mercados",
@@ -109,6 +103,12 @@
       "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPbUFNVm5MbUkwTkx0ODRvYmdTOXlBTzlZeDl4c2RQRlMxc0ZlUG44LVFFSlVhZENLaXczcEEtY0dGNEN3d19MNUZEUlQtVG1xWkJtdFFCNlV0WTJ6ZUhyek5jU1ZVYXh1d1dhUnFKd1dhTkxsTUdIUll1TG9felNHUzRR0gGHAUFVX3lxTE9uelh3elNFYmFzU2hmQzJkY3o4T1VvSEZJRTFjNWUyc0Z0bmhiaFItZXlvNnlvV1FicUNzN1VyaXlvM1NRSjB6V3ZfZ2ROdEFZeVU4dkRBY2tGbXFUVHNsTF9PUFM2YXB5WFItRzg4aWJWVy1MczRlRmhtVWhIOEFrZVM5d1FYaw?oc=5",
       "source": "Demócrata",
       "pubDate": "Fri, 21 Aug 2026 07:51:41 GMT"
+    },
+    {
+      "title": "Precio de la gasolina en España 2026: las tarifas más altas y más bajas hoy",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPRklXZ1ZRUUFkRERPbks3NzVtV0UzaFdJVWVwb1RIdTRzaDVSNS1XSUVsdDBzOUJ4NVpMaTJLRUNETGdaRm9JeGhYV09GZEliU1d6V1JmSEdWam9YZVc3VmpCODdJV192Tm1EV1RfNnI1Y0w1aklXRjJ3dEhWanRla1FwRklfYjJWMXB4cDRVc1RVdDZhbFFhM0pmTEtHWGh5aWJrOTEzMDJPVlZ4LWh2ODBEcTVzMlVu0gHTAUFVX3lxTE02b0JrYlBxbGRzUWJhcU9MNjhyLTNrQjB5V0w2NlNZV1pNY0hTM1QtTUFCdThRQjNuSTRyU01sWkFyMm9IWDBNM2RlOFdqb2I0MjV0ekdieTF2RXZlVlh2bm5wS1k4dW1ycE0tUUFLWW50M2ZyRWdfbTBkTk83V01qT3lqaldweEZZV1Z3TXpSS1ZxSGFSMEk5UU4xTjlPLUNheGNQTE5zZHliOFpWM3YwcHNWMDl5WE9fQU81QTFIN20yTFhQOFh2YlFuSFRQY2xuVDA?oc=5",
+      "source": "Infobae",
+      "pubDate": "Fri, 21 Aug 2026 07:45:00 GMT"
     },
     {
       "title": "Precios del petróleo van por segunda semana de ganancias ante tensiones en Medio Oriente",
